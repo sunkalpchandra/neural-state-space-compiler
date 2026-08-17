@@ -1,0 +1,9 @@
+# TCNForecaster (BASELINES key `tcn`): causal dilated conv stack, dilations 1,2,4,...
+# Receptive field = 1 + (kernel_size-1) * sum(dilations): small 31, medium 127, large 511.
+# Set `min_receptive_field: <context>` to auto-extend layers. Param counts for D=8 / D=64.
+baseline: tcn
+mode: recursive
+sizes:
+  small:   {channels: 32,  kernel_size: 3, n_layers: 4, dropout: 0.0}   # ~17k  (D=8) / ~21k  (D=64)
+  medium:  {channels: 64,  kernel_size: 3, n_layers: 6, dropout: 0.0}   # ~100k (D=8) / ~107k (D=64)
+  large:   {channels: 128, kernel_size: 3, n_layers: 8, dropout: 0.0}   # ~529k (D=8) / ~543k (D=64)
