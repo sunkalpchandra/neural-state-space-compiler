@@ -77,7 +77,8 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
     chash = stable_hash({k: v for k, v in cfg.to_dict().items() if k not in ("output_dir", "tags")})
     registry = registry or ExperimentRegistry()
     mname = model_name(cfg["model"])
-    rec = registry.register(config=cfg.to_dict(), config_hash=chash, dataset=dcfg.get("system", "?"),
+    rec = registry.register(config=cfg.to_dict(), config_hash=chash,
+                            dataset=dcfg.get("system") or dcfg.get("source") or dcfg.get("name") or "?",
                             model=mname, seed=seed, tags=list(cfg.get("tags", [])))
     out_dir = Path(cfg.get("output_dir", f"results/raw/{rec.experiment_id}"))
     out_dir.mkdir(parents=True, exist_ok=True)
