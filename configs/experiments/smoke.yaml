@@ -1,0 +1,17 @@
+# Smallest end-to-end run: tiny harmonic oscillator, MLP AE + residual MLP dynamics.
+dataset: {_file: configs/datasets/tiny_smoke.yaml}
+model:
+  latent_dim: 2
+  encoder: {name: mlp, kwargs: {hidden_dims: [32]}}
+  decoder: {name: mlp, kwargs: {hidden_dims: [32]}}
+  dynamics: {name: residual_mlp, kwargs: {hidden_dims: [32]}}
+windows: {context: 8, horizon: 16, stride: 4, batch_size: 16}
+training:
+  epochs: 3
+  lr: 0.003
+  rollout_horizon: 4
+  early_stopping_patience: 5
+  log_every: 1
+eval: {context: 8, horizons: [1, 5, 10, 25], stability_horizon: 32, latency: false}
+seed: 0
+tags: [smoke]
