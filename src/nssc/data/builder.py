@@ -40,7 +40,7 @@ from nssc.utils.seeding import rng as make_rng
 DEFAULTS: dict[str, Any] = {
     "params": {}, "n_traj": 32, "n_steps": 256, "dt": None, "substeps": None, "seed": 0,
     "transient": None, "observation": {"type": "identity"}, "noise_std": 0.0,
-    "missing_rate": 0.0, "kuramoto_sin_cos": True,
+    "missing_rate": 0.0, "kuramoto_sin_cos": True, "ic_scale": 1.0,
 }
 
 
@@ -71,7 +71,8 @@ def build_dataset(cfg: dict[str, Any] | str | Path) -> TrajectoryDataset:
     cfg = resolve_config(cfg)
     system = SYSTEMS.build(cfg["system"], params=cfg["params"], dt=cfg["dt"])
     z = system.simulate(cfg["n_traj"], cfg["n_steps"], dt=cfg["dt"], seed=cfg["seed"],
-                        transient=cfg["transient"], substeps=cfg["substeps"])
+                        transient=cfg["transient"], substeps=cfg["substeps"],
+                        ic_scale=cfg["ic_scale"])
     if not np.all(np.isfinite(z)):
         raise FloatingPointError(f"{cfg['system']}: non-finite trajectory")
 
