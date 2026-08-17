@@ -1,0 +1,12 @@
+{
+  "baseline": "persistence",
+  "kwargs": {},
+  "mode": "recursive",
+  "direct_horizon": null,
+  "obs_dim": 3,
+  "resolved": {
+    "obs_dim": 3,
+    "mode": "recursive",
+    "direct_horizon": null
+  }
+}
