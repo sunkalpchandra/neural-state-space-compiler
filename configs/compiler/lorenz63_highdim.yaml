@@ -1,0 +1,17 @@
+# Lorenz-63 observed through a random MLP to D=64 with noise (Tier 2): can the compiler recover
+# a low-dimensional latent (d≈3–4) from difficult observations?
+_base_: default.yaml
+dataset: {_file: configs/datasets/lorenz63_highdim.yaml}
+candidates:
+  latent_dims: [2, 3, 4, 8, 16]
+  encoders: [pca, linear, mlp, tcn, gru]
+  dynamics: [linear, residual_mlp, koopman, ssm]
+  hidden_dims: [64]
+stages:
+  - {name: screen, epochs: 12, seeds: [0], keep_frac: 0.3, score_tolerance: 0.15,
+     max_batches_per_epoch: 50,
+     eval: {horizons: [1, 5, 10, 25, 50], stability_horizon: 100, latency: false}}
+  - {name: fine, epochs: 50, seeds: [0], keep_top: 4}
+  - {name: final, epochs: 120, seeds: [0, 1, 2]}
+output_dir: results/compile/lorenz63_highdim
+tags: [compiler, lorenz63_highdim]
