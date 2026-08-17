@@ -96,3 +96,13 @@ schema in `configs/experiments/`.
 - [ ] Budget parity across compared models documented in config.
 - [ ] Selection criterion named (`val_mse` or `multi_objective`) and validation-only.
 - [ ] Registry rows created for every (candidate, seed), including failures.
+
+
+## Lessons learned (2026-08-17)
+- Pool-normalised scores need an explicit **error floor**: an exactly-zero best term
+  (PCA d=D reconstruction) otherwise assigns an unbounded penalty to every other candidate
+  (research/failures.md F-001). Check `objective.error_floor` before trusting a ranking.
+- Explicit `latent_dims` lists are honoured verbatim (overcomplete latents allowed);
+  only `auto` is clipped to `obs_dim`.
+- Long background runs: `caffeinate -i`, `OMP_NUM_THREADS=2`, ≤3 concurrent jobs on the
+  8-core host; small models are faster on CPU than MPS.
