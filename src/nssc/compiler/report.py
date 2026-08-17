@@ -95,16 +95,19 @@ def build_reasons(rows: list[dict[str, Any]], selected: dict[str, Any], rollout_
         best_lin = min(linear, key=lambda r: r["agg"].get(rollout_key, float("inf")))
         v = best_lin["agg"].get(rollout_key, float("nan"))
         if math.isfinite(v) and math.isfinite(r_top) and r_top > 0:
-            reasons.append(f"{v / r_top:.2f}× lower {horizon}-step rollout NRMSE than the best "
-                           f"linear-dynamics candidate ({best_lin['name']}: {v:.4f} vs {r_top:.4f})")
+            ratio = v / r_top
+            word = "lower" if ratio >= 1 else "higher"
+            ratio = ratio if ratio >= 1 else 1 / ratio
+            reasons.append(f"{ratio:.2f}× {word} {horizon}-step rollout NRMSE than the best "
+                           f"linear-dynamics candidate ({best_lin['name']}: {v:.4f} vs selected {r_top:.4f})")
     # vs runner-up
     if len(rows) > 1:
         ru = rows[1]
         v = ru["agg"].get(rollout_key, float("nan"))
         p_top, p_ru = a.get("val/params/total", float("nan")), ru["agg"].get("val/params/total", float("nan"))
         if math.isfinite(v) and math.isfinite(r_top):
-            rel = (v - r_top) / max(r_top, 1e-12) * 100
-            reasons.append(f"{rel:+.1f}% rollout NRMSE relative to runner-up {ru['name']} "
+            rel = (r_top - v) / max(v, 1e-12) * 100
+            reasons.append(f"selected has {rel:+.1f}% rollout NRMSE vs runner-up {ru['name']} "
                            f"({r_top:.4f} vs {v:.4f})")
         if math.isfinite(p_top) and math.isfinite(p_ru) and p_ru > 0:
             reasons.append(f"{(p_top / p_ru - 1) * 100:+.0f}% parameter count vs runner-up "
@@ -116,7 +119,7 @@ def build_reasons(rows: list[dict[str, Any]], selected: dict[str, Any], rollout_
         p = smallest["agg"].get("val/params/total", float("nan"))
         if math.isfinite(v) and math.isfinite(r_top):
             reasons.append(f"smallest candidate {smallest['name']} ({int(p)} params) has "
-                           f"{v / max(r_top, 1e-12):.2f}× the rollout NRMSE")
+                           f"{v / max(r_top, 1e-12):.2f}× the selected model's rollout NRMSE")
     # stability
     rho = a.get("val/stability/rho_max", float("nan"))
     verdict = a.get("val/stability/verdict", "?")
