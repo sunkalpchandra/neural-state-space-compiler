@@ -53,8 +53,8 @@ def test_pca_dmd_closed_form_needs_no_sgd(tmp_path):
     m = _model(dyn="linear", enc="pca")
     tr = Trainer(m, TrainerConfig(epochs=5, log_every=100), device=torch.device("cpu"))
     out = tr.fit(_loader(), _loader(n=8))
-    assert out["epochs_run"] == 1  # nothing trainable → single pass
-    assert bool(m.encoder.fitted) if hasattr(m.encoder, "fitted") else True
+    assert out["epochs_run"] == 5  # PCA frozen (0 params) but linear A is refined by SGD after DMD init
+    assert m.encoder.num_parameters() == 0
     p = save_checkpoint(m, tmp_path / "ck", {"a": 1})
     m2, meta = load_checkpoint(p)
     x = torch.randn(2, 5, 4)
