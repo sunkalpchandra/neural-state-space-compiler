@@ -34,6 +34,8 @@ class ScoreWeights:
     stability: float = 1.0
     blowup_penalty: float = 10.0
     rollout_horizon_key: str = "auto"  # metric key e.g. "recursive/nrmse@100" or "auto"
+    error_floor: float = 0.01  # NRMSE floor inside log-ratios: log((x+f)/(best+f)); prevents an
+    #                             exactly-zero best (e.g. PCA d=D) from penalising everyone infinitely
     criterion: str = "multi_objective"  # multi_objective | val_mse | rollout_only
     extra: dict[str, float] = field(default_factory=dict)
 
@@ -99,16 +101,18 @@ class MultiObjectiveScorer:
             "params": min((_get(a, f"{p}params/total") for a in pool), default=float("nan")),
         }
 
-        def logratio(x: float, b: float) -> float:
-            if not (math.isfinite(x) and math.isfinite(b)) or b <= 0:
+        f = self.w.error_floor
+
+        def logratio(x: float, b: float, floor: float = f) -> float:
+            if not (math.isfinite(x) and math.isfinite(b)) or b < 0:
                 return float("nan")
-            return math.log(max(x, 1e-12) / max(b, 1e-12))
+            return math.log((max(x, 0.0) + floor) / (max(b, 0.0) + floor))
 
         t = {
             "recon": logratio(_get(agg, f"{p}recon/nrmse"), best["recon"]),
             "one_step": logratio(_get(agg, f"{p}teacher_forced/nrmse"), best["one_step"]),
             "rollout": logratio(_get(agg, rollout_key), best["rollout"]),
-            "complexity": logratio(_get(agg, f"{p}params/total"), best["params"]) / math.log(10),
+            "complexity": logratio(_get(agg, f"{p}params/total"), best["params"], floor=1.0) / math.log(10),
             "instability": _get(agg, f"{p}stability/instability_score", 0.0),
             "blowup": _get(agg, f"{p}stability/frac_blowup", 0.0),
         }
