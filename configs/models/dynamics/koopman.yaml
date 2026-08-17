@@ -1,0 +1,7 @@
+key: koopman
+obs_dim_lift: null        # default 4 * latent_dim
+hidden_dims: [64, 64]
+act: gelu
+residual: false
+exact_readout: true
+consistency_weight: 1.0

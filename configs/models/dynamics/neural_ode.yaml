@@ -1,0 +1,6 @@
+key: neural_ode
+hidden_dims: [64, 64]
+act: tanh
+dt: 1.0
+n_substeps: 4
+solver: rk4

@@ -1,0 +1,7 @@
+key: gaussian
+base: residual_mlp
+base_kwargs: {hidden_dims: [128, 128]}
+var_hidden_dims: [64]
+init_logvar: -2.0
+min_logvar: -10.0
+max_logvar: 4.0

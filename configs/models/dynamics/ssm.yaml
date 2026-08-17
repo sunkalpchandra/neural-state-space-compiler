@@ -1,0 +1,6 @@
+key: ssm
+feature_dim: null         # default 2 * latent_dim
+rank: 0
+act: tanh
+param: tanh               # tanh | exp
+init_decay: 0.95

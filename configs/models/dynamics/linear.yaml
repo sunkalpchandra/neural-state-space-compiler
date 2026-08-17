@@ -1,0 +1,4 @@
+# z' = A z ; A ≈ I at init
+key: linear
+spectral_norm_max: null   # e.g. 1.05 to softly penalise expansion
+init_scale: 0.01

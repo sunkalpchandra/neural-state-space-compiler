@@ -1,0 +1,5 @@
+key: residual_mlp
+hidden_dims: [128, 128]
+act: gelu
+dt: 1.0
+stability_reg: 0.0
