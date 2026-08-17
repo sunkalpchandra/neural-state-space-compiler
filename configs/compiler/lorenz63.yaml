@@ -1,0 +1,17 @@
+# Compiler run on Lorenz-63 (identity observation, D=3). Tests: does the compiler pick d≈3 and a
+# nonlinear dynamics family, and how does its selection compare with baselines (H1, H2, H5)?
+_base_: default.yaml
+dataset: {_file: configs/datasets/lorenz63.yaml}
+candidates:
+  latent_dims: [2, 3, 4, 8]
+  encoders: [pca, linear, mlp, tcn, gru]
+  dynamics: [linear, residual_mlp, koopman, neural_ode, ssm]
+  hidden_dims: [64]
+stages:
+  - {name: screen, epochs: 12, seeds: [0], keep_frac: 0.35, score_tolerance: 0.15,
+     max_batches_per_epoch: 50,
+     eval: {horizons: [1, 5, 10, 25, 50], stability_horizon: 100, latency: false}}
+  - {name: fine, epochs: 50, seeds: [0], keep_top: 4}
+  - {name: final, epochs: 120, seeds: [0, 1, 2]}
+output_dir: results/compile/lorenz63
+tags: [compiler, lorenz63]
