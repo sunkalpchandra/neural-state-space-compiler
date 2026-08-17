@@ -1,0 +1,12 @@
+# Lotka-Volterra neutral cycles (positive states, conserved V).
+system: lotka_volterra
+params: {alpha: 1.5, beta: 1.0, delta: 1.0, gamma: 3.0}
+n_traj: 100
+n_steps: 1000
+dt: 0.01
+transient: 0
+seed: 0
+observation: {type: identity}
+noise_std: 0.0
+missing_rate: 0.0
+split: {fractions: [0.7, 0.15, 0.15], seed: 0}
