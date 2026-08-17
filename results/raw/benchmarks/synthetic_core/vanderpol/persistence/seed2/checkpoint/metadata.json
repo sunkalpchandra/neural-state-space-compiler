@@ -1,0 +1,78 @@
+{
+  "experiment_id": "EXP-0235",
+  "seed": 2,
+  "norm_stats": {
+    "mean": [
+      -0.0102764330804348,
+      0.0005801873630844057
+    ],
+    "std": [
+      1.4349772930145264,
+      1.4350913763046265
+    ]
+  },
+  "dataset": {
+    "system": "vanderpol",
+    "params": {
+      "mu": 1.0
+    },
+    "n_traj": 100,
+    "n_steps": 1000,
+    "dt": 0.05,
+    "transient": 200,
+    "seed": 0,
+    "observation": {
+      "type": "identity"
+    },
+    "noise_std": 0.0,
+    "missing_rate": 0.0,
+    "split": {
+      "fractions": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "seed": 0
+    },
+    "ood": {
+      "param": "mu",
+      "train_range": [
+        0.5,
+        2.0
+      ],
+      "test_range": [
+        2.5,
+        4.0
+      ]
+    }
+  },
+  "metrics_summary": {
+    "val/teacher_forced/nrmse": 0.0603055558674484,
+    "val/recursive/nrmse@1": 0.06641476896489198,
+    "val/recursive/nrmse@10": 0.354216110066802,
+    "val/recursive/nrmse@25": 0.7144485768523826,
+    "val/recursive/nrmse@50": 1.1145858583981145,
+    "val/recursive/nrmse@100": 1.5112905757897792,
+    "val/recursive/nrmse@250": 1.411682069384735,
+    "val/recursive/nrmse_mean": 1.411682069384735,
+    "val/recursive/divergence_time": 19.0,
+    "val/params/total": 0,
+    "val/latent_dim": null,
+    "val/latency/step_latency_ms_mean": 0.0036875002551823854,
+    "test/teacher_forced/nrmse": 0.060307389246768255,
+    "test/recursive/nrmse@1": 0.05566574992318943,
+    "test/recursive/nrmse@10": 0.28434898217996596,
+    "test/recursive/nrmse@25": 0.6484536730661743,
+    "test/recursive/nrmse@50": 1.0771980394220273,
+    "test/recursive/nrmse@100": 1.4373319653163938,
+    "test/recursive/nrmse@250": 1.3350136251139957,
+    "test/recursive/nrmse_mean": 1.3350136251139957,
+    "test/recursive/divergence_time": 21.0,
+    "test/params/total": 0,
+    "test/latent_dim": null,
+    "test/latency/step_latency_ms_mean": 0.0034418522845953703,
+    "train/best_val_loss": 0.003740522399958637,
+    "train/epochs_run": 1,
+    "train/time_s": 0.1752832500205841
+  }
+}
