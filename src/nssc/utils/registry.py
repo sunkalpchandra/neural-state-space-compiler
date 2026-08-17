@@ -31,7 +31,7 @@ class Registry(Generic[T]):
             if k in self._items and self._items[k] is not cls:
                 raise KeyError(f"{self.name}: key '{k}' already registered to {self._items[k]}")
             self._items[k] = cls
-            setattr(cls, "registry_key", k)
+            cls.registry_key = k
             return cls
 
         return deco
