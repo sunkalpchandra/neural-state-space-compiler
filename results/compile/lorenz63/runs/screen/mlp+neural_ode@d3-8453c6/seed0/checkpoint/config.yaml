@@ -1,0 +1,21 @@
+latent_dim: 3
+encoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+dynamics:
+  name: neural_ode
+  kwargs:
+    n_substeps: 1
+    hidden_dims:
+    - 64
+    - 64
+obs_dim: 3
