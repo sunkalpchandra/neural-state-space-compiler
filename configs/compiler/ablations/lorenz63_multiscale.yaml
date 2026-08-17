@@ -1,0 +1,17 @@
+# H3 / ablation C→F: add multi-scale slow/fast candidates to the Lorenz-63 pool.
+# Encoder and dynamics must agree on slow_dim; we pair them explicitly per latent dim.
+_base_: ../lorenz63.yaml
+candidates:
+  latent_dims: [4, 8]
+  encoders:
+    - {name: multiscale, kwargs: {slow_dim: 1, base: tcn, slow_window: 8}}
+    - {name: multiscale, kwargs: {slow_dim: 2, base: tcn, slow_window: 8}}
+    - tcn
+    - mlp
+  dynamics:
+    - {name: multiscale, kwargs: {slow_dim: 1, slow_rate: 0.1}}
+    - {name: multiscale, kwargs: {slow_dim: 2, slow_rate: 0.1}}
+    - residual_mlp
+  hidden_dims: [64]
+output_dir: results/compile/ablations/lorenz63_multiscale
+tags: [compiler, lorenz63, ablation:multiscale]
