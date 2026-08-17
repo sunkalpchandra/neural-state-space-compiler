@@ -1,0 +1,15 @@
+latent_dim: 2
+encoder:
+  name: linear
+  kwargs: {}
+decoder:
+  name: linear
+  kwargs: {}
+dynamics:
+  name: neural_ode
+  kwargs:
+    n_substeps: 1
+    hidden_dims:
+    - 64
+    - 64
+obs_dim: 2
