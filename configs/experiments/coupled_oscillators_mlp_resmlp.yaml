@@ -1,5 +1,5 @@
 # Reference run: coupled_oscillators, MLP AE (d=8) + residual MLP dynamics.
-dataset: {_file: configs/datasets/lorenz63.yaml}
+dataset: {_file: configs/datasets/coupled_oscillators.yaml}
 model:
   latent_dim: 8
   encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}
