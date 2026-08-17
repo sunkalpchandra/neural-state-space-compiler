@@ -1,0 +1,5 @@
+# Ablation E: compiler without the complexity penalty.
+_base_: ../lorenz63.yaml
+objective: {reconstruction: 1.0, one_step: 1.0, rollout: 2.0, complexity: 0.0, stability: 1.0}
+output_dir: results/compile/ablations/lorenz63_nocomplexity
+tags: [compiler, lorenz63, ablation:nocomplexity]
