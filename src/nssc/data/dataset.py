@@ -17,7 +17,7 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from nssc.data.splits import trajectory_split
+from nssc.data.splits import check_no_leakage, trajectory_split
 
 
 @dataclass
@@ -68,6 +68,12 @@ class TrajectoryDataset:
         if split_name is not None:
             meta["split"] = split_name
         meta["traj_idx"] = idx.tolist()
+        # Real-data loaders store per-trajectory annotations (e.g. subject id per segment) and
+        # list their keys under ``per_traj_keys`` so subsets keep them aligned with ``x``.
+        for key in meta.get("per_traj_keys", []):
+            if key in meta and len(meta[key]) == self.n_traj:
+                meta[key] = [meta[key][i] for i in idx.tolist()]
+        meta.pop("split_indices", None)  # a subset is not re-splittable by the parent's indices
         return TrajectoryDataset(
             x=self.x[idx].copy(), t=self.t.copy(),
             z_true=None if self.z_true is None else self.z_true[idx].copy(),
@@ -80,7 +86,16 @@ class TrajectoryDataset:
 
         ``seed``/``fractions`` default to ``metadata['config']['split']`` when present,
         else ``0`` / ``(0.7, 0.15, 0.15)``.
+
+        If ``metadata['split_indices'] = {'train': [...], 'val': [...], 'test': [...]}`` is
+        present (real-data loaders with e.g. subject-level splits) those explicit
+        trajectory indices are used verbatim and ``seed``/``fractions`` are ignored.
         """
+        fixed = self.metadata.get("split_indices")
+        if fixed:
+            parts = {k: np.sort(np.asarray(v, dtype=int)) for k, v in fixed.items()}
+            check_no_leakage(parts.get("train", []), parts.get("val", []), parts.get("test", []))
+            return {k: self.subset(v, k) for k, v in parts.items()}
         sc = (self.metadata.get("config") or {}).get("split") or {}
         seed = int(sc.get("seed", 0)) if seed is None else seed
         fractions = tuple(sc.get("fractions", (0.7, 0.15, 0.15))) if fractions is None else fractions
