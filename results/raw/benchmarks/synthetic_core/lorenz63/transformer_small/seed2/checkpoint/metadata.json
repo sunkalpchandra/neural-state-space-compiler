@@ -1,0 +1,82 @@
+{
+  "experiment_id": "EXP-0187",
+  "seed": 2,
+  "norm_stats": {
+    "mean": [
+      0.14303810894489288,
+      0.15000727772712708,
+      23.381959915161133
+    ],
+    "std": [
+      7.94410514831543,
+      9.113070487976074,
+      8.710152626037598
+    ]
+  },
+  "dataset": {
+    "system": "lorenz63",
+    "params": {
+      "sigma": 10.0,
+      "rho": 28.0,
+      "beta": 2.6666666666666665
+    },
+    "n_traj": 100,
+    "n_steps": 500,
+    "dt": 0.01,
+    "transient": 1000,
+    "seed": 0,
+    "observation": {
+      "type": "identity"
+    },
+    "noise_std": 0.0,
+    "missing_rate": 0.0,
+    "split": {
+      "fractions": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "seed": 0
+    },
+    "ood": {
+      "param": "rho",
+      "train_range": [
+        24.0,
+        32.0
+      ],
+      "test_values": [
+        20.0,
+        35.0
+      ]
+    }
+  },
+  "metrics_summary": {
+    "val/teacher_forced/nrmse": 0.546985006306786,
+    "val/recursive/nrmse@1": 0.005724401958914735,
+    "val/recursive/nrmse@10": 0.011523001662692928,
+    "val/recursive/nrmse@25": 0.02452794008428621,
+    "val/recursive/nrmse@50": 0.24319187464447967,
+    "val/recursive/nrmse@100": 0.8381343151139408,
+    "val/recursive/nrmse@250": 1.255541576076994,
+    "val/recursive/nrmse_mean": 1.255541576076994,
+    "val/recursive/divergence_time": 44.0,
+    "val/params/total": 42083,
+    "val/latent_dim": null,
+    "val/latency/step_latency_ms_mean": 0.8726123571395874,
+    "test/teacher_forced/nrmse": 0.5442148962659181,
+    "test/recursive/nrmse@1": 0.00918786229128219,
+    "test/recursive/nrmse@10": 0.02343810987627868,
+    "test/recursive/nrmse@25": 0.024076603549972826,
+    "test/recursive/nrmse@50": 0.25321227676646657,
+    "test/recursive/nrmse@100": 0.9357414103893228,
+    "test/recursive/nrmse@250": 1.3076773460689355,
+    "test/recursive/nrmse_mean": 1.3076773460689355,
+    "test/recursive/divergence_time": 44.0,
+    "test/params/total": 42083,
+    "test/latent_dim": null,
+    "test/latency/step_latency_ms_mean": 0.826606273651123,
+    "train/best_val_loss": 4.4927263107161883e-05,
+    "train/epochs_run": 40,
+    "train/time_s": 147.5446243339975
+  }
+}
