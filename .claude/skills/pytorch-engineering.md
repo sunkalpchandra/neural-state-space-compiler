@@ -88,3 +88,11 @@ the compiler can swap components without special cases.
 - [ ] Losses returned as named dict; names match `docs/compiler.md`.
 - [ ] Eval under `inference_mode` and `model.eval()`.
 - [ ] No heavy optional imports at module import time (`mne`, `fastapi`, `plotly`).
+
+
+## Lessons learned (2026-08-17)
+- MPS has no float64: eigen-decompositions (`nssc.stability.spectral`) run on CPU double.
+- Neural-ODE candidates with 4 RK4 substeps were 20× slower than residual MLPs in the
+  compiler screen; screening uses `n_substeps: 1` (config, not code default).
+- Sequence baselines with recursive rollout losses re-run the whole backbone per step
+  (TCN/Transformer/SSM 10–90× slower); baselines train teacher-forced only (D-008).
