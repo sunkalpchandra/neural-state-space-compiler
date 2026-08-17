@@ -179,6 +179,17 @@ def report(experiment: str | None = typer.Option(None, "--experiment", "-e"),
 
 
 @app.command()
+def tables(suite: str = typer.Option(..., "--suite"),
+           reference: str | None = typer.Option(None, "--reference", help="model name for paired tests"),
+           output: str = typer.Option("results/tables", "--output", "-o")):
+    """Render mean±std benchmark tables (markdown + json) for a suite from the registry."""
+    from nssc.evaluation.tables import suite_tables
+
+    res = suite_tables(suite, out_dir=output, reference_model=reference)
+    console.print(res["markdown"])
+
+
+@app.command()
 def smoke():
     """Run the tiny end-to-end smoke experiment (seconds)."""
     import torch
