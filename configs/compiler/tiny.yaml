@@ -1,0 +1,26 @@
+# Tiny compiler run for tests / CI (< 1 min CPU): harmonic oscillator lifted to D=8.
+dataset:
+  system: harmonic
+  params: {omega: 1.0}
+  n_traj: 24
+  n_steps: 96
+  dt: 0.05
+  transient: 0
+  seed: 0
+  observation: {type: linear, obs_dim: 8, seed: 0}
+  noise_std: 0.01
+  split: {fractions: [0.5, 0.25, 0.25], seed: 0}
+windows: {context: 8, horizon: 24, stride: 4, batch_size: 32}
+training: {lr: 0.005, rollout_horizon: 8, early_stopping_patience: 10, log_every: 100}
+eval: {context: 8, horizons: [1, 5, 10, 25, 50], stability_horizon: 48, latency: false}
+candidates:
+  latent_dims: [2, 4]
+  encoders: [pca, linear, mlp]
+  dynamics: [linear, residual_mlp]
+  hidden_dims: [16]
+stages:
+  - {name: screen, epochs: 4, seeds: [0], keep_top: 3}
+  - {name: final, epochs: 6, seeds: [0]}
+objective: {reconstruction: 1.0, one_step: 1.0, rollout: 2.0, complexity: 0.1, stability: 1.0}
+output_dir: results/compile/tiny
+tags: [tiny]
