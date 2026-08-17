@@ -1,0 +1,8 @@
+# Trivial baselines (BASELINES keys `persistence`, `mean`). 0 parameters at every size.
+# `mean` needs no config either; use `baseline: mean` with the same (empty) sizes.
+baseline: persistence
+mode: recursive
+sizes:
+  small: {}     # 0 params
+  medium: {}    # 0 params
+  large: {}     # 0 params
