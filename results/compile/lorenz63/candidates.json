@@ -1,0 +1,1750 @@
+[
+  {
+    "latent_dim": 2,
+    "encoder": "pca",
+    "dynamics": "linear",
+    "decoder": "pca",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "linear",
+    "dynamics": "linear",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "linear",
+    "dynamics": "residual_mlp",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "linear",
+    "dynamics": "koopman",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "linear",
+    "dynamics": "neural_ode",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "linear",
+    "dynamics": "ssm",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "mlp",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "mlp",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "mlp",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "mlp",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "mlp",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "tcn",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "tcn",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "tcn",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "tcn",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "tcn",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "gru",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "gru",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "gru",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "gru",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 2,
+    "encoder": "gru",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "pca",
+    "dynamics": "linear",
+    "decoder": "pca",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "linear",
+    "dynamics": "linear",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "linear",
+    "dynamics": "residual_mlp",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "linear",
+    "dynamics": "koopman",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "linear",
+    "dynamics": "neural_ode",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "linear",
+    "dynamics": "ssm",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "mlp",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "mlp",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "mlp",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "mlp",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "mlp",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "tcn",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "tcn",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "tcn",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "tcn",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "tcn",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "gru",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "gru",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "gru",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "gru",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 3,
+    "encoder": "gru",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "pca",
+    "dynamics": "linear",
+    "decoder": "pca",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "linear",
+    "dynamics": "linear",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "linear",
+    "dynamics": "residual_mlp",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "linear",
+    "dynamics": "koopman",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "linear",
+    "dynamics": "neural_ode",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "linear",
+    "dynamics": "ssm",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "mlp",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "mlp",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "mlp",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "mlp",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "mlp",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "tcn",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "tcn",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "tcn",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "tcn",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "tcn",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "gru",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "gru",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "gru",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "gru",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 4,
+    "encoder": "gru",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "pca",
+    "dynamics": "linear",
+    "decoder": "pca",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "linear",
+    "dynamics": "linear",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "linear",
+    "dynamics": "residual_mlp",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "linear",
+    "dynamics": "koopman",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "linear",
+    "dynamics": "neural_ode",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "linear",
+    "dynamics": "ssm",
+    "decoder": "linear",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {},
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "mlp",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "mlp",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "mlp",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "mlp",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "mlp",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "tcn",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "tcn",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "tcn",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "tcn",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "tcn",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "gru",
+    "dynamics": "linear",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "gru",
+    "dynamics": "residual_mlp",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "gru",
+    "dynamics": "koopman",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "gru",
+    "dynamics": "neural_ode",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {
+      "n_substeps": 1,
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  },
+  {
+    "latent_dim": 8,
+    "encoder": "gru",
+    "dynamics": "ssm",
+    "decoder": "mlp",
+    "encoder_kwargs": {},
+    "decoder_kwargs": {
+      "hidden_dims": [
+        64,
+        64
+      ]
+    },
+    "dynamics_kwargs": {},
+    "training_overrides": {},
+    "tags": [
+      "h64"
+    ]
+  }
+]
