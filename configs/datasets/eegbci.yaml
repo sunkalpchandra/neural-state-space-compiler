@@ -1,0 +1,20 @@
+# PhysioNet EEG Motor Movement/Imagery (EEGBCI), real movement runs (3, 7, 11: open/close
+# left or right fist). Subject-level split; 64 channels, 160 Hz → 64 Hz, 8 s segments → T=512.
+# First build downloads 8 subjects × 3 runs (~1.5 MB EDF each) via mne; cached afterwards.
+# See docs/datasets_real.md for provenance, licence, preprocessing and caveats.
+source: eegbci
+name: eegbci
+subjects: [1, 2, 3, 4, 5, 6, 7, 8]
+runs: [3, 7, 11]
+channels: null            # all 64 EEG channels
+resample_hz: 64
+bandpass: [1.0, 30.0]
+segment_seconds: 8
+segment_stride_seconds: 8
+per_subject_standardize: true
+split:
+  by: subject
+  train_subjects: [1, 2, 3, 4, 5]
+  val_subjects: [6]
+  test_subjects: [7, 8]
+cache_dir: data/cache/eegbci
