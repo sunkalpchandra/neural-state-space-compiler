@@ -1,0 +1,5 @@
+# Ablation D: compiler without the stability objective.
+_base_: ../lorenz63.yaml
+objective: {reconstruction: 1.0, one_step: 1.0, rollout: 2.0, complexity: 0.1, stability: 0.0, blowup_penalty: 0.0}
+output_dir: results/compile/ablations/lorenz63_nostability
+tags: [compiler, lorenz63, ablation:nostability]
