@@ -1,0 +1,12 @@
+# Tiny harmonic-oscillator dataset for unit / integration tests.
+system: harmonic
+params: {omega: 1.0}
+n_traj: 8
+n_steps: 64
+dt: 0.05
+transient: 0
+seed: 0
+observation: {type: identity}
+noise_std: 0.0
+missing_rate: 0.0
+split: {fractions: [0.5, 0.25, 0.25], seed: 0}
