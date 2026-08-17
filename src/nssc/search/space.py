@@ -106,6 +106,12 @@ def generate_candidates(cfg: dict[str, Any], profile: dict[str, Any] | None = No
                 if comp in ("mlp", "residual_mlp", "koopman", "neural_ode", "gaussian", "multiscale"):
                     kw.setdefault("hidden_dims", [h, h])
             tags.append(f"h{h}")
+        # multi-scale consistency: encoder and dynamics slow_dim must agree when both define it
+        sd_e, sd_d = ekw.get("slow_dim"), dkw.get("slow_dim")
+        if sd_e is not None and sd_d is not None and sd_e != sd_d:
+            continue
+        if any(sd is not None and int(sd) >= d for sd in (sd_e, sd_d)):
+            continue
         if e == "pca" and dy not in ("linear", "affine") and cfg.get("pca_only_linear", True):
             continue  # PCA is frozen; pairing it with SGD dynamics is allowed but off by default
         if any(all(str(m.get(k)) == str(v) for k, v in {"encoder": e, "dynamics": dy,
