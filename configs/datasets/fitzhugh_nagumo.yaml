@@ -1,0 +1,13 @@
+# FitzHugh-Nagumo slow-fast oscillator (H3 multi-scale). I=0.0 is the excitable OOD regime.
+system: fitzhugh_nagumo
+params: {a: 0.7, b: 0.8, eps: 0.08, I: 0.5}
+n_traj: 100
+n_steps: 1000
+dt: 0.1
+transient: 200
+seed: 0
+observation: {type: identity}
+noise_std: 0.0
+missing_rate: 0.0
+split: {fractions: [0.7, 0.15, 0.15], seed: 0}
+ood: {param: I, train_range: [0.4, 0.7], test_values: [0.0]}
