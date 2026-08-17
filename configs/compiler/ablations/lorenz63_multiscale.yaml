@@ -1,6 +1,7 @@
-# H3 / ablation C→F: add multi-scale slow/fast candidates to the Lorenz-63 pool.
+# H3 / ablation C→F: multi-scale slow/fast candidates on high-dimensional Lorenz-63 (D=64, MLP obs).
 # Encoder and dynamics must agree on slow_dim; we pair them explicitly per latent dim.
 _base_: ../lorenz63.yaml
+dataset: {_file: configs/datasets/lorenz63_highdim.yaml}
 candidates:
   latent_dims: [4, 8]
   encoders:

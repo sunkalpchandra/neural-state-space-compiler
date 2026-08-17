@@ -74,9 +74,9 @@ def resolve_latent_dims(spec: Any, profile: dict[str, Any] | None, obs_dim: int)
             dims = (profile.get("recommendations", {}) or {}).get("candidate_latent_dims") \
                 or profile.get("suggested_latent_dims")
         dims = dims or [2, 4, 8, 16, 32]
-    else:
-        dims = list(spec)
-    return sorted({int(d) for d in dims if 1 <= int(d) <= max(1, obs_dim)})
+        return sorted({int(d) for d in dims if 1 <= int(d) <= max(1, obs_dim)})
+    # explicit lists are honoured as-is (overcomplete latents are legitimate, e.g. lifting)
+    return sorted({int(d) for d in spec if int(d) >= 1})
 
 
 def generate_candidates(cfg: dict[str, Any], profile: dict[str, Any] | None = None,
