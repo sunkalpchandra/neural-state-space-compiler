@@ -1,0 +1,12 @@
+# Reference run: fitzhugh_nagumo, MLP AE (d=2) + residual MLP dynamics.
+dataset: {_file: configs/datasets/fitzhugh_nagumo.yaml}
+model:
+  latent_dim: 2
+  encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}
+  decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}
+  dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64, 64]}}
+windows: {context: 20, horizon: 40, stride: 5, batch_size: 64}
+training: {epochs: 40, lr: 0.002, rollout_horizon: 20, early_stopping_patience: 25, log_every: 5}
+eval: {context: 20, horizons: [1, 5, 10, 25, 50, 100, 250], stability_horizon: 300}
+seed: 0
+tags: [reference, fitzhugh_nagumo]
