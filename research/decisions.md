@@ -94,3 +94,13 @@ a new entry referencing the old id.
 - Rationale: CLAUDE.md integrity rule; makes older registry rows permanently comparable.
 - Consequences: reviewer diffs config hashes; regression values pinned in
   `tests/regression/values.yaml`.
+
+## D-008 — Baselines are trained teacher-forced only (2026-08-17)
+Sequence-model baselines (GRU/LSTM/TCN/Transformer/SSM) are trained with one-step
+teacher-forced MSE only (`training.rollout_weight: 0`). Recursive multi-step training
+re-runs the full backbone per rollout step and made TCN/Transformer/SSM 10–90× slower per
+batch on CPU, which would have forced fewer seeds. Latent state-space models keep their
+rollout loss because it is part of the method under test. Consequence: the comparison
+favours the baselines at one-step and is neutral-to-unfavourable for them at long
+horizons; a `gru_rollout` control variant is included in the ablation suite to quantify
+the effect. TCN/Transformer/SSM use the `small` presets, GRU/LSTM `medium`.
