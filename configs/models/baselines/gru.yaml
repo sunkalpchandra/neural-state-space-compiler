@@ -1,0 +1,8 @@
+# GRUForecaster (BASELINES key `gru`). Param counts (recursive mode, incl. next-step head)
+# depend on obs_dim D; noted for D=8 / D=64.
+baseline: gru
+mode: recursive
+sizes:
+  small:   {hidden: 32,  n_layers: 1, dropout: 0.0}   # ~4.3k  (D=8) / ~11.5k (D=64)
+  medium:  {hidden: 128, n_layers: 2, dropout: 0.0}   # ~153k  (D=8) / ~182k  (D=64)
+  large:   {hidden: 256, n_layers: 3, dropout: 0.0}   # ~996k  (D=8) / ~1.05M (D=64)
