@@ -1,0 +1,14 @@
+{
+  "history": [
+    {
+      "epoch": 0,
+      "lr": 0.002,
+      "horizon": 0,
+      "train/teacher_forced": 0.00555359716527164,
+      "train/total": 0.00555359716527164,
+      "val/teacher_forced": 0.005674884166745912,
+      "val/total": 0.005674884166745912,
+      "time_s": 0.09545170800993219
+    }
+  ]
+}
