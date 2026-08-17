@@ -70,8 +70,13 @@ class DynamicalSystem:
         transient: int | None = None,
         params: dict[str, Any] | None = None,
         substeps: int | None = None,
+        ic_scale: float = 1.0,
     ) -> np.ndarray:
         """Simulate ``n_traj`` trajectories of ``n_steps`` samples.
+
+        ``ic_scale`` widens (>1) or narrows (<1) the initial-condition distribution
+        around its sample mean — used for out-of-distribution initial-condition tests
+        (combine with ``transient=0`` so the states are not relaxed onto the attractor).
 
         A ``transient`` (burn-in) of that many steps is integrated and discarded
         before recording. Returns ``(N, T, d)`` float64.
@@ -87,6 +92,9 @@ class DynamicalSystem:
             p.update(params)
         g = make_rng(seed)
         x0 = np.asarray(self.sample_initial(g, n_traj), dtype=np.float64)
+        if ic_scale != 1.0:
+            mu = x0.mean(axis=0, keepdims=True)
+            x0 = mu + float(ic_scale) * (x0 - mu)
 
         def field(t: float, x: np.ndarray) -> np.ndarray:
             return self.f(t, x, p)
