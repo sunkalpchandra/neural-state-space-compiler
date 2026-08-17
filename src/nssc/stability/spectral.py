@@ -10,7 +10,7 @@ from nssc.dynamics.base import Dynamics
 
 @torch.no_grad()
 def _eig(J: Tensor) -> Tensor:
-    return torch.linalg.eigvals(J.double())  # (B, d) complex
+    return torch.linalg.eigvals(J.detach().cpu().double())  # (B, d) complex; MPS has no float64
 
 
 def jacobian_spectrum(dynamics: Dynamics, z: Tensor, max_points: int = 256) -> dict[str, Tensor]:
