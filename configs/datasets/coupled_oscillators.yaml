@@ -1,0 +1,12 @@
+# Chain of 4 linearly coupled oscillators (d=8) — linear, multi-frequency.
+system: coupled_oscillators
+params: {N: 4, k: 1.0, kc: 0.5, c: 0.0}
+n_traj: 64
+n_steps: 400
+dt: 0.05
+transient: 0
+seed: 0
+observation: {type: identity}
+noise_std: 0.0
+missing_rate: 0.0
+split: {fractions: [0.7, 0.15, 0.15], seed: 0}
