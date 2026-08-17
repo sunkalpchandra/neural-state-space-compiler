@@ -1,0 +1,13 @@
+# Lorenz-63, identity observation. Tests H1 (latent-dim recovery, d=3) and chaotic rollout.
+system: lorenz63
+params: {sigma: 10.0, rho: 28.0, beta: 2.6666666666666665}
+n_traj: 100
+n_steps: 500
+dt: 0.01
+transient: 1000
+seed: 0
+observation: {type: identity}
+noise_std: 0.0
+missing_rate: 0.0
+split: {fractions: [0.7, 0.15, 0.15], seed: 0}
+ood: {param: rho, train_range: [24.0, 32.0], test_values: [20.0, 35.0]}
