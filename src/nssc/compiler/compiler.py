@@ -101,7 +101,8 @@ class StateSpaceCompiler:
             self.propose()
         stages = list(self.cfg.get("stages") or [{"name": "single", "seeds": [0]}])
         self.searcher = StagedSearch(self.base_run_cfg(), stages, self.weights, self.output_dir,
-                                     registry=self.registry, device=self.device, log=self.log)
+                                     registry=self.registry, device=self.device, log=self.log,
+                                     reuse_registry=bool(self.cfg.get("reuse_registry", True)))
         return self.searcher.run(self.candidates)
 
     def compile(self, search_result: dict[str, Any] | None = None) -> CompiledModel:
