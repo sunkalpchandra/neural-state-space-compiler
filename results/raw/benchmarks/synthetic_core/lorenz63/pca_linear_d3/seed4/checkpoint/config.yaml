@@ -1,0 +1,5 @@
+latent_dim: 3
+encoder: pca
+decoder: pca
+dynamics: linear
+obs_dim: 3
