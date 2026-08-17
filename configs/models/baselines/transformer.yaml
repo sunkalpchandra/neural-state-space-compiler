@@ -1,0 +1,9 @@
+# TransformerForecaster (BASELINES key `transformer`): decoder-only causal transformer,
+# learned positional embeddings (max_len 512), pre-LN, dim_feedforward = 4*d_model.
+# Param counts for D=8 / D=64 (recursive mode).
+baseline: transformer
+mode: recursive
+sizes:
+  small:   {d_model: 32,  n_heads: 2, n_layers: 2, dropout: 0.0, max_len: 512}   # ~42k   (D=8) / ~46k   (D=64)
+  medium:  {d_model: 64,  n_heads: 4, n_layers: 4, dropout: 0.0, max_len: 512}   # ~234k  (D=8) / ~241k  (D=64)
+  large:   {d_model: 128, n_heads: 8, n_layers: 6, dropout: 0.0, max_len: 512}   # ~1.26M (D=8) / ~1.27M (D=64)
