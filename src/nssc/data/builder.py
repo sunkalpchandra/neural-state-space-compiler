@@ -17,6 +17,10 @@ Config schema (all keys optional except ``system``)::
     split: {fractions: [0.7, 0.15, 0.15], seed: 0}   # used by TrajectoryDataset.split()
     ood: {...}                   # documentation of OOD parameter ranges (hashed, not applied)
 
+Real-world sources bypass the simulator entirely: a config with ``source: eegbci`` (or
+any key in :data:`nssc.data.real.REAL_SOURCES`) is dispatched to
+:func:`nssc.data.real.build_real_dataset`; see :mod:`nssc.data.real.eegbci`.
+
 The dataset ``metadata['version']`` is ``stable_hash`` of the resolved config so
 any change in split/preprocessing shows up as a new dataset version.
 """
@@ -32,6 +36,7 @@ import numpy as np
 from nssc.data import systems as _systems  # noqa: F401  (populates SYSTEMS)
 from nssc.data.dataset import TrajectoryDataset
 from nssc.data.observation import ObservationMap, add_noise, mask_missing
+from nssc.data.real import build_real_dataset, is_real_source
 from nssc.utils.config import load_yaml
 from nssc.utils.hashing import stable_hash
 from nssc.utils.registry import SYSTEMS
@@ -68,6 +73,8 @@ def build_dataset(cfg: dict[str, Any] | str | Path) -> TrajectoryDataset:
     """Simulate, observe, corrupt and package a dataset. See module docstring."""
     if isinstance(cfg, (str, Path)):
         cfg = load_yaml(cfg)
+    if is_real_source(cfg):  # Tier-3 real-world sources (source: eegbci, ...) — no simulation
+        return build_real_dataset(dict(cfg))
     cfg = resolve_config(cfg)
     system = SYSTEMS.build(cfg["system"], params=cfg["params"], dt=cfg["dt"])
     z = system.simulate(cfg["n_traj"], cfg["n_steps"], dt=cfg["dt"], seed=cfg["seed"],
