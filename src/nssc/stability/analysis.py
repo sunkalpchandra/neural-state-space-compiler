@@ -66,9 +66,9 @@ def analyze_stability(model: LatentModel, x: Tensor, horizon: int = 200, dt: flo
              + 0.5 * max(0.0, rep.spectral["rho_max"] - 1.0)
              + 0.25 * max(0.0, np.log(max(ng["norm_ratio_end"], 1e-8))) if np.isfinite(ng["norm_ratio_end"]) else 5.0)
     rep.instability_score = float(score)
-    if ng["frac_blowup"] > 0.5:
+    if ng["frac_blowup"] > 0.25:
         rep.verdict = "explodes"
-    elif ng["frac_collapse"] > 0.5:
+    elif ng["frac_collapse"] > 0.25:
         rep.verdict = "collapses"
     elif rep.spectral["rho_max"] > 1.5:
         rep.verdict = "locally_expanding"
