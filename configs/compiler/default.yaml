@@ -1,0 +1,32 @@
+# Default compiler configuration. Override dataset / stages per experiment.
+dataset: {_file: configs/datasets/lorenz63.yaml}
+windows: {context: 20, horizon: 40, stride: 5, batch_size: 64}
+training:
+  lr: 0.002
+  weight_decay: 1.0e-5
+  grad_clip: 1.0
+  rollout_horizon: 20
+  rollout_curriculum: true
+  early_stopping_patience: 25
+  loss: {recon: 1.0, latent_1step: 1.0, obs_1step: 1.0, rollout: 1.0, stability: 0.0}
+eval: {context: 20, horizons: [1, 5, 10, 25, 50, 100, 250, 500], stability_horizon: 300}
+candidates:
+  latent_dims: auto
+  encoders: [pca, linear, mlp, tcn, gru, ssm]
+  dynamics: [linear, affine, residual_mlp, koopman, neural_ode, ssm]
+  hidden_dims: [64]
+stages:
+  - {name: screen, epochs: 15, seeds: [0], keep_frac: 0.4, score_tolerance: 0.1,
+     eval: {horizons: [1, 5, 10, 25, 50], stability_horizon: 100, latency: false}}
+  - {name: fine, epochs: 60, seeds: [0], keep_top: 4}
+  - {name: final, epochs: 150, seeds: [0, 1, 2]}
+objective:
+  reconstruction: 1.0
+  one_step: 1.0
+  rollout: 2.0
+  complexity: 0.1
+  stability: 1.0
+  blowup_penalty: 10.0
+  criterion: multi_objective
+output_dir: results/compile/default
+tags: [compiler]
