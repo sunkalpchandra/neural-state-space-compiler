@@ -1,0 +1,7 @@
+# LSTMForecaster (BASELINES key `lstm`). Param counts noted for D=8 / D=64 (recursive mode).
+baseline: lstm
+mode: recursive
+sizes:
+  small:   {hidden: 32,  n_layers: 1, dropout: 0.0}   # ~5.6k  (D=8) / ~14.7k (D=64)
+  medium:  {hidden: 128, n_layers: 2, dropout: 0.0}   # ~204k  (D=8) / ~240k  (D=64)
+  large:   {hidden: 256, n_layers: 3, dropout: 0.0}   # ~1.33M (D=8) / ~1.40M (D=64)
