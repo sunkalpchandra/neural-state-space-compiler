@@ -1,0 +1,24 @@
+# Real data (Tier 3): PhysioNet EEGBCI, 64 channels @ 64 Hz, 8-s segments, subject-level split.
+# Question: does the compiler find a compact latent state that predicts held-out *subjects*
+# better than large sequence models? No claims about biological meaning of latents.
+_base_: default.yaml
+dataset: {_file: configs/datasets/eegbci.yaml}
+windows: {context: 32, horizon: 32, stride: 16, batch_size: 64}
+training:
+  lr: 0.001
+  rollout_horizon: 10
+  early_stopping_patience: 15
+eval: {context: 32, horizons: [1, 5, 10, 25, 50, 100], stability_horizon: 200}
+candidates:
+  latent_dims: [4, 8, 16, 32]
+  encoders: [pca, linear, mlp, tcn, gru]
+  dynamics: [linear, residual_mlp, koopman, ssm]
+  hidden_dims: [128]
+stages:
+  - {name: screen, epochs: 8, seeds: [0], keep_frac: 0.3, score_tolerance: 0.15,
+     max_batches_per_epoch: 40,
+     eval: {horizons: [1, 5, 10, 25, 50], stability_horizon: 100, latency: false}}
+  - {name: fine, epochs: 30, seeds: [0], keep_top: 4}
+  - {name: final, epochs: 60, seeds: [0, 1, 2]}
+output_dir: results/compile/eegbci
+tags: [compiler, eegbci, real]
