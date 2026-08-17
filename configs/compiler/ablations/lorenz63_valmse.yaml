@@ -1,0 +1,6 @@
+# H2 ablation: select purely by validation recon/one-step MSE (no rollout/stability/complexity terms).
+# Training runs are shared with configs/compiler/lorenz63.yaml via registry reuse.
+_base_: ../lorenz63.yaml
+objective: {criterion: val_mse}
+output_dir: results/compile/ablations/lorenz63_valmse
+tags: [compiler, lorenz63, ablation:valmse]
