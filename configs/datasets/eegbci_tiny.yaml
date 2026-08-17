@@ -1,0 +1,20 @@
+# Smoke-test EEGBCI config: 3 subjects, 1 run, 8 channels, 32 Hz, 4 s segments (T=128).
+# For SMOKE / CI only — one subject per split gives no statistical power whatsoever.
+# The split is still subject-level (train S1 / val S2 / test S3): the same subject never
+# appears in two splits, even here.
+source: eegbci
+name: eegbci_tiny
+subjects: [1, 2, 3]
+runs: [3]
+channels: 8               # first 8 channels in file order (FC5, FC3, FC1, FCz, FC2, FC4, FC6, C5)
+resample_hz: 32
+bandpass: [1.0, 14.0]     # must stay below Nyquist of the resampled rate (16 Hz)
+segment_seconds: 4
+segment_stride_seconds: 4
+per_subject_standardize: true
+split:
+  by: subject
+  train_subjects: [1]
+  val_subjects: [2]
+  test_subjects: [3]
+cache_dir: data/cache/eegbci
