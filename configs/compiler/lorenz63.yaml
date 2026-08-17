@@ -5,7 +5,7 @@ dataset: {_file: configs/datasets/lorenz63.yaml}
 candidates:
   latent_dims: [2, 3, 4, 8]
   encoders: [pca, linear, mlp, tcn, gru]
-  dynamics: [linear, residual_mlp, koopman, neural_ode, ssm]
+  dynamics: [linear, residual_mlp, koopman, {name: neural_ode, kwargs: {n_substeps: 1}}, ssm]
   hidden_dims: [64]
 stages:
   - {name: screen, epochs: 12, seeds: [0], keep_frac: 0.35, score_tolerance: 0.15,
