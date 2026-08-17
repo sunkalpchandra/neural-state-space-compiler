@@ -190,6 +190,43 @@ def tables(suite: str = typer.Option(..., "--suite"),
 
 
 @app.command()
+def failures(suite: str | None = typer.Option(None, "--suite"), tag: str | None = typer.Option(None, "--tag"),
+             output: str = typer.Option("results/tables/failures.md", "--output", "-o"),
+             limit: int = typer.Option(500)):
+    """Categorise every completed/failed run (registry) with the failure-analysis rules."""
+    from pathlib import Path as _P
+
+    from nssc.evaluation.failure_analysis import categorize
+    from nssc.utils.experiment_registry import ExperimentRegistry
+    from nssc.utils.io import load_json
+
+    recs = ExperimentRegistry().records()
+    if suite:
+        recs = [r for r in recs if f"suite:{suite}" in r.get("tags", [])]
+    if tag:
+        recs = [r for r in recs if tag in r.get("tags", [])]
+    lines = ["| id | dataset | model | seed | status | categories |", "|---|---|---|---|---|---|"]
+    counts: dict[str, int] = {}
+    for r in recs[-limit:]:
+        out_dir = _P(r.get("config", {}).get("output_dir", ""))
+        hist = None
+        if (out_dir / "history.json").exists():
+            hist = load_json(out_dir / "history.json").get("history")
+        m = {"val": {k.split("val/", 1)[1]: v for k, v in r.get("metrics", {}).items() if k.startswith("val/")}}
+        if r["status"] == "failed":
+            m["status"] = "failed"
+        rep = categorize(m, hist)
+        for c in rep.categories:
+            counts[c] = counts.get(c, 0) + 1
+        lines.append(f"| {r['experiment_id']} | {r['dataset']} | {r['model']} | {r['seed']} | {r['status']} | "
+                     f"{', '.join(rep.categories) or 'ok'} |")
+    summary = ["# Failure analysis", "", f"{len(recs)} runs; category counts: {counts}", ""] + lines
+    _P(output).parent.mkdir(parents=True, exist_ok=True)
+    _P(output).write_text("\n".join(summary))
+    console.print(f"{len(recs)} runs → {output}; counts: {counts}")
+
+
+@app.command()
 def smoke():
     """Run the tiny end-to-end smoke experiment (seconds)."""
     import torch
