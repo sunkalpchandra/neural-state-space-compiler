@@ -1,0 +1,8 @@
+# SSMForecaster (BASELINES key `ssm`): stacked diagonal-SSM blocks (same SSMBlock as the
+# `ssm` encoder). Param counts for D=8 / D=64 (recursive mode).
+baseline: ssm
+mode: recursive
+sizes:
+  small:   {d_model: 32,  d_state: 8,  n_layers: 2, expand: 2, dropout: 0.0, chunk: 32}   # ~15k  (D=8) / ~19k  (D=64)
+  medium:  {d_model: 64,  d_state: 16, n_layers: 4, expand: 2, dropout: 0.0, chunk: 32}   # ~114k (D=8) / ~121k (D=64)
+  large:   {d_model: 128, d_state: 32, n_layers: 6, expand: 2, dropout: 0.0, chunk: 32}   # ~673k (D=8) / ~687k (D=64)
