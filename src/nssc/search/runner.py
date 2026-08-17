@@ -49,8 +49,11 @@ def expand_suite(suite: dict[str, Any]) -> list[dict[str, Any]]:
         models = deep_merge(suite.get("models", {}) or {}, pd.get("models", {}) or {})
         baselines = deep_merge(suite.get("baselines", {}) or {}, pd.get("baselines", {}) or {})
         for mname, mcfg in models.items():
+            mcfg = dict(mcfg)
+            m_train = mcfg.pop("_training", {}) or {}  # per-model training overrides (e.g. loss weights)
             for seed in seeds:
-                cfg = deep_merge(dbase, {"dataset": dcfg_r, "model": dict(mcfg), "seed": seed})
+                cfg = deep_merge(dbase, {"dataset": dcfg_r, "model": mcfg, "seed": seed,
+                                         "training": m_train})
                 cfg["tags"] = [f"suite:{suite.get('name', 'suite')}", f"ds:{dname}", f"m:{mname}"]
                 cfg["output_dir"] = str(out_root / dname / mname / f"seed{seed}")
                 cfg["_kind"], cfg["_name"], cfg["_dataset"] = "latent", mname, dname
