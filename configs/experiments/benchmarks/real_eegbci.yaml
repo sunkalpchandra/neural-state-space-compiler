@@ -1,0 +1,21 @@
+# Experiment K (real data): latent models vs sequence baselines on EEGBCI, subject-level split.
+name: real_eegbci
+datasets:
+  eegbci: {_file: configs/datasets/eegbci.yaml}
+seeds: [0, 1, 2]
+windows: {context: 32, horizon: 32, stride: 16, batch_size: 64}
+training: {epochs: 30, lr: 0.001, rollout_horizon: 10, early_stopping_patience: 10,
+           max_batches_per_epoch: 60, rollout_weight: 0.0, context: 32, log_every: 100}
+eval: {context: 32, horizons: [1, 5, 10, 25, 50, 100], stability_horizon: 200}
+models:
+  pca_linear_d16: {latent_dim: 16, encoder: pca, decoder: pca, dynamics: linear}
+  mlpae_resmlp_d16: {latent_dim: 16, encoder: {name: mlp, kwargs: {hidden_dims: [128, 128]}},
+                     decoder: {name: mlp, kwargs: {hidden_dims: [128, 128]}},
+                     dynamics: {name: residual_mlp, kwargs: {hidden_dims: [128, 128]}}}
+baselines:
+  persistence: {baseline: persistence}
+  gru_medium: {baseline: gru, size: medium}
+  lstm_medium: {baseline: lstm, size: medium}
+  transformer_small: {baseline: transformer, size: small}
+  ssm_small: {baseline: ssm, size: small}
+output_dir: results/raw/benchmarks/real_eegbci
