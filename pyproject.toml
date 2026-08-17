@@ -34,6 +34,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = "-q"
 markers = ["slow: slower integration tests (>10s)"]
 filterwarnings = ["ignore::DeprecationWarning"]
