@@ -28,13 +28,14 @@ from nssc.search.space import CandidateSpec
 from nssc.search.state import SearchState
 from nssc.utils.config import deep_merge
 from nssc.utils.experiment_registry import ExperimentRegistry
+from nssc.utils.hashing import stable_hash
 
 
 class StagedSearch:
     def __init__(self, base_run_cfg: dict[str, Any], stages: list[dict[str, Any]],
                  weights: ScoreWeights, output_dir: str | Path,
                  registry: ExperimentRegistry | None = None, device: torch.device | None = None,
-                 log=print) -> None:
+                 log=print, reuse_registry: bool = True) -> None:
         self.base = base_run_cfg
         self.stages = stages
         self.scorer = MultiObjectiveScorer(weights)
@@ -43,6 +44,7 @@ class StagedSearch:
         self.state = SearchState(self.output_dir / "search_state.json")
         self.registry = registry or ExperimentRegistry()
         self.device = device
+        self.reuse_registry = reuse_registry
         self.log = log or (lambda *_: None)
 
     # ------------------------------------------------------------------ util
@@ -66,8 +68,21 @@ class StagedSearch:
         if cached and cached.get("status") in ("completed", "failed"):
             return cached
         cfg = self.run_cfg_for(cand, stage, seed)
-        res = run_experiment(cfg, registry=self.registry, device=self.device, log=None,
-                             save_ckpt=stage.get("save_ckpt", True))
+        res = None
+        if self.reuse_registry:
+            h = stable_hash({k: v for k, v in cfg.items() if k not in ("output_dir", "tags")})
+            prior = [r for r in self.registry.find_by_hash(h, seed=seed)
+                     if r["status"] == "completed" and r.get("checkpoint")
+                     and Path(r["checkpoint"]).exists()]
+            if prior:
+                r0 = prior[-1]
+                res = {"experiment_id": r0["experiment_id"], "config_hash": h, "model": r0["model"],
+                       "seed": seed, "output_dir": str(Path(r0["checkpoint"]).parent),
+                       "checkpoint": r0["checkpoint"], "status": "completed",
+                       "summary": r0["metrics"], "reused": True}
+        if res is None:
+            res = run_experiment(cfg, registry=self.registry, device=self.device, log=None,
+                                 save_ckpt=stage.get("save_ckpt", True))
         slim = {k: v for k, v in res.items() if k != "metrics"}
         slim["candidate"] = cand.to_dict()
         slim["stage"] = st
