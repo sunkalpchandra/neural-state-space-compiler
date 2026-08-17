@@ -1,0 +1,19 @@
+# Smoke run on real EEG (EEGBCI tiny: S1 train / S2 val / S3 test, 8 ch, 32 Hz, T=128).
+# Checks the real-data path end to end; numbers here are NOT results (1 subject per split).
+dataset: {_file: configs/datasets/eegbci_tiny.yaml}
+model:
+  latent_dim: 8
+  encoder: {name: mlp, kwargs: {hidden_dims: [64]}}
+  decoder: {name: mlp, kwargs: {hidden_dims: [64]}}
+  dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64]}}
+windows: {context: 32, horizon: 32, stride: 16, batch_size: 32}
+training:
+  device: cpu          # torch.linalg.eigvals(float64) in stability analysis is unsupported on MPS
+  epochs: 2
+  lr: 0.001
+  rollout_horizon: 8
+  early_stopping_patience: 5
+  log_every: 1
+eval: {context: 32, horizons: [1, 5, 10, 25], stability_horizon: 32, latency: false}
+seed: 0
+tags: [eeg_smoke]
