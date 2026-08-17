@@ -1,0 +1,12 @@
+# Harmonic oscillator (linear, energy conserving) — sanity / linear-latent baseline.
+system: harmonic
+params: {omega: 1.0}
+n_traj: 64
+n_steps: 400
+dt: 0.05
+transient: 0
+seed: 0
+observation: {type: identity}
+noise_std: 0.0
+missing_rate: 0.0
+split: {fractions: [0.7, 0.15, 0.15], seed: 0}
