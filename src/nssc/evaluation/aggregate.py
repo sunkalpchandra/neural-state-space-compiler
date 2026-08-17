@@ -107,7 +107,14 @@ def format_markdown(rows: list[dict[str, Any]], metrics: list[str], labels: dict
         cells = [r["dataset"], r["model"], str(r["n_seeds"]), str(r.get("params"))]
         for k in metrics:
             mu, sd = r[k], r[f"{k}_std"]
-            cells.append("—" if not math.isfinite(mu) else (f"{mu:.4f} ± {sd:.4f}" if r["n_seeds"] > 1 else f"{mu:.4f}"))
+            if not math.isfinite(mu):
+                cells.append("—")
+            elif abs(mu) >= 1e3 and "params" not in k:
+                cells.append(f"diverged (>{1e3:.0e})")
+            elif float(mu).is_integer() and ("params" in k or "time" in k):
+                cells.append(f"{mu:.0f}" + (f" ± {sd:.1f}" if r["n_seeds"] > 1 and sd > 0 else ""))
+            else:
+                cells.append(f"{mu:.4f} ± {sd:.4f}" if r["n_seeds"] > 1 else f"{mu:.4f}")
         L.append("| " + " | ".join(cells) + " |")
     return "\n".join(L)
 
