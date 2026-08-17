@@ -28,33 +28,30 @@ next to the checkpoints) before the next stage starts.
 For a candidate `c` with validation metrics:
 
     J(c) = λ1 · L_recon(c) + λ2 · L_1step(c) + λ3 · L_rollout(c)
-         + λ4 · C_complexity(c) + λ5 · C_instability(c)
+         + λ4 · C_complexity(c) + λ5 · C_instability(c) + λ6 · blowup_frac(c)
 
-- `L_recon`  = validation reconstruction NRMSE (`D(E(x))` vs `x`).
-- `L_1step`  = validation teacher-forced NRMSE@1.
-- `L_rollout` = weighted mean of validation recursive NRMSE over horizons
-  `score.horizons` (default {10, 25, 50, 100}), weights `score.horizon_weights`
-  (default uniform in log-horizon), with diverged rollouts assigned NRMSE = `score.nrmse_cap`
-  (default 2.0). For chaotic datasets (flag from profile / config) `L_rollout` may add
-  `score.attractor_weight · attractor_stat_err`.
-- `C_complexity` = `α · log10(n_params / n_params_ref) + (1−α) · d / D` (defaults α = 0.5,
-  `n_params_ref` = smallest candidate's params), i.e. penalizes parameter count and
-  latent dimension; optionally latency (`score.use_latency`).
-- `C_instability` = `max(0, ρ_mean − 1) + max(0, λ̂₁ − λ_ref)⁺ + diverged_frac +
-  1[norm growth > growth_cap]` where `λ_ref` is the dataset's known/estimated leading
-  Lyapunov exponent if any (0 for dissipative non-chaotic systems), so a chaotic system
-  is not penalized for being chaotic but a latent model exploding faster than the data
-  is.
+Implementation: `nssc.compiler.scorer.MultiObjectiveScorer` (this section mirrors the code).
 
-Normalization: each term is min–max normalized across the surviving candidate set on
-validation only (`score.normalization: minmax | none | zscore`) so λ's are comparable;
-raw and normalized values are both stored. Default weights
-`λ = (1.0, 1.0, 2.0, 0.5, 1.0)`; `selection.criterion: val_mse` sets
-`λ = (0, 1, 0, 0, 0)` for the H2 ablation. Weights are config; changing them is a new
-`config_hash`.
+- Every error term is normalised **within the pool of candidates being ranked** as a
+  log-ratio to the best candidate: `L_x(c) = log(NRMSE_x(c) / min_c' NRMSE_x(c'))`, so
+  the best candidate contributes 0 and a candidate with 2× the error contributes
+  log 2 ≈ 0.69 regardless of dataset scale.
+  - `L_recon`: validation reconstruction NRMSE.
+  - `L_1step`: validation teacher-forced one-step NRMSE.
+  - `L_rollout`: validation recursive NRMSE at the longest horizon available for *all*
+    candidates in the pool (`objective.rollout_horizon_key: auto`), or an explicit key.
+- `C_complexity = log10(n_params(c) / min_c' n_params(c'))` — one unit per decade.
+- `C_instability = instability_score` from `nssc.stability.analyze_stability`
+  (2·blow-up fraction + collapse fraction + 0.5·max(0, ρ_max − 1) + 0.25·log norm ratio),
+  plus a separate `blowup_penalty × frac_blowup` term.
+- A missing/NaN term is replaced by a fixed penalty (5.0), never treated as free.
+- Seeds are aggregated by the mean of each summary metric before scoring; a candidate
+  with zero completed seeds gets J = ∞.
 
-The scorer also computes the Pareto set over `(L_rollout, C_complexity)` and flags
-whether the argmin-J candidate is on it (report field `chosen_is_pareto`).
+Default weights `(λ1..λ6) = (1.0, 1.0, 2.0, 0.1, 1.0, 10.0)`; see
+`configs/compiler/default.yaml`. Alternative criteria for ablations
+(`objective.criterion`): `val_mse` (J = ½L_recon + ½L_1step; H2 ablation) and
+`rollout_only`. Weights are configuration; changing them is a new experiment.
 
 ## Staged search: resumability
 
