@@ -8,17 +8,13 @@ justifies the choice. Everything below is driven by `configs/compiler/*.yaml`
 
 ## Stages
 
-| # | stage | input → output | notes |
-|---|-------|----------------|-------|
-| 0 | `profile` | dataset → `DatasetProfile` | D, T, n_traj, dt; PCA energy curve → `est_intrinsic_dim` (95 % / 99 % energy elbow, plus a nonlinear estimate — two-NN or correlation dimension on a subsample); autocorrelation time; spectral slope; stationarity flag; noise estimate (high-frequency residual). Cheap, deterministic, no training. |
-| 1 | `candidates` | profile + `candidate_space` → `list[Candidate]` | latent dims: config list or derived grid `{⌈n̂/2⌉, n̂, 2n̂, 4n̂}` clipped to `[d_min, d_max]`; encoders × dynamics × decoders from the registry (config may restrict); each candidate has a stable `candidate_id` = `f"{enc}_{dyn}_d{d}"`. Incompatible pairs (e.g. multi-scale encoder with non-multiscale dynamics) are dropped by a declared `compatible_with` set on the component, not by the compiler. |
-| 2 | `search.coarse` | candidates → survivors | short training budget (`stages.coarse.budget`: e.g. 15 epochs, 1 seed, subset of train trajectories), monitor validation `onestep` + `recursive nrmse@10`; keep top `stages.coarse.keep` (fraction or count) *plus* any candidate within `stages.coarse.slack` of the best (avoid discarding near-ties). |
-| 3 | `search.fine` | survivors → survivors | full training budget, seeds `stages.fine.seeds` (default 1–2), validation metrics at horizons up to 50; keep top-k. |
-| 4 | `search.long_horizon` | survivors → survivors | evaluate recursive rollouts on validation at all configured horizons (up to 500) + attractor stats for chaotic data; drop candidates with `diverged_frac > threshold` or `nrmse@H_long > threshold`. |
-| 5 | `stability` | survivors → stability metrics | `StabilityAnalyzer`: Jacobians at 100 sampled validation latents, spectral radius (mean/max), Benettin λ₁ estimate over 1000-step latent rollout, norm growth over 2000 free steps, NaN/inf checks. Computed in fp32 on CPU. |
-| 6 | `score` | metrics + complexity + stability → `ScoreBreakdown` per candidate | multi-objective J below; also records the Pareto set. |
-| 7 | `final` | best candidate → retrain on seeds `stages.final.seeds` (default 0–4), select seed by validation J, evaluate **once** on test, save `CompiledModel` | test metrics appear only here. |
-| 8 | `report` | `SearchState` → `compile_report.md/json` | see format below. |
+| # | stage | input → output | implementation |
+|---|-------|----------------|----------------|
+| 0 | `fit` (profile) | dataset → `DatasetProfile` (`profile.json`) | `nssc.compiler.profiler.profile_dataset`: shape/dt, PCA variance curve, Levina–Bickel MLE + correlation dimension, autocorrelation time, smoothness, noise estimate, stationarity, linear one-step/10-step R², Rosenstein Lyapunov proxy → `suggested_latent_dims` and hints (`likely_linear`, `likely_chaotic`, `noisy`, `long_memory`, `nonstationary`). No training. |
+| 1 | `propose` | profile + `candidates` config → `list[CandidateSpec]` (`candidates.json`) | `nssc.search.space.generate_candidates`: Cartesian product latent_dims × encoders × dynamics (× hidden_dims). `latent_dims: auto` uses the profile's suggestions. PCA is only paired with linear/affine dynamics; multi-scale encoder/dynamics must agree on `slow_dim`. `candidate.id = enc+dyn@d-<hash>`. |
+| 2..k | `search` — one entry per `stages:` item | survivors → survivors | `nssc.search.staged.StagedSearch`. Each stage trains every surviving candidate for `epochs` on `seeds` via `nssc.experiment.run_experiment` (so every run is an `EXP-####` with a checkpoint), evaluates on **validation**, ranks with the multi-objective score below, then prunes with `keep_top` / `keep_frac` while never discarding candidates within `score_tolerance` of the best. Default stages: `screen` (12–20 epochs, 1 seed, capped batches) → `fine` (50–60 epochs, 1 seed) → `final` (120–200 epochs, seeds 0–2). Stability metrics are part of every evaluation (`nssc.stability.analyze_stability`). Identical run configs already completed in the registry are reused (`reuse_registry`). |
+| k+1 | `compile` | final ranking → `CompiledModel` (`compiled_model.yaml`, `compile_report.{json,md}`) | winner = rank 1 of the last stage; its best-seed checkpoint (lowest validation rollout NRMSE) is loaded. The report's `reasons` are computed from the ranking (ratios vs best linear candidate, runner-up, smallest model; stability verdict). |
+| k+2 | `evaluate` (optional) | compiled model → test metrics | `StateSpaceCompiler.evaluate(compiled, split="test")` — the only place the test split is touched. |
 
 Every stage writes its outputs to `SearchState` and persists it (`search_state.json`
 next to the checkpoints) before the next stage starts.
