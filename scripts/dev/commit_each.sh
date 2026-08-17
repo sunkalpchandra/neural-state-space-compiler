@@ -5,7 +5,7 @@
 set -euo pipefail
 prefix="$1"; shift
 cd "$(git rev-parse --show-toplevel)"
-files=$(git status --porcelain -- "$@" | awk '{print $2}' | sort -u)
+files=$(git status --porcelain -uall -- "$@" | awk '{print $2}' | sort -u)
 n=0
 for f in $files; do
   [ -e "$f" ] || { git rm -q --cached "$f" 2>/dev/null || true; git commit -qm "$prefix: remove $f" && n=$((n+1)); continue; }
