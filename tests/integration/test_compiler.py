@@ -71,3 +71,22 @@ def test_compile_resume_skips_completed_runs(tmp_path):
     n_final_runs = len([k for k in comp2.searcher.state.data["runs"] if k.startswith("final|")])
     assert n_reg_after - n_reg_before == n_final_runs
     assert cm.report.n_runs == n_before + n_final_runs
+
+
+@pytest.mark.slow
+def test_second_compile_with_different_objective_reuses_runs(tmp_path):
+    """Ablation support: identical training runs are reused from the registry; only selection differs."""
+    reg = ExperimentRegistry(tmp_path / "reg.jsonl")
+    cfg = _cfg(tmp_path)
+    StateSpaceCompiler(cfg, device=torch.device("cpu"), registry=reg, log=None).run()
+    n1 = len(reg.records())
+    cfg2 = load_config(ROOT / "configs/compiler/tiny.yaml")
+    cfg2["output_dir"] = str(tmp_path / "compile_valmse")
+    cfg2["objective"] = {"criterion": "val_mse"}
+    comp2 = StateSpaceCompiler(cfg2, device=torch.device("cpu"), registry=reg, log=None)
+    cm2 = comp2.run()
+    reused = sum(1 for r in comp2.searcher.state.data["runs"].values() if r.get("reused"))
+    assert reused > 0
+    # only newly-needed runs (candidates pruned differently) were added
+    assert len(reg.records()) - n1 == len(comp2.searcher.state.data["runs"]) - reused
+    assert cm2.report.weights["criterion"] == "val_mse"
