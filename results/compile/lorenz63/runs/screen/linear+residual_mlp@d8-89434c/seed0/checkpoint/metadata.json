@@ -1,0 +1,90 @@
+{
+  "experiment_id": "EXP-0163",
+  "seed": 0,
+  "norm_stats": {
+    "mean": [
+      0.14303810894489288,
+      0.15000727772712708,
+      23.381959915161133
+    ],
+    "std": [
+      7.94410514831543,
+      9.113070487976074,
+      8.710152626037598
+    ]
+  },
+  "dataset": {
+    "system": "lorenz63",
+    "params": {
+      "sigma": 10.0,
+      "rho": 28.0,
+      "beta": 2.6666666666666665
+    },
+    "n_traj": 100,
+    "n_steps": 500,
+    "dt": 0.01,
+    "transient": 1000,
+    "seed": 0,
+    "observation": {
+      "type": "identity"
+    },
+    "noise_std": 0.0,
+    "missing_rate": 0.0,
+    "split": {
+      "fractions": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "seed": 0
+    },
+    "ood": {
+      "param": "rho",
+      "train_range": [
+        24.0,
+        32.0
+      ],
+      "test_values": [
+        20.0,
+        35.0
+      ]
+    }
+  },
+  "metrics_summary": {
+    "val/recon/nrmse": 0.019533166242014375,
+    "val/teacher_forced/nrmse": 0.009306287358398958,
+    "val/recursive/nrmse@1": 0.003518396385842564,
+    "val/recursive/nrmse@10": 0.005938718248855344,
+    "val/recursive/nrmse@25": 0.010152759901978147,
+    "val/recursive/nrmse@50": 0.0329493405974027,
+    "val/recursive/nrmse_mean": 0.0329493405974027,
+    "val/recursive/divergence_time": 51.0,
+    "val/params/total": 5315,
+    "val/latent_dim": 8,
+    "val/flops/dynamics_step": 10240,
+    "val/stability/instability_score": 0.051902592182159424,
+    "val/stability/rho_max": 1.1038051843643188,
+    "val/stability/lyapunov_max": 0.12692244350910187,
+    "val/stability/frac_blowup": 0.0,
+    "val/stability/verdict": "stable",
+    "test/recon/nrmse": 0.019831064689448213,
+    "test/teacher_forced/nrmse": 0.009542790376314033,
+    "test/recursive/nrmse@1": 0.007948373673826425,
+    "test/recursive/nrmse@10": 0.01312793557301504,
+    "test/recursive/nrmse@25": 0.013995575485777696,
+    "test/recursive/nrmse@50": 0.03341311980455526,
+    "test/recursive/nrmse_mean": 0.03341311980455526,
+    "test/recursive/divergence_time": 51.0,
+    "test/params/total": 5315,
+    "test/latent_dim": 8,
+    "test/flops/dynamics_step": 10240,
+    "test/stability/instability_score": 0.05167267710296064,
+    "test/stability/rho_max": 1.0948536396026611,
+    "test/stability/lyapunov_max": 0.584650456905365,
+    "test/stability/frac_blowup": 0.0,
+    "test/stability/verdict": "stable",
+    "train/best_val_loss": 0.0007116995402611792,
+    "train/epochs_run": 12,
+    "train/time_s": 24.161335666984087
+  }
+}
