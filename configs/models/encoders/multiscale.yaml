@@ -1,0 +1,10 @@
+name: multiscale
+kwargs:
+  slow_dim: null        # default latent_dim // 2
+  slow_window: 8
+  base: tcn
+  base_kwargs: {}
+  slow_encoder: tcn
+  slow_kwargs:
+    channels: 32
+    n_layers: 2

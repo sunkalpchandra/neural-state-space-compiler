@@ -1,0 +1,6 @@
+name: mlp
+kwargs:
+  hidden_dims: [128, 128]
+  activation: gelu
+  layernorm: false
+  dropout: 0.0

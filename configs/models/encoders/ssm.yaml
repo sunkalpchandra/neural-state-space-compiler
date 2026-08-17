@@ -1,0 +1,8 @@
+name: ssm
+kwargs:
+  d_model: 64
+  d_state: 16
+  n_layers: 2
+  expand: 2
+  dropout: 0.0
+  chunk: 32
