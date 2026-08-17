@@ -20,3 +20,12 @@ smoke:
 
 clean:
 	rm -rf .pytest_cache .ruff_cache build dist *.egg-info
+
+docs-api:
+	python scripts/gen_api_docs.py
+
+figures:
+	python scripts/generate_report.py
+
+dashboard:
+	nssc dashboard
