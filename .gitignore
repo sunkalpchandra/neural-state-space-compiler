@@ -25,3 +25,4 @@ node_modules/
 dashboard/frontend/dist/
 results/registry_smoke.jsonl
 results/raw/smoke/
+results/logs/
