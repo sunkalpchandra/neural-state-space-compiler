@@ -1,0 +1,5 @@
+# Ablation: select purely by validation long-horizon rollout error.
+_base_: ../lorenz63.yaml
+objective: {criterion: rollout_only}
+output_dir: results/compile/ablations/lorenz63_rollout_only
+tags: [compiler, lorenz63, ablation:rollout_only]
