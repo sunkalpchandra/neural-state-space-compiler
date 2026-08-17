@@ -1,5 +1,5 @@
 # Reference run: damped_oscillator, MLP AE (d=2) + residual MLP dynamics.
-dataset: {_file: configs/datasets/lorenz63.yaml}
+dataset: {_file: configs/datasets/damped_oscillator.yaml}
 model:
   latent_dim: 2
   encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}
