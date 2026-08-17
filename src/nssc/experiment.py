@@ -105,6 +105,15 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
                 m = evaluate_model(model, x, ecfg, sigma=sigma, device=device,
                                    dt=float(raw.metadata.get("dt", dcfg.get("dt", 1.0)) or 1.0))
                 metrics[split_name] = m
+        if getattr(model.dynamics, "is_stochastic", False) and "test" in splits:
+            from nssc.uncertainty import evaluate_uncertainty
+
+            unc = evaluate_uncertainty(model, torch.from_numpy(splits["test"].x).to(device),
+                                       context=ecfg.context,
+                                       horizon=min(100, splits["test"].x.shape[1] - ecfg.context))
+            metrics["test"]["uncertainty"] = unc
+            for k in ("nll", "coverage95", "ece", "sharpness", "std_error_corr"):
+                metrics["test"][f"uncertainty/{k}"] = unc[k]
         metrics["train/best_val_loss"] = fit["best_val"]
         metrics["train/epochs_run"] = fit["epochs_run"]
         metrics["train/time_s"] = fit["train_time_s"]
@@ -138,7 +147,8 @@ SUMMARY_KEYS = ("recon/nrmse", "teacher_forced/nrmse", "recursive/nrmse@1", "rec
                 "recursive/nrmse@500", "recursive/nrmse_mean", "recursive/divergence_time",
                 "params/total", "latent_dim", "latency/step_latency_ms_mean", "flops/dynamics_step",
                 "stability/instability_score", "stability/rho_max", "stability/lyapunov_max",
-                "stability/frac_blowup", "stability/verdict")
+                "stability/frac_blowup", "stability/verdict", "uncertainty/nll", "uncertainty/coverage95",
+                "uncertainty/ece", "uncertainty/std_error_corr")
 
 
 def summarize(metrics: dict[str, Any]) -> dict[str, Any]:
