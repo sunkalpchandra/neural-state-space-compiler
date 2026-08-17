@@ -1,0 +1,14 @@
+# Control for decision D-008: does training the GRU baseline with a recursive rollout loss
+# (like the latent models) change its long-horizon error? Lorenz-63, 5 seeds.
+name: baseline_rollout_control
+datasets:
+  lorenz63: {_file: configs/datasets/lorenz63.yaml}
+seeds: [0, 1, 2, 3, 4]
+windows: {context: 20, horizon: 40, stride: 5, batch_size: 64}
+training: {epochs: 40, lr: 0.002, rollout_horizon: 20, early_stopping_patience: 15,
+           max_batches_per_epoch: 60, context: 20, log_every: 100, rollout_weight: 1.0}
+eval: {context: 20, horizons: [1, 5, 10, 25, 50, 100, 250], stability_horizon: 300}
+baselines:
+  gru_medium_rollout: {baseline: gru, size: medium}
+  lstm_medium_rollout: {baseline: lstm, size: medium}
+output_dir: results/raw/benchmarks/baseline_rollout_control
