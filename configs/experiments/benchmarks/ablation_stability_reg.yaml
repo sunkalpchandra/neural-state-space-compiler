@@ -1,0 +1,25 @@
+# H4 ablation (Experiment K): stability regularisation weight sweep on Lorenz-63 for
+# residual-MLP and Koopman latent dynamics. Readouts: rollout NRMSE@{50,100,250},
+# blow-up fraction over the 300-step stability rollout, ρ_max, λ_max.
+name: ablation_stability_reg
+datasets:
+  lorenz63: {_file: configs/datasets/lorenz63.yaml}
+seeds: [0, 1, 2, 3, 4]
+windows: {context: 20, horizon: 40, stride: 5, batch_size: 64}
+training: {epochs: 40, lr: 0.002, rollout_horizon: 20, early_stopping_patience: 15,
+           max_batches_per_epoch: 60, log_every: 100}
+eval: {context: 20, horizons: [1, 5, 10, 25, 50, 100, 250], stability_horizon: 300}
+models:
+  resmlp_stab0:    {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}, decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64, 64]}}, _training: {loss: {stability: 0.0}}}
+  resmlp_stab0.01: {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}, decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64, 64]}}, _training: {loss: {stability: 0.01}}}
+  resmlp_stab0.1:  {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}, decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64, 64]}}, _training: {loss: {stability: 0.1}}}
+  resmlp_stab1:    {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}, decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64, 64]}}, _training: {loss: {stability: 1.0}}}
+  koopman_stab0:   {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}, decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: koopman, kwargs: {hidden_dims: [64, 64]}}, _training: {loss: {stability: 0.0}}}
+  koopman_stab0.1: {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}}, decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: koopman, kwargs: {hidden_dims: [64, 64]}}, _training: {loss: {stability: 0.1}}}
+output_dir: results/raw/benchmarks/ablation_stability_reg
