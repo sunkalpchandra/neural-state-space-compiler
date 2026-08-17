@@ -43,3 +43,13 @@ def test_train_command_registers(tmp_path, monkeypatch):
     assert r.exit_code == 0 and "EXP-0001" in r.output
     r = runner.invoke(app, ["report", "--experiment", "EXP-0001"])
     assert r.exit_code == 0 and "EXP-0001" in r.output
+
+
+def test_failures_command(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    runner.invoke(app, ["train", "--config", str(ROOT / "configs/experiments/smoke.yaml"),
+                        "--set", f"dataset._file={ROOT / 'configs/datasets/tiny_smoke.yaml'}",
+                        "--device", "cpu", "--output", str(tmp_path / "run")])
+    r = runner.invoke(app, ["failures", "--output", str(tmp_path / "f.md")])
+    assert r.exit_code == 0, r.output
+    assert "EXP-0001" in (tmp_path / "f.md").read_text()
