@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nssc · dynamical-system explorer</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+<header id="statusbar">
+  <div class="brand"><span class="mark">nssc</span><span class="sub">dynamical-system explorer</span></div>
+  <div class="kv" id="status-kv">
+    <span class="kv-item"><label>experiment</label><b id="st-exp">—</b></span>
+    <span class="kv-item"><label>model</label><b id="st-model">—</b></span>
+    <span class="kv-item"><label>dataset</label><b id="st-dataset">—</b></span>
+    <span class="kv-item"><label>params</label><b id="st-params">—</b></span>
+    <span class="kv-item"><label>latent d</label><b id="st-d">—</b></span>
+    <span class="kv-item"><label>obs D</label><b id="st-D">—</b></span>
+    <span class="kv-item"><label>test traj × T</label><b id="st-nT">—</b></span>
+    <span class="kv-item"><label>dynamics</label><b id="st-dyn">—</b></span>
+    <span class="kv-item"><label>commit</label><b id="st-commit">—</b></span>
+  </div>
+  <div class="net" id="net"><span class="dot"></span><span id="net-text">idle</span></div>
+</header>
+
+<div id="layout">
+  <aside id="sidebar">
+    <section class="ctl">
+      <h3>source</h3>
+      <select id="source"><option value="">— scanning results/ —</option></select>
+      <div class="row">
+        <button id="btn-load" class="primary">load</button>
+        <button id="btn-rescan" title="rescan registries and compile dirs">rescan</button>
+      </div>
+      <div class="hint" id="source-hint">completed runs with a checkpoint on disk; compile dirs with a report</div>
+    </section>
+
+    <section class="ctl">
+      <h3>trajectory</h3>
+      <div class="field">
+        <label>test index <span class="val" id="idx-val">0</span></label>
+        <input type="range" id="idx" min="0" max="0" value="0" step="1">
+      </div>
+      <div class="field">
+        <label>context length <span class="val" id="context-val">20</span></label>
+        <input type="range" id="context" min="1" max="100" value="20" step="1">
+      </div>
+      <div class="field">
+        <label>rollout horizon <span class="val" id="horizon-val">50</span></label>
+        <input type="range" id="horizon" min="1" max="100" value="50" step="1">
+      </div>
+      <div class="field checkbox">
+        <label><input type="checkbox" id="envelope" checked> ±2σ envelope <span class="muted" id="env-method"></span></label>
+      </div>
+    </section>
+
+    <section class="ctl">
+      <h3>latent planes</h3>
+      <div class="field inline">
+        <label>phase</label>
+        <select id="ph-a" class="dimsel"></select>
+        <select id="ph-b" class="dimsel"></select>
+        <select id="ph-c" class="dimsel"></select>
+      </div>
+      <div class="field inline">
+        <label>field</label>
+        <select id="fd-a" class="dimsel"></select>
+        <select id="fd-b" class="dimsel"></select>
+        <select id="fd-grid"><option>13</option><option selected>21</option><option>29</option><option>41</option></select>
+      </div>
+    </section>
+
+    <section class="ctl">
+      <h3>counterfactual z₀</h3>
+      <div class="hint">initial latent at end of context; edit to re-decode</div>
+      <div id="cf-sliders"></div>
+      <div class="row">
+        <button id="btn-perturb">perturb ε</button>
+        <input type="number" id="cf-eps" value="0.1" step="0.05" min="0" title="ε (latent units)">
+        <button id="btn-cf-reset">reset</button>
+      </div>
+      <div class="hint" id="cf-info"></div>
+    </section>
+
+    <section class="ctl footer">
+      <div class="hint">data are train-normalised (σ≈1); NRMSE relative to trajectory RMS. eval mode: <code>recursive</code>.</div>
+    </section>
+  </aside>
+
+  <main id="panels">
+    <section class="panel" id="p-raw">
+      <header><span class="num">1</span><span class="title">raw signal</span><span class="meta" id="m-raw"></span></header>
+      <div class="plot" id="plot-raw"></div>
+    </section>
+    <section class="panel" id="p-latent">
+      <header><span class="num">2</span><span class="title">learned latent state z</span><span class="meta" id="m-latent"></span></header>
+      <div class="plot" id="plot-latent"></div>
+    </section>
+    <section class="panel" id="p-phase">
+      <header><span class="num">3</span><span class="title">latent phase portrait</span><span class="meta" id="m-phase"></span></header>
+      <div class="plot" id="plot-phase"></div>
+    </section>
+    <section class="panel" id="p-pred">
+      <header><span class="num">4</span><span class="title">true vs predicted (recursive)</span><span class="meta" id="m-pred"></span></header>
+      <div class="plot" id="plot-pred"></div>
+    </section>
+    <section class="panel" id="p-field">
+      <header><span class="num">5</span><span class="title">dynamics field F(z) − z</span><span class="meta" id="m-field"></span></header>
+      <div class="plot" id="plot-field"></div>
+    </section>
+    <section class="panel" id="p-stab">
+      <header><span class="num">6</span><span class="title">local stability · eig ∂F/∂z</span><span class="meta" id="m-stab"></span></header>
+      <div class="plot" id="plot-stab"></div>
+    </section>
+    <section class="panel wide" id="p-compile">
+      <header><span class="num">7</span><span class="title">compiler decision</span><span class="meta" id="m-compile"></span></header>
+      <div class="compile-body">
+        <div class="compile-table" id="compile-table"></div>
+        <div class="plot" id="plot-compile"></div>
+        <div class="compile-side">
+          <div class="reasons"><h4>reasons</h4><ul id="compile-reasons"></ul></div>
+          <div class="funnel"><h4>stage funnel</h4><div id="compile-funnel"></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="panel" id="p-cf">
+      <header><span class="num">8</span><span class="title">counterfactual rollout</span><span class="meta" id="m-cf"></span></header>
+      <div class="plot" id="plot-cf"></div>
+    </section>
+  </main>
+</div>
+
+<div id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
