@@ -75,14 +75,14 @@ class LatentDynamicsLoss:
         total = (w.recon * comps["recon"] + w.latent_1step * comps["latent_1step"]
                  + w.obs_1step * comps["obs_1step"] + w.rollout * comps["rollout"]
                  + w.stability * comps["stability"])
+        if hasattr(model.dynamics, "consistency_loss"):
+            # Koopman-style models cache this so it also appears in extra_losses();
+            # call it first so the cached value is for the current batch.
+            model.dynamics.consistency_loss(z_prev.reshape(-1, z.shape[-1]),
+                                            target_z.reshape(-1, z.shape[-1]))
         for k, v in model.dynamics.extra_losses().items():
             comps[k] = v
             total = total + w.extra.get(k, 1.0) * v
-        if hasattr(model.dynamics, "consistency_loss"):
-            c = model.dynamics.consistency_loss(z_prev.reshape(-1, z.shape[-1]),
-                                                z_next.reshape(-1, z.shape[-1]))
-            comps["koopman_consistency"] = c
-            total = total + w.extra.get("koopman_consistency", 1.0) * c
         return total, {k: float(v.detach()) for k, v in comps.items()}
 
     def stability_penalty(self, model: LatentModel, z: Tensor) -> Tensor:
