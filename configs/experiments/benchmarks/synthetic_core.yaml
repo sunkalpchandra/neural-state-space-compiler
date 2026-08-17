@@ -1,0 +1,45 @@
+# Core synthetic benchmark (Experiment D / Gate D): hand-picked latent state-space models vs
+# sequence-model baselines on three systems, 5 seeds. The compiler-selected model is added
+# afterwards via configs/experiments/benchmarks/compiled_vs_manual.yaml (Experiment L).
+name: synthetic_core
+datasets:
+  lorenz63: {_file: configs/datasets/lorenz63.yaml}
+  vanderpol: {_file: configs/datasets/vanderpol.yaml}
+  lorenz63_highdim: {_file: configs/datasets/lorenz63_highdim.yaml}
+seeds: [0, 1, 2, 3, 4]
+windows: {context: 20, horizon: 40, stride: 5, batch_size: 64}
+training:
+  epochs: 40
+  lr: 0.002
+  rollout_horizon: 20
+  early_stopping_patience: 15
+  max_batches_per_epoch: 60
+  # baselines: teacher-forced only (decision D-008); latent models use their rollout loss
+  rollout_weight: 0.0
+  context: 20
+  log_every: 100
+eval: {context: 20, horizons: [1, 5, 10, 25, 50, 100, 250], stability_horizon: 300}
+models:
+  pca_linear_d3: {latent_dim: 3, encoder: pca, decoder: pca, dynamics: linear}
+  linae_linear_d3: {latent_dim: 3, encoder: linear, decoder: linear, dynamics: linear}
+  mlpae_mlp_d3: {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                 decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                 dynamics: {name: mlp, kwargs: {hidden_dims: [64, 64]}}}
+  mlpae_resmlp_d3: {latent_dim: 3, encoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    decoder: {name: mlp, kwargs: {hidden_dims: [64, 64]}},
+                    dynamics: {name: residual_mlp, kwargs: {hidden_dims: [64, 64]}}}
+baselines:
+  persistence: {baseline: persistence}
+  gru_medium: {baseline: gru, size: medium}
+  lstm_medium: {baseline: lstm, size: medium}
+  tcn_small: {baseline: tcn, size: small}
+  transformer_small: {baseline: transformer, size: small}
+  ssm_small: {baseline: ssm, size: small}
+per_dataset:
+  vanderpol:
+    models:
+      pca_linear_d3: {latent_dim: 2, encoder: pca, decoder: pca, dynamics: linear}
+      linae_linear_d3: {latent_dim: 2, encoder: linear, decoder: linear, dynamics: linear}
+      mlpae_mlp_d3: {latent_dim: 2}
+      mlpae_resmlp_d3: {latent_dim: 2}
+output_dir: results/raw/benchmarks/synthetic_core
