@@ -1,0 +1,16 @@
+# Lorenz-96 (N=8, F=8): higher-dimensional chaos; latent dim expected ≈ N.
+_base_: default.yaml
+dataset: {_file: configs/datasets/lorenz96.yaml}
+candidates:
+  latent_dims: [4, 8, 16]
+  encoders: [pca, linear, mlp, gru]
+  dynamics: [linear, residual_mlp, koopman, ssm]
+  hidden_dims: [96]
+stages:
+  - {name: screen, epochs: 12, seeds: [0], keep_frac: 0.35, score_tolerance: 0.15,
+     max_batches_per_epoch: 50,
+     eval: {horizons: [1, 5, 10, 25, 50], stability_horizon: 100, latency: false}}
+  - {name: fine, epochs: 50, seeds: [0], keep_top: 3}
+  - {name: final, epochs: 100, seeds: [0, 1, 2]}
+output_dir: results/compile/lorenz96
+tags: [compiler, lorenz96]
