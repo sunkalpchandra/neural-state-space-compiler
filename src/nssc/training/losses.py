@@ -80,6 +80,10 @@ class LatentDynamicsLoss:
             # call it first so the cached value is for the current batch.
             model.dynamics.consistency_loss(z_prev.reshape(-1, z.shape[-1]),
                                             target_z.reshape(-1, z.shape[-1]))
+        if getattr(model.dynamics, "is_stochastic", False) and hasattr(model.dynamics, "nll"):
+            nll = model.dynamics.nll(z_prev.reshape(-1, z.shape[-1]), target_z.reshape(-1, z.shape[-1]))
+            comps["latent_nll"] = nll
+            total = total + w.extra.get("latent_nll", 1.0) * nll
         for k, v in model.dynamics.extra_losses().items():
             comps[k] = v
             total = total + w.extra.get(k, 1.0) * v
