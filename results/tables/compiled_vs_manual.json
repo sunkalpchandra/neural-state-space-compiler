@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "dataset": "lorenz63",
+      "model": "runnerup_linear_koopman_d3",
+      "n_seeds": 5,
+      "params": 5169,
+      "test/recursive/nrmse@1": 0.0037878787341298105,
+      "test/recursive/nrmse@1_std": 0.005107260614747244,
+      "test/recursive/nrmse@1_ci": [
+        0.0013066822381419831,
+        0.008404477297990475
+      ],
+      "test/recursive/nrmse@10": 0.005829442790061041,
+      "test/recursive/nrmse@10_std": 0.0026268119341490395,
+      "test/recursive/nrmse@10_ci": [
+        0.004022518126158977,
+        0.007943348973798666
+      ],
+      "test/recursive/nrmse@50": 0.011641856492875736,
+      "test/recursive/nrmse@50_std": 0.007768902666436462,
+      "test/recursive/nrmse@50_ci": [
+        0.006963313831774666,
+        0.018666138308302795
+      ],
+      "test/recursive/nrmse@100": 0.06301438124429523,
+      "test/recursive/nrmse@100_std": 0.0993588768081553,
+      "test/recursive/nrmse@100_ci": [
+        0.0139899828108852,
+        0.15302127789483458
+      ],
+      "test/recursive/nrmse@250": 0.19333572801064602,
+      "test/recursive/nrmse@250_std": 0.2528453661045456,
+      "test/recursive/nrmse@250_ci": [
+        0.05797294799733368,
+        0.4201800314542206
+      ],
+      "test/recursive/nrmse_mean": 0.19333572801064602,
+      "test/recursive/nrmse_mean_std": 0.2528453661045456,
+      "test/recursive/nrmse_mean_ci": [
+        0.05797294799733368,
+        0.4201800314542206
+      ],
+      "test/recursive/divergence_time": 219.6,
+      "test/recursive/divergence_time_std": 70.2125344934934,
+      "test/recursive/divergence_time_ci": [
+        156.8,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.00486946970982322,
+      "test/teacher_forced/nrmse_std": 0.008412409071121597,
+      "test/teacher_forced/nrmse_ci": [
+        0.0007888250255244521,
+        0.012398289234898704
+      ],
+      "test/params/total": 5169.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        5169.0,
+        5169.0
+      ]
+    }
+  ],
+  "paired_tests": {},
+  "metrics": [
+    "test/recursive/nrmse@1",
+    "test/recursive/nrmse@10",
+    "test/recursive/nrmse@50",
+    "test/recursive/nrmse@100",
+    "test/recursive/nrmse@250",
+    "test/recursive/nrmse_mean",
+    "test/recursive/divergence_time",
+    "test/teacher_forced/nrmse",
+    "test/params/total"
+  ]
+}
