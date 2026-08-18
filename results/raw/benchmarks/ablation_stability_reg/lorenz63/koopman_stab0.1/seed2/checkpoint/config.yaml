@@ -1,0 +1,20 @@
+latent_dim: 3
+encoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+dynamics:
+  name: koopman
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+obs_dim: 3
