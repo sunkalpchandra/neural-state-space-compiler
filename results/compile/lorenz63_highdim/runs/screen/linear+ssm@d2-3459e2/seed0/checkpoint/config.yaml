@@ -1,0 +1,11 @@
+latent_dim: 2
+encoder:
+  name: linear
+  kwargs: {}
+decoder:
+  name: linear
+  kwargs: {}
+dynamics:
+  name: ssm
+  kwargs: {}
+obs_dim: 64
