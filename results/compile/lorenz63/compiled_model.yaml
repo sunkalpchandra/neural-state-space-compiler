@@ -1,0 +1,22 @@
+model:
+  latent_dim: 3
+  encoder:
+    name: mlp
+    kwargs:
+      hidden_dims:
+      - 64
+      - 64
+  decoder:
+    name: mlp
+    kwargs:
+      hidden_dims:
+      - 64
+      - 64
+  dynamics:
+    name: residual_mlp
+    kwargs:
+      hidden_dims:
+      - 64
+      - 64
+checkpoint: results/compile/lorenz63/runs/final/mlp+residual_mlp@d3-5fa02e/seed0/checkpoint
+experiment_id: EXP-0353
