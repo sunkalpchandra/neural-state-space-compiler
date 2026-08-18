@@ -277,9 +277,9 @@
     "params/total": 0,
     "latent_dim": null,
     "mode": "recursive",
-    "latency/step_latency_ms_mean": 0.0034126497339457273,
-    "latency/step_latency_ms_std": 0.0008102217689156532,
-    "latency/step_latency_ms_min": 0.002834014594554901
+    "latency/step_latency_ms_mean": 0.003631399944424629,
+    "latency/step_latency_ms_std": 0.0005557054537348449,
+    "latency/step_latency_ms_min": 0.003375000087544322
   },
   "test": {
     "teacher_forced/mse": 0.0056967587179800805,
@@ -559,13 +559,13 @@
     "params/total": 0,
     "latent_dim": null,
     "mode": "recursive",
-    "latency/step_latency_ms_mean": 0.002964399755001068,
-    "latency/step_latency_ms_std": 0.00012299130321480334,
-    "latency/step_latency_ms_min": 0.0027919886633753777
+    "latency/step_latency_ms_mean": 0.003045750083401799,
+    "latency/step_latency_ms_std": 0.0002010842872550711,
+    "latency/step_latency_ms_min": 0.0028750000055879354
   },
   "train/best_val_loss": 0.005674884166745912,
   "train/epochs_run": 1,
-  "train/time_s": 0.1056795000040438,
+  "train/time_s": 0.12203195899996899,
   "train/final": {
     "epoch": 0,
     "lr": 0.002,
@@ -574,6 +574,6 @@
     "train/total": 0.005498297365071873,
     "val/teacher_forced": 0.005674884166745912,
     "val/total": 0.005674884166745912,
-    "time_s": 0.10556587501196191
+    "time_s": 0.12187616699998216
   }
 }
