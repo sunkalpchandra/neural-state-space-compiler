@@ -1,0 +1,121 @@
+dataset:
+  system: lorenz63
+  params:
+    sigma: 10.0
+    rho: 28.0
+    beta: 2.6666666666666665
+  n_traj: 100
+  n_steps: 500
+  dt: 0.01
+  transient: 1000
+  seed: 0
+  observation:
+    type: identity
+  noise_std: 0.0
+  missing_rate: 0.0
+  split:
+    fractions:
+    - 0.7
+    - 0.15
+    - 0.15
+    seed: 0
+  ood:
+    param: rho
+    train_range:
+    - 24.0
+    - 32.0
+    test_values:
+    - 20.0
+    - 35.0
+windows:
+  context: 20
+  horizon: 40
+  stride: 5
+  batch_size: 64
+training:
+  lr: 0.002
+  weight_decay: 1.0e-05
+  grad_clip: 1.0
+  rollout_horizon: 20
+  rollout_curriculum: true
+  early_stopping_patience: 25
+  loss:
+    recon: 1.0
+    latent_1step: 1.0
+    obs_1step: 1.0
+    rollout: 1.0
+    stability: 0.0
+eval:
+  context: 20
+  horizons:
+  - 1
+  - 5
+  - 10
+  - 25
+  - 50
+  - 100
+  - 250
+  - 500
+  stability_horizon: 300
+candidates:
+  latent_dims:
+  - 2
+  - 3
+  - 4
+  - 8
+  encoders:
+  - pca
+  - linear
+  - mlp
+  - tcn
+  - gru
+  dynamics:
+  - linear
+  - residual_mlp
+  - koopman
+  - name: neural_ode
+    kwargs:
+      n_substeps: 1
+  - ssm
+  hidden_dims:
+  - 64
+stages:
+- name: screen
+  epochs: 12
+  seeds:
+  - 0
+  keep_frac: 0.35
+  score_tolerance: 0.15
+  max_batches_per_epoch: 50
+  eval:
+    horizons:
+    - 1
+    - 5
+    - 10
+    - 25
+    - 50
+    stability_horizon: 100
+    latency: false
+- name: fine
+  epochs: 50
+  seeds:
+  - 0
+  keep_top: 4
+- name: final
+  epochs: 120
+  seeds:
+  - 0
+  - 1
+  - 2
+objective:
+  reconstruction: 1.0
+  one_step: 1.0
+  rollout: 2.0
+  complexity: 0.1
+  stability: 1.0
+  blowup_penalty: 10.0
+  criterion: multi_objective
+output_dir: results/compile/lorenz63
+tags:
+- compiler
+- lorenz63
