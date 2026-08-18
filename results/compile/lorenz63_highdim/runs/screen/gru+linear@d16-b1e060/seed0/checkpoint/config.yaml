@@ -1,0 +1,14 @@
+latent_dim: 16
+encoder:
+  name: gru
+  kwargs: {}
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+dynamics:
+  name: linear
+  kwargs: {}
+obs_dim: 64
