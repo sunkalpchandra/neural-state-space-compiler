@@ -40,7 +40,11 @@ def dominated_area(pts: list[dict[str, Any]], ref_error: float | None = None) ->
     front = sorted([p for p in pts if p["pareto"] and math.isfinite(p["error"])], key=lambda p: p["cost"] or 1)
     if not front:
         return float("nan")
-    ref = ref_error if ref_error is not None else max(p["error"] for p in pts if math.isfinite(p["error"]))
+    if ref_error is None:  # reference = persistence error if present, else capped max (diverged runs excluded)
+        pers = [p["error"] for p in pts if p["model"] == "persistence" and math.isfinite(p["error"])]
+        ref = pers[0] if pers else min(2.0, max(p["error"] for p in pts if math.isfinite(p["error"])))
+    else:
+        ref = ref_error
     xmax = math.log10(max(max(p["cost"] or 1 for p in pts), 1))
     area, prev_x = 0.0, math.log10(max(front[0]["cost"] or 1, 1))
     cur = front[0]["error"]
