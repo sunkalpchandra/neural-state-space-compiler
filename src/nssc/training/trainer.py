@@ -38,7 +38,8 @@ class TrainerConfig:
     log_every: int = 10
     max_batches_per_epoch: int | None = None  # for smoke tests / screening
     device: str | None = None
-    amp: bool = False
+    amp: bool = False  # bf16 autocast on CUDA only (MPS/CPU run fp32; numerically safer)
+    compile: bool = False  # torch.compile the dynamics step (opt-in; helps large batched rollouts)
 
 
 class Trainer:
@@ -54,6 +55,12 @@ class Trainer:
                                           rollout_stride=cfg.rollout_stride)
         params = [p for p in model.parameters() if p.requires_grad]
         self.opt = torch.optim.AdamW(params, lr=cfg.lr, weight_decay=cfg.weight_decay) if params else None
+        if cfg.compile and hasattr(torch, "compile"):
+            try:
+                self.model.dynamics.step = torch.compile(self.model.dynamics.step)  # type: ignore[assignment]
+            except Exception:  # noqa: BLE001 — compile is best-effort
+                pass
+        self.use_amp = bool(cfg.amp and self.device.type == "cuda")
         self.history: list[dict[str, Any]] = []
         self.best_state: dict[str, Tensor] | None = None
         self.best_val = math.inf
@@ -114,7 +121,8 @@ class Trainer:
             if self.cfg.max_batches_per_epoch and i >= self.cfg.max_batches_per_epoch:
                 break
             x = self._batch_x(batch)
-            total, comps = self.loss_fn(self.model, x)
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16, enabled=self.use_amp):
+                total, comps = self.loss_fn(self.model, x)
             if self.opt is not None:
                 self.opt.zero_grad(set_to_none=True)
                 total.backward()
