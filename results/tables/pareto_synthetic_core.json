@@ -1,0 +1,150 @@
+{
+  "lorenz63": [
+    {
+      "model": "persistence",
+      "cost": 0,
+      "error": 1.2950332134522764,
+      "error_std": 0.0,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    },
+    {
+      "model": "pca_linear_d3",
+      "cost": 9,
+      "error": 1.0094985088004127,
+      "error_std": 0.011794535052240802,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": true
+    },
+    {
+      "model": "linae_linear_d3",
+      "cost": 33,
+      "error": 20.477479985917693,
+      "error_std": 31.167220460841968,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": false
+    },
+    {
+      "model": "mlpae_mlp_d3",
+      "cost": 13833,
+      "error": 0.0959506589001208,
+      "error_std": 0.057958278947411825,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": false
+    },
+    {
+      "model": "mlpae_resmlp_d3",
+      "cost": 13833,
+      "error": 0.007593889468735638,
+      "error_std": 0.0009687181979218185,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": true
+    },
+    {
+      "model": "ssm_small",
+      "cost": 14691,
+      "error": 0.09773669043051941,
+      "error_std": 0.04007393858734253,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "tcn_small",
+      "cost": 16867,
+      "error": 0.02360126134566479,
+      "error_std": 0.005631655668120757,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "transformer_small",
+      "cost": 42083,
+      "error": 0.18996364430263835,
+      "error_std": 0.04396259714314097,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "gru_medium",
+      "cost": 150531,
+      "error": 0.012523443207824236,
+      "error_std": 0.0017465068811062742,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "lstm_medium",
+      "cost": 200579,
+      "error": 0.007729807309843376,
+      "error_std": 0.0012893622487264902,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    }
+  ],
+  "vanderpol": [
+    {
+      "model": "persistence",
+      "cost": 0,
+      "error": 1.0771980394220273,
+      "error_std": 0.0,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    },
+    {
+      "model": "pca_linear_d3",
+      "cost": 4,
+      "error": 0.36282161975078797,
+      "error_std": 0.002676009920422379,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": true
+    },
+    {
+      "model": "linae_linear_d3",
+      "cost": 16,
+      "error": 0.3979417249151903,
+      "error_std": 0.02664550187734147,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": false
+    },
+    {
+      "model": "mlpae_mlp_d3",
+      "cost": 13446,
+      "error": 0.00278607823453103,
+      "error_std": 0.0007635932922061199,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": false
+    },
+    {
+      "model": "mlpae_resmlp_d3",
+      "cost": 13446,
+      "error": 0.0025932469475878563,
+      "error_std": 0.0008880822030914027,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": true
+    },
+    {
+      "model": "gru_medium",
+      "cost": 150018,
+      "error": 0.015816395623763538,
+      "error_std": 0.01655539589189766,
+      "n_seeds": 4,
+      "kind": "baseline",
+      "pareto": false
+    }
+  ]
+}
