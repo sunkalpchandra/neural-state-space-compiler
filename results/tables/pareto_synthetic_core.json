@@ -138,13 +138,141 @@
       "pareto": true
     },
     {
-      "model": "gru_medium",
-      "cost": 150018,
-      "error": 0.015816395623763538,
-      "error_std": 0.01655539589189766,
-      "n_seeds": 4,
+      "model": "ssm_small",
+      "cost": 14626,
+      "error": 0.0244092155328789,
+      "error_std": 0.006630910631438191,
+      "n_seeds": 5,
       "kind": "baseline",
       "pareto": false
+    },
+    {
+      "model": "tcn_small",
+      "cost": 16802,
+      "error": 0.005725768201924007,
+      "error_std": 0.00297174627171582,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "transformer_small",
+      "cost": 42018,
+      "error": 0.14296258044474958,
+      "error_std": 0.036594258828699384,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "gru_medium",
+      "cost": 150018,
+      "error": 0.015767355292556427,
+      "error_std": 0.014337812755909493,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "lstm_medium",
+      "cost": 199938,
+      "error": 0.002367898382254458,
+      "error_std": 0.0005505318067131107,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    }
+  ],
+  "lorenz63_highdim": [
+    {
+      "model": "persistence",
+      "cost": 0,
+      "error": 1.2553086807437301,
+      "error_std": 0.0,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    },
+    {
+      "model": "pca_linear_d3",
+      "cost": 9,
+      "error": 1.1260853690099089,
+      "error_std": 0.007724144378791493,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": true
+    },
+    {
+      "model": "linae_linear_d3",
+      "cost": 460,
+      "error": 1.0596588570565157,
+      "error_std": 0.011088015596494385,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": true
+    },
+    {
+      "model": "ssm_small",
+      "cost": 18656,
+      "error": 0.30906288738196797,
+      "error_std": 0.048110707013627144,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    },
+    {
+      "model": "tcn_small",
+      "cost": 20832,
+      "error": 0.19239721888182562,
+      "error_std": 0.01264067237256714,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    },
+    {
+      "model": "mlpae_mlp_d3",
+      "cost": 21702,
+      "error": 0.8590410663051602,
+      "error_std": 0.07419872156343792,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": false
+    },
+    {
+      "model": "mlpae_resmlp_d3",
+      "cost": 21702,
+      "error": 0.9541934477812515,
+      "error_std": 0.4214201459362603,
+      "n_seeds": 5,
+      "kind": "latent",
+      "pareto": false
+    },
+    {
+      "model": "transformer_small",
+      "cost": 46048,
+      "error": 0.2926124931833006,
+      "error_std": 0.019502904223755408,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": false
+    },
+    {
+      "model": "gru_medium",
+      "cost": 181824,
+      "error": 0.13209977677457663,
+      "error_std": 0.004782566486847021,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
+    },
+    {
+      "model": "lstm_medium",
+      "cost": 239680,
+      "error": 0.13026661572845194,
+      "error_std": 0.0013437358529039588,
+      "n_seeds": 5,
+      "kind": "baseline",
+      "pareto": true
     }
   ]
 }
