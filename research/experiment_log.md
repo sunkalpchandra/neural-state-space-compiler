@@ -111,3 +111,16 @@ get a `Superseded by:` line.
   2.7× smaller Koopman model within 1.7× of the rollout error — Experiment L (pipeline A) trains both
   under the benchmark protocol on the test split.
 - Search cost: 127 runs, 22 h wall-clock on a swap-throttled 8 GB laptop (see F-003; ~1/3 of it asleep).
+
+### 2026-08-18 — Experiment L: compiler-selected vs manual vs sequence models (Lorenz-63, benchmark protocol, test split, n=5)
+- The compiler's selection (mlp+residual_mlp@d3) has the *same config hash* as the hand-picked
+  `mlpae_resmlp_d3` of synthetic_core, so its 5 benchmark runs were reused (registry dedup) rather than
+  retrained; the runner-up (linear+koopman@d3) was trained fresh (suite `compiled_vs_manual`).
+- Test recursive NRMSE @50 / @100 / @250 (params):
+  compiled = mlpae_resmlp_d3: 0.0076 ± 0.0010 / 0.017 / 0.075 (13,833);
+  runner-up linear+koopman@d3: 0.0116 ± 0.0078 / 0.063 / 0.193 (5,169);
+  lstm_medium: 0.0077 ± 0.0013 / 0.015 / 0.065 (200,579); gru_medium: 0.0125 / 0.034 / 0.137 (150,531).
+- Interpretation: the validation-based selection transfers to test — the compiled model is the best
+  latent candidate and matches the best sequence model at 14.5× fewer parameters; the cheaper Koopman
+  runner-up trades 2.6× rollout error at 250 steps for 2.7× fewer parameters (a Pareto-front point,
+  not the selected optimum under λ_complexity = 0.1). H1: supported on Lorenz-63; H5 (Pareto): consistent.
