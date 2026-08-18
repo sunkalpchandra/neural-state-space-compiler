@@ -71,3 +71,17 @@ get a `Superseded by:` line.
   Caveat: baselines are teacher-forced only (D-008); the rollout-loss control suite is queued.
 - Hypothesis status: H1 — *supported on Lorenz-63 (identity obs)*; pending vanderpol, high-dim.
 - Figures: results/figures/suites/synthetic_core/horizon_curve_lorenz63.png, pareto_lorenz63.png.
+
+### 2026-08-18 — Lorenz-63 compiler run: screen + fine stages (interim, final stage running)
+- Screen (84 candidates, 12 epochs, 1 seed, val): 30 survivors; top-3 gru+residual_mlp@d4, gru+residual_mlp@d3,
+  mlp+residual_mlp@d3. Every pca+*, *+linear and most *+ssm candidates pruned (rollout NRMSE ≈ 1 or diverged).
+- Fine (30 candidates, 50 epochs, 1 seed, val recursive NRMSE@250 / params / verdict):
+  1. linear+koopman@d3 — 0.016 / 5,169 / stable (J=0.17)
+  2. linear+residual_mlp@d3 — 0.020 / 4,635 / stable
+  3. linear+residual_mlp@d4 — 0.023 / 4,771 / stable
+  4. mlp+residual_mlp@d3 — 0.023 / 13,833 / stable   ← the hand-picked reference architecture
+  5. tcn+residual_mlp@d3 — 0.026 / 75,721 (pruned; 5.5× params for no gain)
+- Observation: with identity observations a *linear* encoder suffices (the state is observed) and the
+  compiler prefers the cheapest dynamics family that keeps long-horizon error — Koopman lifting
+  (m=12) edges out residual MLP. Selection is on validation only; test numbers come from Experiment L.
+- Next: final stage (top-4 × seeds 0–2 × 120 epochs) → compile_report.md.
