@@ -42,3 +42,32 @@ get a `Superseded by:` line.
 - Early observation (facts, seeds 0–4 done for lorenz63/linae_linear_d3): linear AE + linear dynamics on Lorenz-63 diverges in recursive rollout (test NRMSE@50 = 20.5 ± 31.2, NRMSE@250 ≈ 1.5e17) while its one-step NRMSE is 0.15 ± 0.05 — the canonical "good one-step, useless dynamics" failure the multi-objective score is designed to catch.
 - Result: pending → results/tables/synthetic_core.md
 
+
+### 2026-08-17 — EXP-0044…EXP-0249 — synthetic_core, Lorenz-63 rows complete (n=5 seeds)
+- Hypothesis / cell: H1 (primary), cell D. Config: configs/experiments/benchmarks/synthetic_core.yaml
+  (40 epochs, ≤60 batches/epoch, context 20, recursive rollout on test split, baselines TF-only per D-008).
+- Result (facts, test recursive NRMSE mean ± std over seeds 0–4; results/tables/synthetic_core.md):
+
+  | model | params | @50 | @100 | @250 |
+  |---|---|---|---|---|
+  | mlpae_resmlp_d3 (latent, d=3) | 13,833 | 0.0076 ± 0.0010 | 0.017 | 0.075 |
+  | lstm_medium | 200,579 | 0.0077 ± 0.0011 | 0.015 | 0.065 |
+  | gru_medium | 150,531 | 0.0125 ± 0.0018 | 0.034 | 0.137 |
+  | tcn_small | 16,867 | 0.0236 ± 0.0056 | 0.045 | 0.220 |
+  | mlpae_mlp_d3 (non-residual) | 13,833 | 0.096 ± 0.058 | 0.306 | 0.664 |
+  | ssm_small | 14,691 | 0.098 ± 0.040 | — | — |
+  | transformer_small | 42,083 | 0.190 ± 0.044 | 0.822 | 1.253 |
+  | pca_linear_d3 | 9 | 1.010 ± 0.012 | 1.045 | 1.128 |
+  | persistence | 0 | 1.295 | 1.427 | 1.532 |
+  | linae_linear_d3 | 33 | diverged (20 ± 31) | diverged | diverged |
+
+  Paired vs mlpae_resmlp_d3 (NRMSE@50, same seeds, n=5): gru p_t=0.005, tcn 0.003, transformer 0.001,
+  lstm 0.85 (no difference); Wilcoxon minimum p=0.062 at n=5 (reported, not over-interpreted).
+- Interpretation: on Lorenz-63 with identity observations, a 13.8k-parameter latent state-space
+  model (MLP AE d=3 + residual-MLP dynamics, trained with a 20-step rollout loss) matches the
+  best large sequence model (LSTM, 14.5× more parameters) and beats GRU/TCN/Transformer/SSM at
+  50–250 steps. The residual parameterisation matters (non-residual MLP dynamics is 12× worse
+  at @50 and unstable across seeds). Linear latent dynamics diverge (chaos is not linear).
+  Caveat: baselines are teacher-forced only (D-008); the rollout-loss control suite is queued.
+- Hypothesis status: H1 — *supported on Lorenz-63 (identity obs)*; pending vanderpol, high-dim.
+- Figures: results/figures/suites/synthetic_core/horizon_curve_lorenz63.png, pareto_lorenz63.png.
