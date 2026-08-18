@@ -10,7 +10,7 @@ only via an entry in `experiment_log.md` citing EXP ids with seeds 0–4.
 
 | id | status | matrix cells |
 |----|--------|--------------|
-| H1 | untested | B, C, D, J |
+| H1 | partially supported (Lorenz-63 identity obs, hand-picked latent model vs 6 baselines, n=5; see experiment_log 2026-08-17) — compiler-selected model pending | B, C, D, J |
 | H2 | untested | E |
 | H3 | untested | F |
 | H4 | untested | G |
