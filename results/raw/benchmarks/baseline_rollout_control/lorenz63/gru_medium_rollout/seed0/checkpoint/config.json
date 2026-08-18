@@ -1,0 +1,19 @@
+{
+  "baseline": "gru",
+  "kwargs": {
+    "hidden": 128,
+    "n_layers": 2,
+    "dropout": 0.0
+  },
+  "mode": "recursive",
+  "direct_horizon": null,
+  "obs_dim": 3,
+  "resolved": {
+    "obs_dim": 3,
+    "mode": "recursive",
+    "direct_horizon": null,
+    "hidden": 128,
+    "n_layers": 2,
+    "dropout": 0.0
+  }
+}
