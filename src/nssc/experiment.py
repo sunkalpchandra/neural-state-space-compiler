@@ -63,6 +63,13 @@ def prepare_data(dcfg: dict[str, Any], seed: int | None = None
     return out, stats, ds
 
 
+def run_config_hash(cfg: dict[str, Any]) -> str:
+    """Hash exactly as ``run_experiment`` registers it (dataset resolved, output_dir/tags excluded)."""
+    c = Config(dict(cfg))
+    c["dataset"] = resolve_dataset_cfg(dict(c["dataset"]))
+    return stable_hash({k: v for k, v in c.to_dict().items() if k not in ("output_dir", "tags")})
+
+
 def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | None = None,
                    device: torch.device | None = None, log=print, save_ckpt: bool = True
                    ) -> dict[str, Any]:
