@@ -1,0 +1,78 @@
+{
+  "experiment_id": "EXP-0258",
+  "seed": 1,
+  "norm_stats": {
+    "mean": [
+      -0.0102764330804348,
+      0.0005801873630844057
+    ],
+    "std": [
+      1.4349772930145264,
+      1.4350913763046265
+    ]
+  },
+  "dataset": {
+    "system": "vanderpol",
+    "params": {
+      "mu": 1.0
+    },
+    "n_traj": 100,
+    "n_steps": 1000,
+    "dt": 0.05,
+    "transient": 200,
+    "seed": 0,
+    "observation": {
+      "type": "identity"
+    },
+    "noise_std": 0.0,
+    "missing_rate": 0.0,
+    "split": {
+      "fractions": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "seed": 0
+    },
+    "ood": {
+      "param": "mu",
+      "train_range": [
+        0.5,
+        2.0
+      ],
+      "test_range": [
+        2.5,
+        4.0
+      ]
+    }
+  },
+  "metrics_summary": {
+    "val/teacher_forced/nrmse": 0.04948233830680057,
+    "val/recursive/nrmse@1": 0.0036344307899048856,
+    "val/recursive/nrmse@10": 0.0019177248800543128,
+    "val/recursive/nrmse@25": 0.001805909037240604,
+    "val/recursive/nrmse@50": 0.0022840714034547877,
+    "val/recursive/nrmse@100": 0.0023464878891762304,
+    "val/recursive/nrmse@250": 0.0027393326572395173,
+    "val/recursive/nrmse_mean": 0.0027393326572395173,
+    "val/recursive/divergence_time": 251.0,
+    "val/params/total": 199938,
+    "val/latent_dim": null,
+    "val/latency/step_latency_ms_mean": 1.2911561727523804,
+    "test/teacher_forced/nrmse": 0.049561649535336,
+    "test/recursive/nrmse@1": 0.003657849607859645,
+    "test/recursive/nrmse@10": 0.002102846440808754,
+    "test/recursive/nrmse@25": 0.002096707654105004,
+    "test/recursive/nrmse@50": 0.00235588942488092,
+    "test/recursive/nrmse@100": 0.002189831823057423,
+    "test/recursive/nrmse@250": 0.002301517683893476,
+    "test/recursive/nrmse_mean": 0.002301517683893476,
+    "test/recursive/divergence_time": 251.0,
+    "test/params/total": 199938,
+    "test/latent_dim": null,
+    "test/latency/step_latency_ms_mean": 1.2948938608169556,
+    "train/best_val_loss": 1.0730194642544828e-06,
+    "train/epochs_run": 40,
+    "train/time_s": 482.47040695800024
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "history": [
+    {
+      "epoch": 0,
+      "lr": 0.002,
+      "horizon": 0,
+      "train/teacher_forced": 0.11926480867938759,
+      "train/total": 0.11926480867938759,
+      "val/teacher_forced": 0.0016564830076984233,
+      "val/total": 0.0016564830076984233,
+      "time_s": 19.62530529100013
+    },
+    {
+      "epoch": 1,
+      "lr": 0.001996917333733128,
+      "horizon": 0,
+      "train/teacher_forced": 0.0008634938548008601,
+      "train/total": 0.0008634938548008601,
+      "val/teacher_forced": 0.0002952754736826238,
+      "val/total": 0.0002952754736826238,
+      "time_s": 40.32441079099999
+    },
+    {
+      "epoch": 2,
+      "lr": 0.0019876883405951376,
+      "horizon": 0,
+      "train/teacher_forced": 0.00014221288941674478,
+      "train/total": 0.00014221288941674478,
+      "val/teacher_forced": 6.735577577880274e-05,
+      "val/total": 6.735577577880274e-05,
+      "time_s": 55.45963258300026
+    },
+    {
+      "epoch": 3,
+      "lr": 0.0019723699203976768,
+      "horizon": 0,
+      "train/teacher_forced": 4.3198913681408156e-05,
+      "train/total": 4.3198913681408156e-05,
+      "val/teacher_forced": 3.063589554383523e-05,
+      "val/total": 3.063589554383523e-05,
+      "time_s": 67.24668704100031
+    },
+    {
+      "epoch": 4,
+      "lr": 0.0019510565162951536,
+      "horizon": 0,
+      "train/teacher_forced": 2.1650078603367245e-05,
+      "train/total": 2.1650078603367245e-05,
+      "val/teacher_forced": 1.4211511976706484e-05,
+      "val/total": 1.4211511976706484e-05,
+      "time_s": 78.62041116599994
+    },
+    {
+      "epoch": 5,
+      "lr": 0.0019238795325112869,
+      "horizon": 0,
+      "train/teacher_forced": 1.4292666522427074e-05,
+      "train/total": 1.4292666522427074e-05,
+      "val/teacher_forced": 8.868602243536669e-06,
+      "val/total": 8.868602243536669e-06,
+      "time_s": 90.0105208330001
+    },
+    {
+      "epoch": 6,
+      "lr": 0.0018910065241883678,
+      "horizon": 0,
+      "train/teacher_forced": 7.785109604204384e-06,
+      "train/total": 7.785109604204384e-06,
+      "val/teacher_forced": 5.93103826152704e-06,
+      "val/total": 5.93103826152704e-06,
+      "time_s": 101.26403779100019
+    },
+    {
+      "epoch": 7,
+      "lr": 0.0018526401643540922,
+      "horizon": 0,
+      "train/teacher_forced": 6.302068610845405e-06,
+      "train/total": 6.302068610845405e-06,
+      "val/teacher_forced": 5.641699044645066e-06,
+      "val/total": 5.641699044645066e-06,
+      "time_s": 114.28140241600022
+    },
+    {
+      "epoch": 8,
+      "lr": 0.0018090169943749475,
+      "horizon": 0,
+      "train/teacher_forced": 8.389035292566404e-06,
+      "train/total": 8.389035292566404e-06,
+      "val/teacher_forced": 4.651735909849069e-06,
+      "val/total": 4.651735909849069e-06,
+      "time_s": 132.59086324999998
+    },
+    {
+      "epoch": 9,
+      "lr": 0.0017604059656000312,
+      "horizon": 0,
+      "train/teacher_forced": 1.3199017719974412e-05,
+      "train/total": 1.3199017719974412e-05,
+      "val/teacher_forced": 0.0004920781984563089,
+      "val/total": 0.0004920781984563089,
+      "time_s": 145.95151450000003
+    },
+    {
+      "epoch": 10,
+      "lr": 0.0017071067811865474,
+      "horizon": 0,
+      "train/teacher_forced": 5.688975598635201e-05,
+      "train/total": 5.688975598635201e-05,
+      "val/teacher_forced": 1.935612811697259e-05,
+      "val/total": 1.935612811697259e-05,
+      "time_s": 168.42452908299992
+    },
+    {
+      "epoch": 11,
+      "lr": 0.0016494480483301836,
+      "horizon": 0,
+      "train/teacher_forced": 3.218917517339529e-05,
+      "train/total": 3.218917517339529e-05,
+      "val/teacher_forced": 1.4696596291388333e-05,
+      "val/total": 1.4696596291388333e-05,
+      "time_s": 178.47904183299988
+    },
+    {
+      "epoch": 12,
+      "lr": 0.0015877852522924731,
+      "horizon": 0,
+      "train/teacher_forced": 1.2811100524838064e-05,
+      "train/total": 1.2811100524838064e-05,
+      "val/teacher_forced": 3.008472655589382e-05,
+      "val/total": 3.008472655589382e-05,
+      "time_s": 192.814959541
+    },
+    {
+      "epoch": 13,
+      "lr": 0.0015224985647159489,
+      "horizon": 0,
+      "train/teacher_forced": 1.4180163274583417e-05,
+      "train/total": 1.4180163274583417e-05,
+      "val/teacher_forced": 5.010141568264872e-06,
+      "val/total": 5.010141568264872e-06,
+      "time_s": 205.73143937500026
+    },
+    {
+      "epoch": 14,
+      "lr": 0.0014539904997395467,
+      "horizon": 0,
+      "train/teacher_forced": 3.2807809304813418e-06,
+      "train/total": 3.2807809304813418e-06,
+      "val/teacher_forced": 2.335822121798022e-06,
+      "val/total": 2.335822121798022e-06,
+      "time_s": 228.46585412500008
+    },
+    {
+      "epoch": 15,
+      "lr": 0.00138268343236509,
+      "horizon": 0,
+      "train/teacher_forced": 2.6077104053001677e-06,
+      "train/total": 2.6077104053001677e-06,
+      "val/teacher_forced": 1.8379903874827304e-06,
+      "val/total": 1.8379903874827304e-06,
+      "time_s": 245.03992612499997
+    },
+    {
+      "epoch": 16,
+      "lr": 0.0013090169943749475,
+      "horizon": 0,
+      "train/teacher_forced": 2.6543985995886032e-06,
+      "train/total": 2.6543985995886032e-06,
+      "val/teacher_forced": 3.998080612493343e-06,
+      "val/total": 3.998080612493343e-06,
+      "time_s": 257.27105633300016
+    },
+    {
+      "epoch": 17,
+      "lr": 0.0012334453638559056,
+      "horizon": 0,
+      "train/teacher_forced": 2.7700338080194343e-06,
+      "train/total": 2.7700338080194343e-06,
+      "val/teacher_forced": 1.954614893091073e-06,
+      "val/total": 1.954614893091073e-06,
+      "time_s": 270.7755775410001
+    },
+    {
+      "epoch": 18,
+      "lr": 0.001156434465040231,
+      "horizon": 0,
+      "train/teacher_forced": 2.937075182292877e-06,
+      "train/total": 2.937075182292877e-06,
+      "val/teacher_forced": 2.268141962405126e-06,
+      "val/total": 2.268141962405126e-06,
+      "time_s": 280.5890681660003
+    },
+    {
+      "epoch": 19,
+      "lr": 0.001078459095727845,
+      "horizon": 0,
+      "train/teacher_forced": 2.389695894559433e-06,
+      "train/total": 2.389695894559433e-06,
+      "val/teacher_forced": 2.850214948719238e-06,
+      "val/total": 2.850214948719238e-06,
+      "time_s": 290.1079634160001
+    },
+    {
+      "epoch": 20,
+      "lr": 0.001,
+      "horizon": 0,
+      "train/teacher_forced": 2.013752559075025e-06,
+      "train/total": 2.013752559075025e-06,
+      "val/teacher_forced": 1.4480588914820045e-06,
+      "val/total": 1.4480588914820045e-06,
+      "time_s": 299.0639852909999
+    },
+    {
+      "epoch": 21,
+      "lr": 0.0009215409042721552,
+      "horizon": 0,
+      "train/teacher_forced": 1.6845068576761454e-06,
+      "train/total": 1.6845068576761454e-06,
+      "val/teacher_forced": 1.6369287045058122e-06,
+      "val/total": 1.6369287045058122e-06,
+      "time_s": 308.25429162499995
+    },
+    {
+      "epoch": 22,
+      "lr": 0.000843565534959769,
+      "horizon": 0,
+      "train/teacher_forced": 1.710981683800128e-06,
+      "train/total": 1.710981683800128e-06,
+      "val/teacher_forced": 1.703317517846396e-06,
+      "val/total": 1.703317517846396e-06,
+      "time_s": 317.5777807909999
+    },
+    {
+      "epoch": 23,
+      "lr": 0.0007665546361440949,
+      "horizon": 0,
+      "train/teacher_forced": 1.434759322667863e-06,
+      "train/total": 1.434759322667863e-06,
+      "val/teacher_forced": 1.3198487118239022e-06,
+      "val/total": 1.3198487118239022e-06,
+      "time_s": 328.9973355830002
+    },
+    {
+      "epoch": 24,
+      "lr": 0.0006909830056250527,
+      "horizon": 0,
+      "train/teacher_forced": 1.4378196169673174e-06,
+      "train/total": 1.4378196169673174e-06,
+      "val/teacher_forced": 1.61585775104969e-06,
+      "val/total": 1.61585775104969e-06,
+      "time_s": 338.11137025000016
+    },
+    {
+      "epoch": 25,
+      "lr": 0.0006173165676349102,
+      "horizon": 0,
+      "train/teacher_forced": 1.4645452267814108e-06,
+      "train/total": 1.4645452267814108e-06,
+      "val/teacher_forced": 1.3839525713087319e-06,
+      "val/total": 1.3839525713087319e-06,
+      "time_s": 347.48000875000025
+    },
+    {
+      "epoch": 26,
+      "lr": 0.0005460095002604533,
+      "horizon": 0,
+      "train/teacher_forced": 1.3329765617224136e-06,
+      "train/total": 1.3329765617224136e-06,
+      "val/teacher_forced": 1.3055347532523834e-06,
+      "val/total": 1.3055347532523834e-06,
+      "time_s": 356.9480994159999
+    },
+    {
+      "epoch": 27,
+      "lr": 0.00047750143528405123,
+      "horizon": 0,
+      "train/teacher_forced": 1.2378264102608227e-06,
+      "train/total": 1.2378264102608227e-06,
+      "val/teacher_forced": 1.220002685739827e-06,
+      "val/total": 1.220002685739827e-06,
+      "time_s": 366.1748522910002
+    },
+    {
+      "epoch": 28,
+      "lr": 0.00041221474770752696,
+      "horizon": 0,
+      "train/teacher_forced": 1.2411174490504588e-06,
+      "train/total": 1.2411174490504588e-06,
+      "val/teacher_forced": 1.2274588420445475e-06,
+      "val/total": 1.2274588420445475e-06,
+      "time_s": 375.5531820000001
+    },
+    {
+      "epoch": 29,
+      "lr": 0.00035055195166981646,
+      "horizon": 0,
+      "train/teacher_forced": 1.202710952460014e-06,
+      "train/total": 1.202710952460014e-06,
+      "val/teacher_forced": 1.2042553306754497e-06,
+      "val/total": 1.2042553306754497e-06,
+      "time_s": 384.55164079099995
+    },
+    {
+      "epoch": 30,
+      "lr": 0.00029289321881345256,
+      "horizon": 0,
+      "train/teacher_forced": 1.1932527172575647e-06,
+      "train/total": 1.1932527172575647e-06,
+      "val/teacher_forced": 1.1632177297037236e-06,
+      "val/total": 1.1632177297037236e-06,
+      "time_s": 396.5956786659999
+    },
+    {
+      "epoch": 31,
+      "lr": 0.00023959403439996918,
+      "horizon": 0,
+      "train/teacher_forced": 1.154300050150899e-06,
+      "train/total": 1.154300050150899e-06,
+      "val/teacher_forced": 1.1126744690651927e-06,
+      "val/total": 1.1126744690651927e-06,
+      "time_s": 406.2342033750001
+    },
+    {
+      "epoch": 32,
+      "lr": 0.00019098300562505265,
+      "horizon": 0,
+      "train/teacher_forced": 1.1217664242243093e-06,
+      "train/total": 1.1217664242243093e-06,
+      "val/teacher_forced": 1.1020951559556932e-06,
+      "val/total": 1.1020951559556932e-06,
+      "time_s": 415.4524173750001
+    },
+    {
+      "epoch": 33,
+      "lr": 0.00014735983564590781,
+      "horizon": 0,
+      "train/teacher_forced": 1.1050571951424596e-06,
+      "train/total": 1.1050571951424596e-06,
+      "val/teacher_forced": 1.0891054873556844e-06,
+      "val/total": 1.0891054873556844e-06,
+      "time_s": 425.8489141250002
+    },
+    {
+      "epoch": 34,
+      "lr": 0.00010899347581163222,
+      "horizon": 0,
+      "train/teacher_forced": 1.0997702711771731e-06,
+      "train/total": 1.0997702711771731e-06,
+      "val/teacher_forced": 1.1030495898012306e-06,
+      "val/total": 1.1030495898012306e-06,
+      "time_s": 435.7953124579999
+    },
+    {
+      "epoch": 35,
+      "lr": 7.612046748871326e-05,
+      "horizon": 0,
+      "train/teacher_forced": 1.080895676371559e-06,
+      "train/total": 1.080895676371559e-06,
+      "val/teacher_forced": 1.0859543459042066e-06,
+      "val/total": 1.0859543459042066e-06,
+      "time_s": 445.17760041600013
+    },
+    {
+      "epoch": 36,
+      "lr": 4.894348370484647e-05,
+      "horizon": 0,
+      "train/teacher_forced": 1.1123862871424231e-06,
+      "train/total": 1.1123862871424231e-06,
+      "val/teacher_forced": 1.0873816361506923e-06,
+      "val/total": 1.0873816361506923e-06,
+      "time_s": 454.731955708
+    },
+    {
+      "epoch": 37,
+      "lr": 2.7630079602323442e-05,
+      "horizon": 0,
+      "train/teacher_forced": 1.0857479234497683e-06,
+      "train/total": 1.0857479234497683e-06,
+      "val/teacher_forced": 1.0730194642544828e-06,
+      "val/total": 1.0730194642544828e-06,
+      "time_s": 464.29801124999994
+    },
+    {
+      "epoch": 38,
+      "lr": 1.231165940486234e-05,
+      "horizon": 0,
+      "train/teacher_forced": 1.0605764155495005e-06,
+      "train/total": 1.0605764155495005e-06,
+      "val/teacher_forced": 1.0724230871043497e-06,
+      "val/total": 1.0724230871043497e-06,
+      "time_s": 473.4047501660002
+    },
+    {
+      "epoch": 39,
+      "lr": 3.082666266872036e-06,
+      "horizon": 0,
+      "train/teacher_forced": 1.071599230802652e-06,
+      "train/total": 1.071599230802652e-06,
+      "val/teacher_forced": 1.0708561388936586e-06,
+      "val/total": 1.0708561388936586e-06,
+      "time_s": 482.4684191250003
+    }
+  ]
+}
