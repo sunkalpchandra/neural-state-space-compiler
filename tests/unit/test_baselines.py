@@ -210,3 +210,22 @@ def test_run_baseline_experiment_failure_recorded(tmp_path, tmp_registry):
     res = run_baseline_experiment(cfg, registry=tmp_registry, log=None)
     assert res["status"] == "failed"
     assert tmp_registry.records()[0]["status"] == "failed"
+
+
+def test_suite_lookup_hash_matches_registered_hash(tmp_path):
+    """Regression: the suite runner must find completed baseline runs on resume."""
+    import torch
+
+    from nssc.baselines.run import baseline_config_hash, run_baseline_experiment
+    from nssc.utils.experiment_registry import ExperimentRegistry
+
+    cfg = {"dataset": {"system": "harmonic", "n_traj": 4, "n_steps": 40, "dt": 0.05, "seed": 0},
+           "model": {"baseline": "gru", "size": "small"}, "windows": {"context": 8, "horizon": 8, "stride": 4,
+                                                                      "batch_size": 8},
+           "training": {"epochs": 1, "context": 8, "log_every": 100}, "eval": {"context": 8, "horizons": [1, 5],
+                                                                              "latency": False},
+           "seed": 0, "output_dir": str(tmp_path / "r")}
+    reg = ExperimentRegistry(tmp_path / "reg.jsonl")
+    res = run_baseline_experiment(dict(cfg), registry=reg, device=torch.device("cpu"), log=None)
+    assert res["status"] == "completed"
+    assert reg.get(res["experiment_id"])["config_hash"] == baseline_config_hash(cfg)
