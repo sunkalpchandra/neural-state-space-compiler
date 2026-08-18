@@ -101,6 +101,17 @@ def load_forecaster_checkpoint(path: str | Path, map_location: str | torch.devic
     return model, meta
 
 
+def baseline_config_hash(cfg: dict[str, Any]) -> str:
+    """Hash exactly as ``run_baseline_experiment`` registers it (dataset + model resolved)."""
+    c = dict(cfg)
+    c["dataset"] = resolve_dataset_cfg(dict(c["dataset"]))
+    try:
+        c["model"] = resolve_model_cfg(dict(c["model"]), dict(c.get("windows", {})))
+    except Exception:  # noqa: BLE001
+        c["model"] = dict(c["model"])
+    return stable_hash({k: v for k, v in Config(c).to_dict().items() if k not in ("output_dir", "tags")})
+
+
 def run_baseline_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | None = None,
                             device: torch.device | None = None, log=print, save_ckpt: bool = True
                             ) -> dict[str, Any]:
