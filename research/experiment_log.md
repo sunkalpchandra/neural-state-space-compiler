@@ -124,3 +124,9 @@ get a `Superseded by:` line.
   latent candidate and matches the best sequence model at 14.5× fewer parameters; the cheaper Koopman
   runner-up trades 2.6× rollout error at 250 steps for 2.7× fewer parameters (a Pareto-front point,
   not the selected optimum under λ_complexity = 0.1). H1: supported on Lorenz-63; H5 (Pareto): consistent.
+
+### 2026-08-18 — Uncertainty: Gaussian transition dynamics on Lorenz-63 (5 seeds)
+- Table: results/tables/uncertainty_lorenz63.md. Envelope is informative (corr(std, RMSE) = 0.96 ± 0.02
+  along the horizon) but over-confident (95% interval covers 66 ± 13%; ECE 0.26); the NLL-trained mean is
+  35× less accurate at 50 steps than the MSE-trained deterministic model. Status: uncertainty component
+  works mechanically; calibration is *not* achieved without post-hoc recalibration (open question Q-014).

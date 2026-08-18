@@ -66,3 +66,6 @@ honest one to caption? → Cell C on S2/S6.
   report separately (never silently raise the shared budget).
 - Q-013 The tcn_small horizon curve shows a jump at ~40 steps for some seeds — receptive-field
   edge effect once the context leaves the window? Inspect per-seed curves.
+- Q-014 Gaussian latent dynamics: over-confident (coverage 66% @95%) and worse mean accuracy. Try
+  (a) post-hoc variance scaling fitted on validation, (b) NLL weight annealing (0 → 0.1), (c) MC-dropout
+  or deep-ensemble envelopes on the deterministic model for comparison. Report on test only once.
