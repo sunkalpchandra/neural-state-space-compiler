@@ -63,13 +63,14 @@ FAMILY_COLORS: dict[str, str] = {
     "gru": OKABE_ITO["purple"],
     "linear_ae": OKABE_ITO["sky"],
     # baselines
+    # baselines: muted, mutually distinguishable (drawn dashed)
     "baseline": "#7F7F7F",
-    "baseline:gru": "#7F7F7F",
-    "baseline:lstm": "#5C5C5C",
-    "baseline:tcn": "#A6A6A6",
-    "baseline:transformer": "#3D3D3D",
-    "baseline:ssm": "#999999",
-    "baseline:persistence": "#C7C7C7",
+    "baseline:gru": "#6A5ACD",
+    "baseline:lstm": "#2F4F4F",
+    "baseline:tcn": "#8FBC8F",
+    "baseline:transformer": "#B8860B",
+    "baseline:ssm": "#BC8F8F",
+    "baseline:persistence": "#B0B0B0",
     "baseline:mean": "#C7C7C7",
     "persistence": "#C7C7C7",
     "compiled": OKABE_ITO["orange"],
@@ -131,8 +132,17 @@ def use_style() -> _StyleContext:
     return _StyleContext()
 
 
+_SUITE_ALIASES: tuple[tuple[str, str], ...] = (
+    ("resmlp", "residual_mlp"), ("mlpae_mlp", "mlp"), ("linae", "linear_ae"), ("pca", "pca"),
+    ("compiled", "compiled"), ("runnerup", "koopman"), ("persistence", "baseline:persistence"),
+    ("transformer", "baseline:transformer"), ("lstm", "baseline:lstm"), ("gru", "baseline:gru"),
+    ("tcn", "baseline:tcn"), ("ssm", "baseline:ssm"), ("mean", "baseline:mean"),
+)
+
+
 def family_of(name: str) -> str:
-    """Model family key for ``name``: ``baseline:<k>`` → baseline key; ``enc+dyn@dN`` → dyn."""
+    """Model family key for ``name``: ``baseline:<k>`` → baseline key; ``enc+dyn@dN`` → dyn;
+    suite names such as ``gru_medium`` / ``mlpae_resmlp_d3`` are mapped via aliases."""
     n = str(name)
     if n.startswith("baseline"):
         key = n.split("/")[0]
@@ -140,7 +150,22 @@ def family_of(name: str) -> str:
     if "+" in n:
         dyn = n.split("+", 1)[1].split("@")[0]
         return dyn
-    return n.split("@")[0]
+    base = n.split("@")[0]
+    if base in FAMILY_COLORS:
+        return base
+    for needle, fam in _SUITE_ALIASES:
+        if needle in base:
+            return fam
+    return base
+
+
+def is_baseline(name: str) -> bool:
+    return family_of(name).startswith("baseline")
+
+
+def model_linestyle(name: str) -> str:
+    """Baselines dashed, latent models solid (validation curves handled by callers)."""
+    return "--" if is_baseline(name) else "-"
 
 
 def model_color(name: str) -> str:
