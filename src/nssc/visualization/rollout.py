@@ -7,7 +7,7 @@ from typing import Any
 import numpy as np
 
 from nssc.visualization._common import clean, note_title, to_numpy
-from nssc.visualization.style import COLORS, DOUBLE_COL, model_color
+from nssc.visualization.style import COLORS, DOUBLE_COL, model_color, model_linestyle
 
 # isort: split
 import matplotlib.pyplot as plt
@@ -88,7 +88,7 @@ def plot_horizon_curves(curves: dict[str, Any], horizons: Any | None = None, log
         mean = np.asarray(mean, float).ravel()
         h = np.arange(1, mean.size + 1) if horizons is None else to_numpy(horizons).ravel()[: mean.size]
         c = model_color(name)
-        ls = "--" if "[val]" in name or name.endswith("(val)") else "-"
+        ls = "--" if "[val]" in name or name.endswith("(val)") else model_linestyle(name)
         label = name
         if ymax is not None and np.nanmax(mean) > ymax:
             label = f"{name} (diverged)"
