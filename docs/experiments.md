@@ -65,3 +65,16 @@ Work proceeds gate by gate; a gate closes only when the reviewer accepts.
 - Never optimize on test; test evaluated once at the end of each cell.
 - Failed runs stay in the registry as `failed`, and in `research/failures.md`.
 - Benchmark definitions frozen once used; changes = new ids + decision entry.
+
+
+## Gate status (updated 2026-08-17)
+
+| gate | status | evidence |
+|---|---|---|
+| A — Data & tests | **closed** | 11 generators + invariants (`tests/unit/test_data_*`), RK4 energy test, Lorenz λ₁ regression (`tests/regression/test_known_dynamics_values.py`), trajectory-level split tests, config-build tests; CI green. |
+| B — Baselines & registry | **closed** | 7 baselines + metrics + protocols; registry rows incl. deliberately failing run (`tests/integration/test_end_to_end.py`); checkpoint round-trip. |
+| C — Compiler end-to-end | **closed** | `configs/compiler/tiny.yaml` picks d≤4 + linear dynamics on lifted harmonic data (`tests/integration/test_compiler.py`), resume test, < 60 s CPU. |
+| D — Synthetic benchmark core | in progress | Lorenz-63 rows complete (n=5), Van der Pol / high-dim running; compiles running. |
+| E — Ablations | queued | `scripts/dev/pipeline_after_compiles.sh` |
+| F — Generalisation & real data | queued | OOD driver + EEGBCI configs ready |
+| G — Reproducibility audit | open | |
