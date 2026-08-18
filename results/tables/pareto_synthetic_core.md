@@ -15,7 +15,22 @@
 | gru_medium | baseline | 150531 | 0.0125 ± 0.0017 | 5 |  |
 | lstm_medium | baseline | 200579 | 0.0077 ± 0.0013 | 5 |  |
 
-## vanderpol  (dominated area 3.645)
+## lorenz63_highdim  (dominated area 1.716)
+
+| model | kind | params | error (mean ± std) | n | Pareto-efficient |
+|---|---|---|---|---|---|
+| persistence | baseline | 0 | 1.2553 ± 0.0000 | 5 | **yes** |
+| pca_linear_d3 | latent | 9 | 1.1261 ± 0.0077 | 5 | **yes** |
+| linae_linear_d3 | latent | 460 | 1.0597 ± 0.0111 | 5 | **yes** |
+| ssm_small | baseline | 18656 | 0.3091 ± 0.0481 | 5 | **yes** |
+| tcn_small | baseline | 20832 | 0.1924 ± 0.0126 | 5 | **yes** |
+| mlpae_mlp_d3 | latent | 21702 | 0.8590 ± 0.0742 | 5 |  |
+| mlpae_resmlp_d3 | latent | 21702 | 0.9542 ± 0.4214 | 5 |  |
+| transformer_small | baseline | 46048 | 0.2926 ± 0.0195 | 5 |  |
+| gru_medium | baseline | 181824 | 0.1321 ± 0.0048 | 5 | **yes** |
+| lstm_medium | baseline | 239680 | 0.1303 ± 0.0013 | 5 | **yes** |
+
+## vanderpol  (dominated area 3.779)
 
 | model | kind | params | error (mean ± std) | n | Pareto-efficient |
 |---|---|---|---|---|---|
@@ -24,4 +39,8 @@
 | linae_linear_d3 | latent | 16 | 0.3979 ± 0.0266 | 5 |  |
 | mlpae_mlp_d3 | latent | 13446 | 0.0028 ± 0.0008 | 5 |  |
 | mlpae_resmlp_d3 | latent | 13446 | 0.0026 ± 0.0009 | 5 | **yes** |
-| gru_medium | baseline | 150018 | 0.0158 ± 0.0166 | 4 |  |
+| ssm_small | baseline | 14626 | 0.0244 ± 0.0066 | 5 |  |
+| tcn_small | baseline | 16802 | 0.0057 ± 0.0030 | 5 |  |
+| transformer_small | baseline | 42018 | 0.1430 ± 0.0366 | 5 |  |
+| gru_medium | baseline | 150018 | 0.0158 ± 0.0143 | 5 |  |
+| lstm_medium | baseline | 199938 | 0.0024 ± 0.0006 | 5 | **yes** |
