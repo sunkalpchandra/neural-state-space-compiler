@@ -81,7 +81,14 @@ def run_suite(path: str | Path, overrides: list[str] | None = None, device: str 
     log(f"suite '{suite.get('name')}': {len(runs)} runs")
     for i, cfg in enumerate(runs):
         kind, name, ds = cfg.pop("_kind"), cfg.pop("_name"), cfg.pop("_dataset")
-        h = _hash_for(cfg)
+        if kind == "baseline":
+            from nssc.baselines.run import baseline_config_hash
+
+            h = baseline_config_hash(cfg)
+        else:
+            from nssc.experiment import run_config_hash
+
+            h = run_config_hash(cfg)
         done = [r for r in registry.find_by_hash(h, seed=cfg["seed"]) if r["status"] == "completed"]
         tag = f"[{i + 1}/{len(runs)}] {ds}/{name} seed={cfg['seed']}"
         if done:
