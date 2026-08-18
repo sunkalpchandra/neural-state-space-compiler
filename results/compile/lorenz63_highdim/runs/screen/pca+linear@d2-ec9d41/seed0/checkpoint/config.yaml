@@ -1,0 +1,11 @@
+latent_dim: 2
+encoder:
+  name: pca
+  kwargs: {}
+decoder:
+  name: pca
+  kwargs: {}
+dynamics:
+  name: linear
+  kwargs: {}
+obs_dim: 64
