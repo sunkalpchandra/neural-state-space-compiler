@@ -190,6 +190,22 @@ def tables(suite: str = typer.Option(..., "--suite"),
 
 
 @app.command()
+def pareto(suite: str = typer.Option(..., "--suite"), metric: str = typer.Option("test/recursive/nrmse@50"),
+           output: str = typer.Option("results/tables", "--output", "-o")):
+    """Accuracy vs parameter-count Pareto front per dataset for a suite."""
+    from pathlib import Path as _P
+
+    from nssc.evaluation.pareto import suite_pareto
+    from nssc.utils.io import save_json
+
+    per_ds, md = suite_pareto(suite, metric=metric)
+    _P(output).mkdir(parents=True, exist_ok=True)
+    (_P(output) / f"pareto_{suite}.md").write_text(md)
+    save_json(per_ds, _P(output) / f"pareto_{suite}.json")
+    console.print(md)
+
+
+@app.command()
 def failures(suite: str | None = typer.Option(None, "--suite"), tag: str | None = typer.Option(None, "--tag"),
              output: str = typer.Option("results/tables/failures.md", "--output", "-o"),
              limit: int = typer.Option(500)):
