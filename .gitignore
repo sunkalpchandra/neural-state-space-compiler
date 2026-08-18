@@ -26,3 +26,5 @@ dashboard/frontend/dist/
 results/registry_smoke.jsonl
 results/raw/smoke/
 results/logs/
+*.pt
+results/raw/EXP-*/
