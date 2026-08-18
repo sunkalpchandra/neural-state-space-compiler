@@ -42,3 +42,9 @@ _No entries yet._
 
 ## F-003 — 2026-08-17 — Host slept during background runs
 - 7 h wall-clock, 48 min CPU: the laptop idle-slept. All long jobs now run under `caffeinate -i`.
+
+## F-004 — 2026-08-17 — Suite resume re-ran baselines after a restart
+- `run_suite` hashed the unresolved baseline config while `run_baseline_experiment` registers the
+  hash of the resolved one (size preset expanded), so completed baseline runs were not found on
+  resume and were repeated (duplicate persistence/GRU rows EXP-0245..0249 remain in the registry).
+- Fix: `baseline_config_hash` / `run_config_hash` helpers used by the runner; regression test.
