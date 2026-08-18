@@ -14,7 +14,7 @@ together with a report explaining *why* that model was selected.
 
 > **Status:** research code under active development. Every number in this README, in
 > `results/`, and in the figures is produced by scripts from registered experiment runs
-> (`results/registry.jsonl`). Sections marked *pending* have not been run yet.
+> (`results/registry.jsonl`, 700+ runs). Experiments still running are marked as such.
 
 ## Research question
 
@@ -84,12 +84,72 @@ x_hat, z_hat = compiled.rollout(x_context, horizon=250)
 
 ## Compiler output
 
-*pending — filled from `results/compile/*/compile_report.md` once the Lorenz-63 / Van der Pol /
-high-dimensional Lorenz compiles finish.*
+Real run: `nssc compile --config configs/compiler/lorenz63.yaml` (84 candidates = d∈{2,3,4,8} ×
+{PCA, linear, MLP, TCN, GRU} encoders × {linear, residual MLP, Koopman, neural ODE, SSM} dynamics;
+screen 12 ep → fine 50 ep → final 120 ep × 3 seeds; 127 registered runs). Full report:
+[results/compile/lorenz63/compile_report.md](results/compile/lorenz63/compile_report.md).
+
+```
+Selected latent dimension: 3
+Selected representation:   mlp  (decoder mlp)
+Selected dynamics:         residual_mlp
+Parameters:                13833
+Reason:
+- selected has -40.1% rollout NRMSE vs runner-up linear+koopman@d3 (0.0164 vs 0.0273)
+- +168% parameter count vs runner-up (13833 vs 5169)
+- smallest candidate linear+residual_mlp@d3 (4635 params) has 2.36× the selected model's rollout NRMSE
+- stability: verdict=stable, max local spectral radius 1.103, λ_max≈0.432/step, blow-up fraction 0.00
+- validation recon NRMSE 0.0006, one-step NRMSE 0.0005; aggregated over 3 seeds
+```
+
+| stage | candidates → survivors | what was pruned |
+|---|---|---|
+| screen (12 ep, 1 seed) | 84 → 30 | every PCA/linear-dynamics and most SSM-dynamics candidates (rollout NRMSE ≈ 1 or diverged) |
+| fine (50 ep, 1 seed) | 30 → 4 | GRU/TCN encoders (5–15× the parameters for no rollout gain) |
+| final (120 ep, 3 seeds) | 4 → 1 | Koopman runner-up (1.7× rollout error), one d=4 candidate diverged in a seed |
+
+<p align="center">
+<img src="results/figures/compile/lorenz63/compiler_decision.png" width="70%"><br>
+<img src="results/figures/compile/lorenz63/pareto.png" width="46%"> <img src="results/figures/compile/lorenz63/selected/phase_portrait.png" width="30%">
+</p>
 
 ## Benchmarks
 
-*pending — `results/tables/synthetic_core.md` (5 seeds, mean ± std, trajectory-level splits).*
+Suite `synthetic_core` (`nssc benchmark --suite synthetic_core`): 3 systems × 10 models × 5 seeds,
+40 epochs each, trajectory-level splits, recursive rollout from a 20-step context on the **test**
+split. Baselines are trained teacher-forced only ([D-008](research/decisions.md)). Full table with all
+horizons and paired tests: [results/tables/synthetic_core.md](results/tables/synthetic_core.md).
+
+Test recursive NRMSE (mean ± std over seeds 0–4):
+
+| model | params (Lorenz) | Lorenz-63 @50 | Lorenz-63 @250 | Van der Pol @250 | Lorenz-63 high-dim (D=64) @50 |
+|---|---|---|---|---|---|
+| **latent: MLP AE + residual MLP, d=3** | 13.8k | **0.0076 ± 0.0010** | 0.075 ± 0.036 | 0.0030 ± 0.0010 | 0.95 ± 0.42 (diverges) |
+| latent: MLP AE + MLP, d=3 | 13.8k | 0.096 ± 0.058 | 0.66 ± 0.26 | 0.0032 ± 0.0010 | 0.86 ± 0.07 |
+| latent: PCA + linear, d=3 | 9 | 1.010 ± 0.012 | 1.13 | 0.52 | 1.13 |
+| latent: linear AE + linear, d=3 | 33 | diverged | diverged | 0.62 | 1.06 |
+| LSTM (medium) | 200k | **0.0077 ± 0.0013** | **0.065 ± 0.013** | **0.0027 ± 0.0010** | **0.130 ± 0.001** |
+| GRU (medium) | 150k | 0.0125 ± 0.0017 | 0.137 ± 0.029 | 0.080 ± 0.067 | 0.132 ± 0.005 |
+| TCN (small) | 16.9k | 0.0236 ± 0.0056 | 0.221 ± 0.077 | 0.0066 ± 0.0036 | 0.192 ± 0.013 |
+| Transformer (small) | 42k | 0.190 ± 0.044 | 1.25 | 1.18 | 0.293 ± 0.020 |
+| SSM (small) | 14.7k | 0.098 ± 0.040 | 0.90 | 0.48 | 0.309 ± 0.048 |
+| persistence | 0 | 1.295 | 1.53 | 1.34 | 1.26 |
+
+What the numbers say so far (neutral reading):
+
+* On Lorenz-63 and Van der Pol with identity observations, a ~14k-parameter latent state-space model
+  matches the best sequence baseline (LSTM, 200k) at 50–250 steps and beats GRU/TCN/Transformer/SSM;
+  paired t-tests vs GRU/TCN/Transformer p < 0.01 (n=5; Wilcoxon floor 0.0625).
+* The residual parameterisation of the latent dynamics matters (12× at 50 steps on Lorenz-63); linear
+  latent dynamics diverge on chaotic data even though their one-step error is small — the reason
+  selection is multi-objective rather than one-step MSE.
+* On the **high-dimensional, noisy observation** variant the *hand-picked* d=3 latent model fails while
+  LSTM/GRU do not. This is precisely the regime the compiler is for; the compiler run on that dataset is
+  in progress and its result — positive or negative — will be reported here.
+
+<p align="center">
+<img src="results/figures/suites/synthetic_core/horizon_curve_lorenz63.png" width="48%"> <img src="results/figures/suites/synthetic_core/pareto_lorenz63.png" width="48%">
+</p>
 
 ## Interactive demo
 
