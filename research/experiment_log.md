@@ -85,3 +85,29 @@ get a `Superseded by:` line.
   compiler prefers the cheapest dynamics family that keeps long-horizon error — Koopman lifting
   (m=12) edges out residual MLP. Selection is on validation only; test numbers come from Experiment L.
 - Next: final stage (top-4 × seeds 0–2 × 120 epochs) → compile_report.md.
+
+### 2026-08-18 — synthetic_core complete (3 datasets × 10 models × 5 seeds = 150 runs, +5 duplicate persistence rows)
+- Table: results/tables/synthetic_core.md; figures results/figures/suites/synthetic_core/.
+- Van der Pol (D=2, limit cycle) test recursive NRMSE@250: mlpae_resmlp_d2 0.0030 ± 0.0010 (13.4k params),
+  mlpae_mlp_d2 0.0032, lstm_medium 0.0027 ± 0.0010 (200k), tcn_small 0.0066, gru_medium 0.080 ± 0.067,
+  ssm_small 0.48, transformer_small 1.18, pca/linear ≈ 0.5–0.6, persistence 1.34.
+  → latent models tie the best baseline at 15× fewer parameters (H1 supported).
+- **Lorenz-63 high-dim (D=64 random-MLP observation, σ_noise=0.05)** test NRMSE@50 / @250:
+  lstm_medium 0.130 / 0.293, gru_medium 0.132 / 0.395, tcn_small 0.192 / 0.729, ssm_small 0.309 / 0.933,
+  transformer 0.293 / 1.08, **mlpae_resmlp_d3 0.954 ± 0.42 / diverged**, mlpae_mlp_d3 0.859 / 1.40,
+  pca_linear 1.13, persistence 1.26.
+  → the *hand-picked* d=3 latent model fails here: recon NRMSE ≈ 0.2 (the fixed 64→3 MLP AE at 40 epochs
+  does not invert the random observation map well enough) and its rollouts diverge. This is the
+  regime the compiler exists for; `configs/compiler/lorenz63_highdim.yaml` (d ∈ {2,3,4,8,16}, 5 encoders)
+  is queued in pipeline A. H1 status for high-dim: **not supported by the manual model; compiler pending**.
+- Failure categories (nssc failures): latent_instability ×5 (mlpae_resmlp highdim, linae lorenz),
+  poor_long_horizon ×… (see results/tables/failures.md).
+
+### 2026-08-18 — Lorenz-63 compiler run complete (results/compile/lorenz63/compile_report.md)
+- Final (4 candidates × seeds 0–2 × 120 epochs, validation): 1. mlp+residual_mlp@d3 (13,833 params,
+  NRMSE@250 0.0164, ρ_max 1.10, stable) 2. linear+koopman@d3 (5,169; 0.0273) 3. linear+residual_mlp@d3
+  (4,635; 0.0388) 4. linear+residual_mlp@d4 (one seed diverged → J=32).
+- The compiler's selection coincides with the hand-picked reference architecture; its runner-up is a
+  2.7× smaller Koopman model within 1.7× of the rollout error — Experiment L (pipeline A) trains both
+  under the benchmark protocol on the test split.
+- Search cost: 127 runs, 22 h wall-clock on a swap-throttled 8 GB laptop (see F-003; ~1/3 of it asleep).
