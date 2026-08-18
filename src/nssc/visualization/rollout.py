@@ -66,10 +66,12 @@ def plot_rollout_comparison(x_true: Any, x_pred: Any, context: int, dims: int | 
 def plot_horizon_curves(curves: dict[str, Any], horizons: Any | None = None, logy: bool = True,
                         logx: bool = False, title: str = "Rollout error vs horizon",
                         ylabel: str = "NRMSE", mode_label: str = "recursive",
-                        mark_horizons: Any | None = None) -> plt.Figure:
+                        mark_horizons: Any | None = None, ymax: float | None = 10.0) -> plt.Figure:
     """NRMSE vs horizon for several models. ``curves``: {name: curve} or {name: (mean, std)}.
 
-    Values are plotted per step ``1..H`` unless ``horizons`` (len H) is given.
+    Values are plotted per step ``1..H`` unless ``horizons`` (len H) is given. Curves that exceed
+    ``ymax`` are clipped at ``ymax`` and marked "(diverged)" in the legend so blow-ups do not
+    squash the informative range.
     """
     fig, ax = plt.subplots(figsize=(DOUBLE_COL * 0.6, DOUBLE_COL * 0.42))
     any_bad = False
@@ -87,7 +89,12 @@ def plot_horizon_curves(curves: dict[str, Any], horizons: Any | None = None, log
         h = np.arange(1, mean.size + 1) if horizons is None else to_numpy(horizons).ravel()[: mean.size]
         c = model_color(name)
         ls = "--" if "[val]" in name or name.endswith("(val)") else "-"
-        ax.plot(h, mean, color=c, label=name, lw=1.4, ls=ls)
+        label = name
+        if ymax is not None and np.nanmax(mean) > ymax:
+            label = f"{name} (diverged)"
+            mean = np.minimum(mean, ymax)
+            std = None
+        ax.plot(h, mean, color=c, label=label, lw=1.4, ls=ls)
         if std is not None:
             std = np.asarray(std, float).ravel()
             lo = mean - std
