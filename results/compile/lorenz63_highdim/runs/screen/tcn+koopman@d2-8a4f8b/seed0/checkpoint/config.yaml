@@ -1,0 +1,17 @@
+latent_dim: 2
+encoder:
+  name: tcn
+  kwargs: {}
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+dynamics:
+  name: koopman
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+obs_dim: 64
