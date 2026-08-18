@@ -54,3 +54,15 @@ before cell K; principal researcher signs off in `decisions.md`.
 Linear R² from `z` to ground-truth state may understate a good but nonlinearly-warped
 latent. Should F9 report both linear R² and a small-MLP R² (held-out)? Which is the
 honest one to caption? → Cell C on S2/S6.
+
+## Added 2026-08-17 (from the Lorenz-63 core benchmark)
+- Q-011 Why is non-residual MLP latent dynamics 12× worse than the residual parameterisation at
+  50 steps on Lorenz-63 (0.096 vs 0.008 NRMSE, and 6× more seed variance)? Hypothesis: the
+  residual form starts at identity (small per-step change at dt=0.01) and the loss curriculum
+  can build long rollouts from a stable start; the plain MLP must learn near-identity from
+  scratch. Test: initialise MLP dynamics at identity (last-layer zero + skip) and compare.
+- Q-012 The SSM and Transformer baselines are weakest at 40 epochs / 60 batches. Undertrained or
+  genuinely worse in the small-data regime (70 trajectories)? Test: 3× budget for those two only,
+  report separately (never silently raise the shared budget).
+- Q-013 The tcn_small horizon curve shows a jump at ~40 steps for some seeds — receptive-field
+  edge effect once the context leaves the window? Inspect per-seed curves.
