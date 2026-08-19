@@ -14,6 +14,20 @@ encoders and dynamics families, scores them under a configurable multi-objective
 (reconstruction, one-step, rollout, complexity, stability), and emits a compiled
 model plus a human-readable justification. This is a research codebase, not a demo.
 
+## CURRENT STATE
+
+Before adding a claim to any document, read:
+
+- `research/review_2026-08-18.md` — adversarial multi-agent review of `README.md`, `research/*.md`,
+  `results/tables/*` and `docs/*` against the actual code, configs and `results/registry.jsonl`;
+  43 findings survived two independent refutation attempts each. It is evidence, not a to-do list:
+  do not delete it.
+- `research/experiment_log.md` — chronological record of what has actually been run.
+
+Several documents were drafted before the code and describe APIs that were never implemented.
+When a document and the code disagree, the code wins: verify against `src/nssc/` first, and label
+genuinely absent behaviour "not implemented" rather than describing it as if it exists.
+
 ## RESEARCH QUESTION
 
 > Can we automatically compile high-dimensional temporal observations into a
@@ -26,27 +40,33 @@ which hypothesis it tests.
 
 ## ARCHITECTURE (see docs/architecture.md)
 
-    raw dataset → DatasetProfiler → CandidateGenerator → StagedSearch
-      → (train encoder+dynamics+decoder per candidate) → Evaluator
-      → StabilityAnalyzer → MultiObjectiveScorer → CompiledModel + CompileReport
+    raw dataset → profile_dataset → generate_candidates → StagedSearch
+      → per candidate × seed: run_experiment
+          (build_latent_model → Trainer.fit → evaluate_model, which calls analyze_stability
+           unless eval.stability is off)
+      → MultiObjectiveScorer.rank + prune, per stage
+      → StateSpaceCompiler.compile → CompiledModel + CompileReport
 
-Package layout under `src/nssc/`:
+Layout under `src/nssc/` (`experiment.py` is a single module; the rest are subpackages):
 
-| package           | responsibility |
+| path              | responsibility |
 |-------------------|----------------|
-| `data/`           | synthetic system generators, observation maps, real loaders, trajectory-level splits |
-| `representations/`| encoders/decoders: PCA, linear AE, MLP AE, TCN, GRU, SSM, multi-scale slow/fast |
-| `dynamics/`       | latent transitions: linear, affine, MLP, residual, Koopman, neural ODE, SSM, Gaussian |
-| `compiler/`       | profiler, candidate registry, scorer, compile report, `StateSpaceCompiler` |
-| `search/`         | staged/resumable search over candidates |
+| `data/`           | synthetic system generators, integrators, observation maps, real loaders (EEG BCI, motion), trajectory / parameter-range / subject splits |
+| `representations/`| encoders `pca, linear, mlp, tcn, gru, lstm, ssm, multiscale`; decoders `pca, linear, mlp` |
+| `dynamics/`       | latent transitions `linear, affine, mlp, residual_mlp, koopman, neural_ode, ssm, gaussian, multiscale` |
+| `models/`         | assembles registered encoder + dynamics + decoder into a `LatentModel` (`build_latent_model`) |
+| `baselines/`      | observation-space sequence forecasters `gru, lstm, tcn, ssm, transformer, persistence, mean`, their own trainer, and `recursive`/`direct` evaluation; `LatentModelForecaster` puts a compiled model through the same harness |
+| `compiler/`       | dataset profiler, multi-objective scorer, compile report, `StateSpaceCompiler` |
+| `search/`         | candidate space (`generate_candidates` — latent dim × encoder × dynamics), staged search, resumable search state, benchmark-suite runner |
 | `stability/`      | Jacobians, spectral radius, Lyapunov estimates, norm growth |
-| `uncertainty/`    | probabilistic rollouts, calibration |
+| `uncertainty/`    | probabilistic rollouts and their calibration, for stochastic dynamics |
 | `metrics/`        | central metrics: recon, k-step, NRMSE, complexity, latency, calibration |
 | `training/`       | trainer, losses, schedules, checkpointing |
-| `evaluation/`     | rollout protocols (teacher-forced / recursive / direct), failure analysis |
+| `experiment.py`   | single-run pipeline `run_experiment`: dataset → model → train → evaluate → checkpoint → registry |
+| `evaluation/`     | `evaluate_model` rollout protocols (`recon` / `teacher_forced` / `recursive`), failure analysis, OOD, seed aggregation, suite tables, Pareto fronts |
 | `visualization/`  | figure generation (scripts only, never hand-edited) |
-| `utils/`          | config, seeding, registry, hashing, git info, hardware info |
-| `cli/`            | `nssc` typer app |
+| `utils/`          | config, seeding, component registry, experiment registry, hashing, git info, hardware info |
+| `cli/`            | `nssc` typer app: `profile, train, evaluate, registry, compile, benchmark, visualize, report, tables, pareto, failures, smoke, dashboard, data` |
 
 Every model component registers itself in a registry (`nssc.utils.registry`) so
 the compiler can enumerate candidates without hard-coded imports. New dynamics or
