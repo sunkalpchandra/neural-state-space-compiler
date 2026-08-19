@@ -115,3 +115,22 @@ def test_make_loaders(tiny):
     assert batch["x"].shape[1:] == (12, 2) and batch["x"].shape[0] <= 16
     total = sum(b["x"].shape[0] for b in loaders["val"])
     assert total == len(WindowDataset(sp["val"], 8, 4, 4))
+
+
+def test_make_loaders_batch_order_is_seeded():
+    """R-04: batch order must be reproducible from the run seed, not global RNG state."""
+    import torch
+
+    from nssc.data.builder import build_dataset
+    from nssc.data.dataset import make_loaders
+
+    ds = build_dataset({"system": "harmonic", "n_traj": 12, "n_steps": 64, "dt": 0.05, "seed": 0})
+    splits = ds.split()
+
+    def first_batch(seed, burn):
+        torch.manual_seed(burn)  # different global state each time
+        ld = make_loaders(splits, 8, 8, batch_size=4, stride=4, seed=seed)["train"]
+        return next(iter(ld))["x"]
+
+    assert torch.equal(first_batch(0, 1), first_batch(0, 99))
+    assert not torch.equal(first_batch(0, 1), first_batch(1, 1))
