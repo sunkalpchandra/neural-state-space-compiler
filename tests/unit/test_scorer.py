@@ -72,3 +72,14 @@ def test_complexity_uses_stored_size_when_present():
     rows = MultiObjectiveScorer(ScoreWeights(complexity=5.0)).rank(
         {"pca_like": [run(256, 40_000, 0.10)], "mlp_like": [run(1_000, 1_000, 0.10)]})
     assert rows[0]["candidate_id"] == "mlp_like"  # 40k stored values are not free
+
+
+def test_aggregate_reports_spread_across_seeds():
+    """R-46: a headline margin must never be quotable without its seed spread."""
+    from nssc.compiler.scorer import aggregate_seeds
+
+    runs = [{"status": "completed", "summary": {"val/recursive/nrmse@50": v}} for v in (0.1, 0.3, 0.2)]
+    agg = aggregate_seeds(runs)
+    assert abs(agg["val/recursive/nrmse@50"] - 0.2) < 1e-9
+    assert abs(agg["val/recursive/nrmse@50__std"] - 0.1) < 1e-9
+    assert agg["val/recursive/nrmse@50__min"] == 0.1 and agg["val/recursive/nrmse@50__max"] == 0.3
