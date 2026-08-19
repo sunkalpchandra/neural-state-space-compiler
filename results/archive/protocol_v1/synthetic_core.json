@@ -1,0 +1,1979 @@
+{
+  "rows": [
+    {
+      "dataset": "lorenz63",
+      "model": "gru_medium",
+      "n_seeds": 5,
+      "params": 150531,
+      "test/recursive/nrmse@1": 0.002712962645429505,
+      "test/recursive/nrmse@1_std": 0.0005146987737368743,
+      "test/recursive/nrmse@1_ci": [
+        0.002277773116691857,
+        0.00305097898471174
+      ],
+      "test/recursive/nrmse@10": 0.005243747895134713,
+      "test/recursive/nrmse@10_std": 0.000452708224433677,
+      "test/recursive/nrmse@10_ci": [
+        0.004860060395626524,
+        0.0055332244976638075
+      ],
+      "test/recursive/nrmse@50": 0.012523443207824236,
+      "test/recursive/nrmse@50_std": 0.0017465068811062742,
+      "test/recursive/nrmse@50_ci": [
+        0.011029587885044994,
+        0.013805400668319995
+      ],
+      "test/recursive/nrmse@100": 0.03350621443655538,
+      "test/recursive/nrmse@100_std": 0.008736448619206078,
+      "test/recursive/nrmse@100_ci": [
+        0.025954979757434417,
+        0.03947209996519418
+      ],
+      "test/recursive/nrmse@250": 0.13728834530228445,
+      "test/recursive/nrmse@250_std": 0.02886915603970949,
+      "test/recursive/nrmse@250_ci": [
+        0.11550849944128036,
+        0.15906819116328857
+      ],
+      "test/recursive/nrmse_mean": 0.13728834530228445,
+      "test/recursive/nrmse_mean_std": 0.02886915603970949,
+      "test/recursive/nrmse_mean_ci": [
+        0.11550849944128036,
+        0.15906819116328857
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.032119786900878806,
+      "test/teacher_forced/nrmse_std": 0.0008814667502387687,
+      "test/teacher_forced/nrmse_ci": [
+        0.031437617746403745,
+        0.03280195605535387
+      ],
+      "test/params/total": 150531.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        150531.0,
+        150531.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "linae_linear_d3",
+      "n_seeds": 5,
+      "params": 33,
+      "test/recursive/nrmse@1": 0.13216365399981256,
+      "test/recursive/nrmse@1_std": 0.037581960823221995,
+      "test/recursive/nrmse@1_ci": [
+        0.10677151509165439,
+        0.1637851146516
+      ],
+      "test/recursive/nrmse@10": 0.422375661954972,
+      "test/recursive/nrmse@10_std": 0.047970792723027206,
+      "test/recursive/nrmse@10_ci": [
+        0.39562058162099806,
+        0.465727405191216
+      ],
+      "test/recursive/nrmse@50": 20.477479985917693,
+      "test/recursive/nrmse@50_std": 31.167220460841968,
+      "test/recursive/nrmse@50_ci": [
+        4.394186778331134,
+        48.606785756701655
+      ],
+      "test/recursive/nrmse@100": 114673.85610031379,
+      "test/recursive/nrmse@100_std": 253449.31797813775,
+      "test/recursive/nrmse@100_ci": [
+        270.090665024742,
+        341678.63442902814
+      ],
+      "test/recursive/nrmse@250": 1.504179516525711e+17,
+      "test/recursive/nrmse@250_std": 3.3634428068188755e+17,
+      "test/recursive/nrmse@250_ci": [
+        146360543.58507162,
+        4.5125350832287264e+17
+      ],
+      "test/recursive/nrmse_mean": 1.504179516525711e+17,
+      "test/recursive/nrmse_mean_std": 3.3634428068188755e+17,
+      "test/recursive/nrmse_mean_ci": [
+        146360543.58507162,
+        4.5125350832287264e+17
+      ],
+      "test/recursive/divergence_time": 15.0,
+      "test/recursive/divergence_time_std": 2.345207879911715,
+      "test/recursive/divergence_time_ci": [
+        13.0,
+        16.4
+      ],
+      "test/teacher_forced/nrmse": 0.14643264115047355,
+      "test/teacher_forced/nrmse_std": 0.04595245450292423,
+      "test/teacher_forced/nrmse_ci": [
+        0.11196255212546102,
+        0.18353182750182667
+      ],
+      "test/params/total": 33.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        33.0,
+        33.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "lstm_medium",
+      "n_seeds": 5,
+      "params": 200579,
+      "test/recursive/nrmse@1": 0.004154498506823648,
+      "test/recursive/nrmse@1_std": 0.0007336772997415745,
+      "test/recursive/nrmse@1_ci": [
+        0.0035426635065114705,
+        0.00469968127374509
+      ],
+      "test/recursive/nrmse@10": 0.0036122057267957974,
+      "test/recursive/nrmse@10_std": 0.0004164100691489964,
+      "test/recursive/nrmse@10_ci": [
+        0.0032795537373059916,
+        0.003944857716285603
+      ],
+      "test/recursive/nrmse@50": 0.007729807309843376,
+      "test/recursive/nrmse@50_std": 0.0012893622487264902,
+      "test/recursive/nrmse@50_ci": [
+        0.006668287356675936,
+        0.008643472675055813
+      ],
+      "test/recursive/nrmse@100": 0.015245306176050497,
+      "test/recursive/nrmse@100_std": 0.0022297468584419264,
+      "test/recursive/nrmse@100_ci": [
+        0.013805903698294281,
+        0.017059841147554572
+      ],
+      "test/recursive/nrmse@250": 0.0648448910371065,
+      "test/recursive/nrmse@250_std": 0.0128768111135886,
+      "test/recursive/nrmse@250_ci": [
+        0.057115761949774226,
+        0.07591234018351845
+      ],
+      "test/recursive/nrmse_mean": 0.0648448910371065,
+      "test/recursive/nrmse_mean_std": 0.0128768111135886,
+      "test/recursive/nrmse_mean_ci": [
+        0.057115761949774226,
+        0.07591234018351845
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.045415466159224274,
+      "test/teacher_forced/nrmse_std": 0.001745551321863814,
+      "test/teacher_forced/nrmse_ci": [
+        0.044264370401107464,
+        0.0468651632967192
+      ],
+      "test/params/total": 200579.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        200579.0,
+        200579.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "mlpae_mlp_d3",
+      "n_seeds": 5,
+      "params": 13833,
+      "test/recursive/nrmse@1": 0.016106991249705747,
+      "test/recursive/nrmse@1_std": 0.008968150372032994,
+      "test/recursive/nrmse@1_ci": [
+        0.009062470341573422,
+        0.022978246219609616
+      ],
+      "test/recursive/nrmse@10": 0.028032524548425586,
+      "test/recursive/nrmse@10_std": 0.012790919246396215,
+      "test/recursive/nrmse@10_ci": [
+        0.016996043725926734,
+        0.03668493266461254
+      ],
+      "test/recursive/nrmse@50": 0.0959506589001208,
+      "test/recursive/nrmse@50_std": 0.057958278947411825,
+      "test/recursive/nrmse@50_ci": [
+        0.047818956628843744,
+        0.14308431577706365
+      ],
+      "test/recursive/nrmse@100": 0.3056889006344047,
+      "test/recursive/nrmse@100_std": 0.16070400827498,
+      "test/recursive/nrmse@100_ci": [
+        0.1664995083912169,
+        0.4092764209384628
+      ],
+      "test/recursive/nrmse@250": 0.6639816535639651,
+      "test/recursive/nrmse@250_std": 0.2592833128694361,
+      "test/recursive/nrmse@250_ci": [
+        0.4307343985667031,
+        0.811255403353108
+      ],
+      "test/recursive/nrmse_mean": 0.6639816535639651,
+      "test/recursive/nrmse_mean_std": 0.2592833128694361,
+      "test/recursive/nrmse_mean_ci": [
+        0.4307343985667031,
+        0.811255403353108
+      ],
+      "test/recursive/divergence_time": 129.6,
+      "test/recursive/divergence_time_std": 68.00220584657531,
+      "test/recursive/divergence_time_ci": [
+        96.6,
+        190.6
+      ],
+      "test/teacher_forced/nrmse": 0.014768467749552688,
+      "test/teacher_forced/nrmse_std": 0.006166324963187763,
+      "test/teacher_forced/nrmse_ci": [
+        0.009876667564354007,
+        0.019101822474293553
+      ],
+      "test/params/total": 13833.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        13833.0,
+        13833.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "mlpae_resmlp_d3",
+      "n_seeds": 5,
+      "params": 13833,
+      "test/recursive/nrmse@1": 0.0026128254651358804,
+      "test/recursive/nrmse@1_std": 0.0005306742609125136,
+      "test/recursive/nrmse@1_ci": [
+        0.0022132091798337133,
+        0.003042474719766467
+      ],
+      "test/recursive/nrmse@10": 0.004446559533362175,
+      "test/recursive/nrmse@10_std": 0.0003913774096729355,
+      "test/recursive/nrmse@10_ci": [
+        0.004155131201126016,
+        0.004743549709009068
+      ],
+      "test/recursive/nrmse@50": 0.007593889468735638,
+      "test/recursive/nrmse@50_std": 0.0009687181979218185,
+      "test/recursive/nrmse@50_ci": [
+        0.006788370756452888,
+        0.008345864613006862
+      ],
+      "test/recursive/nrmse@100": 0.0169728873486224,
+      "test/recursive/nrmse@100_std": 0.0035605747473819232,
+      "test/recursive/nrmse@100_ci": [
+        0.01457534372631788,
+        0.019742269713699433
+      ],
+      "test/recursive/nrmse@250": 0.07464377960600585,
+      "test/recursive/nrmse@250_std": 0.03573770714672125,
+      "test/recursive/nrmse@250_ci": [
+        0.04925115318189943,
+        0.10337367231196896
+      ],
+      "test/recursive/nrmse_mean": 0.07464377960600585,
+      "test/recursive/nrmse_mean_std": 0.03573770714672125,
+      "test/recursive/nrmse_mean_ci": [
+        0.04925115318189943,
+        0.10337367231196896
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.0022672996191607873,
+      "test/teacher_forced/nrmse_std": 0.0003982923145243788,
+      "test/teacher_forced/nrmse_ci": [
+        0.001910660227195529,
+        0.002569867197031701
+      ],
+      "test/params/total": 13833.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        13833.0,
+        13833.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "pca_linear_d3",
+      "n_seeds": 5,
+      "params": 9,
+      "test/recursive/nrmse@1": 0.06820683809690545,
+      "test/recursive/nrmse@1_std": 0.0003494175793811063,
+      "test/recursive/nrmse@1_ci": [
+        0.067908710200328,
+        0.06845886825928013
+      ],
+      "test/recursive/nrmse@10": 0.384750767468801,
+      "test/recursive/nrmse@10_std": 0.0007718542006507023,
+      "test/recursive/nrmse@10_ci": [
+        0.384143159900445,
+        0.38535837503715686
+      ],
+      "test/recursive/nrmse@50": 1.0094985088004127,
+      "test/recursive/nrmse@50_std": 0.011794535052240802,
+      "test/recursive/nrmse@50_ci": [
+        1.0013266933485465,
+        1.0193285020997378
+      ],
+      "test/recursive/nrmse@100": 1.0449447749551988,
+      "test/recursive/nrmse@100_std": 0.02232238499756737,
+      "test/recursive/nrmse@100_ci": [
+        1.0315759190386835,
+        1.0646824888236694
+      ],
+      "test/recursive/nrmse@250": 1.1283586162446348,
+      "test/recursive/nrmse@250_std": 0.0377849518274509,
+      "test/recursive/nrmse@250_ci": [
+        1.1050078205976566,
+        1.1626381403981756
+      ],
+      "test/recursive/nrmse_mean": 1.1283586162446348,
+      "test/recursive/nrmse_mean_std": 0.0377849518274509,
+      "test/recursive/nrmse_mean_ci": [
+        1.1050078205976566,
+        1.1626381403981756
+      ],
+      "test/recursive/divergence_time": 17.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        17.0,
+        17.0
+      ],
+      "test/teacher_forced/nrmse": 0.04900449683164167,
+      "test/teacher_forced/nrmse_std": 1.576940088481595e-05,
+      "test/teacher_forced/nrmse_ci": [
+        0.048995023775822856,
+        0.049019254218186994
+      ],
+      "test/params/total": 9.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        9.0,
+        9.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "persistence",
+      "n_seeds": 5,
+      "params": 0,
+      "test/recursive/nrmse@1": 0.08862860238112034,
+      "test/recursive/nrmse@1_std": 0.0,
+      "test/recursive/nrmse@1_ci": [
+        0.08862860238112034,
+        0.08862860238112034
+      ],
+      "test/recursive/nrmse@10": 0.47021653008410935,
+      "test/recursive/nrmse@10_std": 0.0,
+      "test/recursive/nrmse@10_ci": [
+        0.47021653008410935,
+        0.47021653008410935
+      ],
+      "test/recursive/nrmse@50": 1.2950332134522764,
+      "test/recursive/nrmse@50_std": 0.0,
+      "test/recursive/nrmse@50_ci": [
+        1.2950332134522764,
+        1.2950332134522764
+      ],
+      "test/recursive/nrmse@100": 1.427246740512792,
+      "test/recursive/nrmse@100_std": 0.0,
+      "test/recursive/nrmse@100_ci": [
+        1.427246740512792,
+        1.427246740512792
+      ],
+      "test/recursive/nrmse@250": 1.5317563748251966,
+      "test/recursive/nrmse@250_std": 0.0,
+      "test/recursive/nrmse@250_ci": [
+        1.5317563748251966,
+        1.5317563748251966
+      ],
+      "test/recursive/nrmse_mean": 1.5317563748251966,
+      "test/recursive/nrmse_mean_std": 0.0,
+      "test/recursive/nrmse_mean_ci": [
+        1.5317563748251966,
+        1.5317563748251966
+      ],
+      "test/recursive/divergence_time": 13.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        13.0,
+        13.0
+      ],
+      "test/teacher_forced/nrmse": 0.0738821141214314,
+      "test/teacher_forced/nrmse_std": 0.0,
+      "test/teacher_forced/nrmse_ci": [
+        0.0738821141214314,
+        0.0738821141214314
+      ],
+      "test/params/total": 0.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "ssm_small",
+      "n_seeds": 5,
+      "params": 14691,
+      "test/recursive/nrmse@1": 0.009215741645893666,
+      "test/recursive/nrmse@1_std": 0.001256259468989145,
+      "test/recursive/nrmse@1_ci": [
+        0.008539689514203636,
+        0.01034237787876299
+      ],
+      "test/recursive/nrmse@10": 0.024948664990668303,
+      "test/recursive/nrmse@10_std": 0.002680048443564434,
+      "test/recursive/nrmse@10_ci": [
+        0.02293144410321562,
+        0.027079866356772307
+      ],
+      "test/recursive/nrmse@50": 0.09773669043051941,
+      "test/recursive/nrmse@50_std": 0.04007393858734253,
+      "test/recursive/nrmse@50_ci": [
+        0.06941820140374018,
+        0.1322904221856776
+      ],
+      "test/recursive/nrmse@100": 0.33591948380455844,
+      "test/recursive/nrmse@100_std": 0.12209412657629343,
+      "test/recursive/nrmse@100_ci": [
+        0.2568897548033737,
+        0.43895814067740935
+      ],
+      "test/recursive/nrmse@250": 0.8983193530926084,
+      "test/recursive/nrmse@250_std": 0.1279733531945013,
+      "test/recursive/nrmse@250_ci": [
+        0.8085217684712467,
+        1.0058367859159478
+      ],
+      "test/recursive/nrmse_mean": 0.8983193530926084,
+      "test/recursive/nrmse_mean_std": 0.1279733531945013,
+      "test/recursive/nrmse_mean_ci": [
+        0.8085217684712467,
+        1.0058367859159478
+      ],
+      "test/recursive/divergence_time": 107.0,
+      "test/recursive/divergence_time_std": 23.021728866442675,
+      "test/recursive/divergence_time_ci": [
+        90.0,
+        123.8
+      ],
+      "test/teacher_forced/nrmse": 0.03143703562375355,
+      "test/teacher_forced/nrmse_std": 0.010443566750894036,
+      "test/teacher_forced/nrmse_ci": [
+        0.0234399835861335,
+        0.0394340876613736
+      ],
+      "test/params/total": 14691.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        14691.0,
+        14691.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "tcn_small",
+      "n_seeds": 5,
+      "params": 16867,
+      "test/recursive/nrmse@1": 0.005659532966488389,
+      "test/recursive/nrmse@1_std": 0.0018275087458264122,
+      "test/recursive/nrmse@1_ci": [
+        0.004192795692494838,
+        0.007035784390993408
+      ],
+      "test/recursive/nrmse@10": 0.007457228253361396,
+      "test/recursive/nrmse@10_std": 0.0011148093054141924,
+      "test/recursive/nrmse@10_ci": [
+        0.006611694487721059,
+        0.008302762019001736
+      ],
+      "test/recursive/nrmse@50": 0.02360126134566479,
+      "test/recursive/nrmse@50_std": 0.005631655668120757,
+      "test/recursive/nrmse@50_ci": [
+        0.01918462743822324,
+        0.028017895253106335
+      ],
+      "test/recursive/nrmse@100": 0.044539502914801375,
+      "test/recursive/nrmse@100_std": 0.011747128420881282,
+      "test/recursive/nrmse@100_ci": [
+        0.03661038782099139,
+        0.05453195039916291
+      ],
+      "test/recursive/nrmse@250": 0.22048380646674964,
+      "test/recursive/nrmse@250_std": 0.07671275073536085,
+      "test/recursive/nrmse@250_ci": [
+        0.1602786298654324,
+        0.2814067367601252
+      ],
+      "test/recursive/nrmse_mean": 0.22048380646674964,
+      "test/recursive/nrmse_mean_std": 0.07671275073536085,
+      "test/recursive/nrmse_mean_ci": [
+        0.1602786298654324,
+        0.2814067367601252
+      ],
+      "test/recursive/divergence_time": 249.2,
+      "test/recursive/divergence_time_std": 2.6832815729997477,
+      "test/recursive/divergence_time_ci": [
+        246.8,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.029437398990079293,
+      "test/teacher_forced/nrmse_std": 0.007317170031776319,
+      "test/teacher_forced/nrmse_ci": [
+        0.02408400926528133,
+        0.03584077512575344
+      ],
+      "test/params/total": 16867.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        16867.0,
+        16867.0
+      ]
+    },
+    {
+      "dataset": "lorenz63",
+      "model": "transformer_small",
+      "n_seeds": 5,
+      "params": 42083,
+      "test/recursive/nrmse@1": 0.013141649447576157,
+      "test/recursive/nrmse@1_std": 0.0030198741184795106,
+      "test/recursive/nrmse@1_ci": [
+        0.010816066054521078,
+        0.015720846192648314
+      ],
+      "test/recursive/nrmse@10": 0.020493061271294345,
+      "test/recursive/nrmse@10_std": 0.0030080213626894775,
+      "test/recursive/nrmse@10_ci": [
+        0.018061894884905998,
+        0.022694197972861613
+      ],
+      "test/recursive/nrmse@50": 0.18996364430263835,
+      "test/recursive/nrmse@50_std": 0.04396259714314097,
+      "test/recursive/nrmse@50_ci": [
+        0.15410872431555536,
+        0.22629737842457937
+      ],
+      "test/recursive/nrmse@100": 0.821747061939601,
+      "test/recursive/nrmse@100_std": 0.10324462420349798,
+      "test/recursive/nrmse@100_ci": [
+        0.7431354923275155,
+        0.8968978727633912
+      ],
+      "test/recursive/nrmse@250": 1.2534754980644571,
+      "test/recursive/nrmse@250_std": 0.06044348026179703,
+      "test/recursive/nrmse@250_ci": [
+        1.2050433733933092,
+        1.2953796717011428
+      ],
+      "test/recursive/nrmse_mean": 1.2534754980644571,
+      "test/recursive/nrmse_mean_std": 0.06044348026179703,
+      "test/recursive/nrmse_mean_ci": [
+        1.2050433733933092,
+        1.2953796717011428
+      ],
+      "test/recursive/divergence_time": 48.2,
+      "test/recursive/divergence_time_std": 5.167204273105526,
+      "test/recursive/divergence_time_ci": [
+        45.0,
+        52.8
+      ],
+      "test/teacher_forced/nrmse": 0.5330113975985984,
+      "test/teacher_forced/nrmse_std": 0.037383273094920226,
+      "test/teacher_forced/nrmse_ci": [
+        0.5083664400091623,
+        0.5662417611218571
+      ],
+      "test/params/total": 42083.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        42083.0,
+        42083.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "gru_medium",
+      "n_seeds": 5,
+      "params": 181824,
+      "test/recursive/nrmse@1": 0.11762258241144541,
+      "test/recursive/nrmse@1_std": 0.0007814293338122716,
+      "test/recursive/nrmse@1_ci": [
+        0.11705635476062612,
+        0.11824159850301816
+      ],
+      "test/recursive/nrmse@10": 0.1196795896857256,
+      "test/recursive/nrmse@10_std": 0.0019093265543679737,
+      "test/recursive/nrmse@10_ci": [
+        0.11838627854160663,
+        0.1214195299051204
+      ],
+      "test/recursive/nrmse@50": 0.13209977677457663,
+      "test/recursive/nrmse@50_std": 0.004782566486847021,
+      "test/recursive/nrmse@50_ci": [
+        0.1284909881333315,
+        0.13570856541582174
+      ],
+      "test/recursive/nrmse@100": 0.19014566816296802,
+      "test/recursive/nrmse@100_std": 0.027803748369730742,
+      "test/recursive/nrmse@100_ci": [
+        0.17129076188204967,
+        0.21322251175084012
+      ],
+      "test/recursive/nrmse@250": 0.3949805860048377,
+      "test/recursive/nrmse@250_std": 0.08170092375359739,
+      "test/recursive/nrmse@250_ci": [
+        0.3463680354631632,
+        0.4688802738526382
+      ],
+      "test/recursive/nrmse_mean": 0.3949805860048377,
+      "test/recursive/nrmse_mean_std": 0.08170092375359739,
+      "test/recursive/nrmse_mean_ci": [
+        0.3463680354631632,
+        0.4688802738526382
+      ],
+      "test/recursive/divergence_time": 244.8,
+      "test/recursive/divergence_time_std": 10.256705123966467,
+      "test/recursive/divergence_time_ci": [
+        235.4,
+        250.8
+      ],
+      "test/teacher_forced/nrmse": 0.1237846606963443,
+      "test/teacher_forced/nrmse_std": 0.0005951223680431553,
+      "test/teacher_forced/nrmse_ci": [
+        0.12337282875898477,
+        0.1243118121173697
+      ],
+      "test/params/total": 181824.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        181824.0,
+        181824.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "linae_linear_d3",
+      "n_seeds": 5,
+      "params": 460,
+      "test/recursive/nrmse@1": 0.4838163664354863,
+      "test/recursive/nrmse@1_std": 0.0062598992514815285,
+      "test/recursive/nrmse@1_ci": [
+        0.47875056362872453,
+        0.4883273781534518
+      ],
+      "test/recursive/nrmse@10": 0.6293968551585329,
+      "test/recursive/nrmse@10_std": 0.007307809761855595,
+      "test/recursive/nrmse@10_ci": [
+        0.6229549253293009,
+        0.6341190974446518
+      ],
+      "test/recursive/nrmse@50": 1.0596588570565157,
+      "test/recursive/nrmse@50_std": 0.011088015596494385,
+      "test/recursive/nrmse@50_ci": [
+        1.0517122471129976,
+        1.0686971207951945
+      ],
+      "test/recursive/nrmse@100": 1.1482391623023704,
+      "test/recursive/nrmse@100_std": 0.007200330635809094,
+      "test/recursive/nrmse@100_ci": [
+        1.1430285952603942,
+        1.1538631734919578
+      ],
+      "test/recursive/nrmse@250": 1.1398210822737922,
+      "test/recursive/nrmse@250_std": 0.020303681388135274,
+      "test/recursive/nrmse@250_ci": [
+        1.1220274062250366,
+        1.1536172604107748
+      ],
+      "test/recursive/nrmse_mean": 1.1398210822737922,
+      "test/recursive/nrmse_mean_std": 0.020303681388135274,
+      "test/recursive/nrmse_mean_ci": [
+        1.1220274062250366,
+        1.1536172604107748
+      ],
+      "test/recursive/divergence_time": 15.2,
+      "test/recursive/divergence_time_std": 0.4472135954999579,
+      "test/recursive/divergence_time_ci": [
+        15.0,
+        15.6
+      ],
+      "test/teacher_forced/nrmse": 0.49611128380384634,
+      "test/teacher_forced/nrmse_std": 0.004576145290705101,
+      "test/teacher_forced/nrmse_ci": [
+        0.4926011021236006,
+        0.4994894447868642
+      ],
+      "test/params/total": 460.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        460.0,
+        460.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "lstm_medium",
+      "n_seeds": 5,
+      "params": 239680,
+      "test/recursive/nrmse@1": 0.11886458273363318,
+      "test/recursive/nrmse@1_std": 0.0007970713653263281,
+      "test/recursive/nrmse@1_ci": [
+        0.11828275887564588,
+        0.11955302009728672
+      ],
+      "test/recursive/nrmse@10": 0.12003957766091397,
+      "test/recursive/nrmse@10_std": 0.0010584824098903468,
+      "test/recursive/nrmse@10_ci": [
+        0.11913449092060693,
+        0.12070177828179504
+      ],
+      "test/recursive/nrmse@50": 0.13026661572845194,
+      "test/recursive/nrmse@50_std": 0.0013437358529039588,
+      "test/recursive/nrmse@50_ci": [
+        0.12911231758214503,
+        0.13124828167529407
+      ],
+      "test/recursive/nrmse@100": 0.1594768024630588,
+      "test/recursive/nrmse@100_std": 0.010871545797387671,
+      "test/recursive/nrmse@100_ci": [
+        0.15254263802818585,
+        0.16902866939383537
+      ],
+      "test/recursive/nrmse@250": 0.29315088182635946,
+      "test/recursive/nrmse@250_std": 0.03546625534406019,
+      "test/recursive/nrmse@250_ci": [
+        0.2669915090861932,
+        0.32159243634806856
+      ],
+      "test/recursive/nrmse_mean": 0.29315088182635946,
+      "test/recursive/nrmse_mean_std": 0.03546625534406019,
+      "test/recursive/nrmse_mean_ci": [
+        0.2669915090861932,
+        0.32159243634806856
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.12261634310385679,
+      "test/teacher_forced/nrmse_std": 0.00033991257183114954,
+      "test/teacher_forced/nrmse_ci": [
+        0.12234463127821212,
+        0.12287009934634996
+      ],
+      "test/params/total": 239680.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        239680.0,
+        239680.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "mlpae_mlp_d3",
+      "n_seeds": 5,
+      "params": 21702,
+      "test/recursive/nrmse@1": 0.23231113508066156,
+      "test/recursive/nrmse@1_std": 0.014513066056493695,
+      "test/recursive/nrmse@1_ci": [
+        0.22039667280670722,
+        0.24314943750411988
+      ],
+      "test/recursive/nrmse@10": 0.40982697778295474,
+      "test/recursive/nrmse@10_std": 0.02810649045868436,
+      "test/recursive/nrmse@10_ci": [
+        0.3919133753687569,
+        0.43362831830338655
+      ],
+      "test/recursive/nrmse@50": 0.8590410663051602,
+      "test/recursive/nrmse@50_std": 0.07419872156343792,
+      "test/recursive/nrmse@50_ci": [
+        0.8076691948073937,
+        0.9207126815455859
+      ],
+      "test/recursive/nrmse@100": 1.1600607744545843,
+      "test/recursive/nrmse@100_std": 0.10779724099593954,
+      "test/recursive/nrmse@100_ci": [
+        1.0778590058336381,
+        1.244119377051069
+      ],
+      "test/recursive/nrmse@250": 1.400004223484091,
+      "test/recursive/nrmse@250_std": 0.2959864290003381,
+      "test/recursive/nrmse@250_ci": [
+        1.2356438563876,
+        1.6652413504094792
+      ],
+      "test/recursive/nrmse_mean": 1.400004223484091,
+      "test/recursive/nrmse_mean_std": 0.2959864290003381,
+      "test/recursive/nrmse_mean_ci": [
+        1.2356438563876,
+        1.6652413504094792
+      ],
+      "test/recursive/divergence_time": 30.0,
+      "test/recursive/divergence_time_std": 11.135528725660043,
+      "test/recursive/divergence_time_ci": [
+        21.8,
+        39.2
+      ],
+      "test/teacher_forced/nrmse": 0.22598634500798234,
+      "test/teacher_forced/nrmse_std": 0.010687453339492423,
+      "test/teacher_forced/nrmse_ci": [
+        0.21745874700414908,
+        0.23466424139518366
+      ],
+      "test/params/total": 21702.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        21702.0,
+        21702.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "mlpae_resmlp_d3",
+      "n_seeds": 5,
+      "params": 21702,
+      "test/recursive/nrmse@1": 0.20174183787062971,
+      "test/recursive/nrmse@1_std": 0.014320684324865081,
+      "test/recursive/nrmse@1_ci": [
+        0.19259687843087306,
+        0.21417627041965126
+      ],
+      "test/recursive/nrmse@10": 0.38386611971074835,
+      "test/recursive/nrmse@10_std": 0.03420314508689472,
+      "test/recursive/nrmse@10_ci": [
+        0.3579806175266835,
+        0.4097516218948133
+      ],
+      "test/recursive/nrmse@50": 0.9541934477812515,
+      "test/recursive/nrmse@50_std": 0.4214201459362603,
+      "test/recursive/nrmse@50_ci": [
+        0.7204907137615173,
+        1.3253849946200897
+      ],
+      "test/recursive/nrmse@100": 86.92771394370551,
+      "test/recursive/nrmse@100_std": 192.08953932848127,
+      "test/recursive/nrmse@100_ci": [
+        0.9834296667893683,
+        258.7489022927824
+      ],
+      "test/recursive/nrmse@250": 17049067331.02071,
+      "test/recursive/nrmse@250_std": 38122873502.21513,
+      "test/recursive/nrmse@250_ci": [
+        1.2405122884494149,
+        51147201990.47452
+      ],
+      "test/recursive/nrmse_mean": 17049067331.02071,
+      "test/recursive/nrmse_mean_std": 38122873502.21513,
+      "test/recursive/nrmse_mean_ci": [
+        1.2405122884494149,
+        51147201990.47452
+      ],
+      "test/recursive/divergence_time": 40.0,
+      "test/recursive/divergence_time_std": 12.62933094031509,
+      "test/recursive/divergence_time_ci": [
+        30.2,
+        49.8
+      ],
+      "test/teacher_forced/nrmse": 0.19903207108851023,
+      "test/teacher_forced/nrmse_std": 0.011014844362781197,
+      "test/teacher_forced/nrmse_ci": [
+        0.1914944071094089,
+        0.20812870885194457
+      ],
+      "test/params/total": 21702.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        21702.0,
+        21702.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "pca_linear_d3",
+      "n_seeds": 5,
+      "params": 9,
+      "test/recursive/nrmse@1": 0.4719653473327896,
+      "test/recursive/nrmse@1_std": 0.000852885948059755,
+      "test/recursive/nrmse@1_ci": [
+        0.4713676830615909,
+        0.47271698105829446
+      ],
+      "test/recursive/nrmse@10": 0.6998797432817548,
+      "test/recursive/nrmse@10_std": 0.0009716504121454837,
+      "test/recursive/nrmse@10_ci": [
+        0.6990237808990958,
+        0.7005935156508442
+      ],
+      "test/recursive/nrmse@50": 1.1260853690099089,
+      "test/recursive/nrmse@50_std": 0.007724144378791493,
+      "test/recursive/nrmse@50_ci": [
+        1.1205183225458126,
+        1.131652415474005
+      ],
+      "test/recursive/nrmse@100": 1.1863803686232912,
+      "test/recursive/nrmse@100_std": 0.016772251832360325,
+      "test/recursive/nrmse@100_ci": [
+        1.1734135080915973,
+        1.199347229154985
+      ],
+      "test/recursive/nrmse@250": 1.1536897776023105,
+      "test/recursive/nrmse@250_std": 0.03038139697957835,
+      "test/recursive/nrmse@250_ci": [
+        1.129918890187914,
+        1.177460665016707
+      ],
+      "test/recursive/nrmse_mean": 1.1536897776023105,
+      "test/recursive/nrmse_mean_std": 0.03038139697957835,
+      "test/recursive/nrmse_mean_ci": [
+        1.129918890187914,
+        1.177460665016707
+      ],
+      "test/recursive/divergence_time": 13.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        13.0,
+        13.0
+      ],
+      "test/teacher_forced/nrmse": 0.4766656045417494,
+      "test/teacher_forced/nrmse_std": 0.00016454872249481724,
+      "test/teacher_forced/nrmse_ci": [
+        0.4765509332792087,
+        0.4767929373519253
+      ],
+      "test/params/total": 9.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        9.0,
+        9.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "persistence",
+      "n_seeds": 5,
+      "params": 0,
+      "test/recursive/nrmse@1": 0.22753643432659715,
+      "test/recursive/nrmse@1_std": 0.0,
+      "test/recursive/nrmse@1_ci": [
+        0.22753643432659715,
+        0.22753643432659715
+      ],
+      "test/recursive/nrmse@10": 0.7378193876285855,
+      "test/recursive/nrmse@10_std": 0.0,
+      "test/recursive/nrmse@10_ci": [
+        0.7378193876285855,
+        0.7378193876285855
+      ],
+      "test/recursive/nrmse@50": 1.2553086807437301,
+      "test/recursive/nrmse@50_std": 0.0,
+      "test/recursive/nrmse@50_ci": [
+        1.2553086807437301,
+        1.2553086807437301
+      ],
+      "test/recursive/nrmse@100": 1.365155848543366,
+      "test/recursive/nrmse@100_std": 0.0,
+      "test/recursive/nrmse@100_ci": [
+        1.365155848543366,
+        1.365155848543366
+      ],
+      "test/recursive/nrmse@250": 1.448614661275632,
+      "test/recursive/nrmse@250_std": 0.0,
+      "test/recursive/nrmse@250_ci": [
+        1.448614661275632,
+        1.448614661275632
+      ],
+      "test/recursive/nrmse_mean": 1.448614661275632,
+      "test/recursive/nrmse_mean_std": 0.0,
+      "test/recursive/nrmse_mean_ci": [
+        1.448614661275632,
+        1.448614661275632
+      ],
+      "test/recursive/divergence_time": 9.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        9.0,
+        9.0
+      ],
+      "test/teacher_forced/nrmse": 0.22363137942995567,
+      "test/teacher_forced/nrmse_std": 3.1031676915590914e-17,
+      "test/teacher_forced/nrmse_ci": [
+        0.22363137942995567,
+        0.22363137942995567
+      ],
+      "test/params/total": 0.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "ssm_small",
+      "n_seeds": 5,
+      "params": 18656,
+      "test/recursive/nrmse@1": 0.13303211757982608,
+      "test/recursive/nrmse@1_std": 0.00225904246456734,
+      "test/recursive/nrmse@1_ci": [
+        0.13128652935509605,
+        0.1347777058045562
+      ],
+      "test/recursive/nrmse@10": 0.18813529211651217,
+      "test/recursive/nrmse@10_std": 0.015474000801515638,
+      "test/recursive/nrmse@10_ci": [
+        0.1764851178647843,
+        0.20015140530371847
+      ],
+      "test/recursive/nrmse@50": 0.30906288738196797,
+      "test/recursive/nrmse@50_std": 0.048110707013627144,
+      "test/recursive/nrmse@50_ci": [
+        0.26855713124040365,
+        0.34479934917897187
+      ],
+      "test/recursive/nrmse@100": 0.5406011935618771,
+      "test/recursive/nrmse@100_std": 0.09806422274032407,
+      "test/recursive/nrmse@100_ci": [
+        0.4513017128872005,
+        0.596067241767248
+      ],
+      "test/recursive/nrmse@250": 0.9331739907802905,
+      "test/recursive/nrmse@250_std": 0.07111064748914983,
+      "test/recursive/nrmse@250_ci": [
+        0.8699788649963814,
+        0.9800383456835877
+      ],
+      "test/recursive/nrmse_mean": 0.9331739907802905,
+      "test/recursive/nrmse_mean_std": 0.07111064748914983,
+      "test/recursive/nrmse_mean_ci": [
+        0.8699788649963814,
+        0.9800383456835877
+      ],
+      "test/recursive/divergence_time": 95.8,
+      "test/recursive/divergence_time_std": 21.890637268019404,
+      "test/recursive/divergence_time_ci": [
+        83.2,
+        115.2
+      ],
+      "test/teacher_forced/nrmse": 0.13460968768825415,
+      "test/teacher_forced/nrmse_std": 0.0021039318218972576,
+      "test/teacher_forced/nrmse_ci": [
+        0.1334061499892775,
+        0.13646823175718184
+      ],
+      "test/params/total": 18656.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        18656.0,
+        18656.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "tcn_small",
+      "n_seeds": 5,
+      "params": 20832,
+      "test/recursive/nrmse@1": 0.1379560701615121,
+      "test/recursive/nrmse@1_std": 0.00262091281957756,
+      "test/recursive/nrmse@1_ci": [
+        0.13572764453078817,
+        0.13979811457911695
+      ],
+      "test/recursive/nrmse@10": 0.14737649870816305,
+      "test/recursive/nrmse@10_std": 0.0022362874268978773,
+      "test/recursive/nrmse@10_ci": [
+        0.14579806863962008,
+        0.1493150986595017
+      ],
+      "test/recursive/nrmse@50": 0.19239721888182562,
+      "test/recursive/nrmse@50_std": 0.01264067237256714,
+      "test/recursive/nrmse@50_ci": [
+        0.18368919800181457,
+        0.20385308841412933
+      ],
+      "test/recursive/nrmse@100": 0.32735870243601667,
+      "test/recursive/nrmse@100_std": 0.054431626847390245,
+      "test/recursive/nrmse@100_ci": [
+        0.28304954836278584,
+        0.36198667667670087
+      ],
+      "test/recursive/nrmse@250": 0.7288557413414442,
+      "test/recursive/nrmse@250_std": 0.07840118446095182,
+      "test/recursive/nrmse@250_ci": [
+        0.6700983675366234,
+        0.785448526022486
+      ],
+      "test/recursive/nrmse_mean": 0.7288557413414442,
+      "test/recursive/nrmse_mean_std": 0.07840118446095182,
+      "test/recursive/nrmse_mean_ci": [
+        0.6700983675366234,
+        0.785448526022486
+      ],
+      "test/recursive/divergence_time": 152.8,
+      "test/recursive/divergence_time_std": 14.202112518917739,
+      "test/recursive/divergence_time_ci": [
+        143.6,
+        165.0
+      ],
+      "test/teacher_forced/nrmse": 0.14102611876931884,
+      "test/teacher_forced/nrmse_std": 0.001625147216762302,
+      "test/teacher_forced/nrmse_ci": [
+        0.13985492955020257,
+        0.14219013520194154
+      ],
+      "test/params/total": 20832.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        20832.0,
+        20832.0
+      ]
+    },
+    {
+      "dataset": "lorenz63_highdim",
+      "model": "transformer_small",
+      "n_seeds": 5,
+      "params": 46048,
+      "test/recursive/nrmse@1": 0.13810547074856003,
+      "test/recursive/nrmse@1_std": 0.002947254563985269,
+      "test/recursive/nrmse@1_ci": [
+        0.13589583259074384,
+        0.14043732708356899
+      ],
+      "test/recursive/nrmse@10": 0.1698920915984278,
+      "test/recursive/nrmse@10_std": 0.010343567692402593,
+      "test/recursive/nrmse@10_ci": [
+        0.1609056636333647,
+        0.17718498837883398
+      ],
+      "test/recursive/nrmse@50": 0.2926124931833006,
+      "test/recursive/nrmse@50_std": 0.019502904223755408,
+      "test/recursive/nrmse@50_ci": [
+        0.27550778803579207,
+        0.30642854227244687
+      ],
+      "test/recursive/nrmse@100": 0.7213949204453385,
+      "test/recursive/nrmse@100_std": 0.018040162781520153,
+      "test/recursive/nrmse@100_ci": [
+        0.7085690895137715,
+        0.7368498293786121
+      ],
+      "test/recursive/nrmse@250": 1.0816144668090182,
+      "test/recursive/nrmse@250_std": 0.013912075705601906,
+      "test/recursive/nrmse@250_ci": [
+        1.07121486161504,
+        1.0924167428787042
+      ],
+      "test/recursive/nrmse_mean": 1.0816144668090182,
+      "test/recursive/nrmse_mean_std": 0.013912075705601906,
+      "test/recursive/nrmse_mean_ci": [
+        1.07121486161504,
+        1.0924167428787042
+      ],
+      "test/recursive/divergence_time": 67.4,
+      "test/recursive/divergence_time_std": 7.635443667528429,
+      "test/recursive/divergence_time_ci": [
+        60.8,
+        72.6
+      ],
+      "test/teacher_forced/nrmse": 0.31313663643962103,
+      "test/teacher_forced/nrmse_std": 0.01405980606270787,
+      "test/teacher_forced/nrmse_ci": [
+        0.30272157267346433,
+        0.3235517002057776
+      ],
+      "test/params/total": 46048.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        46048.0,
+        46048.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "gru_medium",
+      "n_seeds": 5,
+      "params": 150018,
+      "test/recursive/nrmse@1": 0.0015680810110146836,
+      "test/recursive/nrmse@1_std": 0.0003156297072722771,
+      "test/recursive/nrmse@1_ci": [
+        0.0013296318162778057,
+        0.0018065302057515612
+      ],
+      "test/recursive/nrmse@10": 0.0029641389356387235,
+      "test/recursive/nrmse@10_std": 0.0005042738371437112,
+      "test/recursive/nrmse@10_ci": [
+        0.002621115826118496,
+        0.003372766085555065
+      ],
+      "test/recursive/nrmse@50": 0.015767355292556427,
+      "test/recursive/nrmse@50_std": 0.014337812755909493,
+      "test/recursive/nrmse@50_ci": [
+        0.00725874149094056,
+        0.028419435999428123
+      ],
+      "test/recursive/nrmse@100": 0.02525068342320678,
+      "test/recursive/nrmse@100_std": 0.023558874381602295,
+      "test/recursive/nrmse@100_ci": [
+        0.011080446847734852,
+        0.04559759510205498
+      ],
+      "test/recursive/nrmse@250": 0.08018819523156392,
+      "test/recursive/nrmse@250_std": 0.06645831838244101,
+      "test/recursive/nrmse@250_ci": [
+        0.029885549553021095,
+        0.1344861688674473
+      ],
+      "test/recursive/nrmse_mean": 0.08018819523156392,
+      "test/recursive/nrmse_mean_std": 0.06645831838244101,
+      "test/recursive/nrmse_mean_ci": [
+        0.029885549553021095,
+        0.1344861688674473
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.03260367112947617,
+      "test/teacher_forced/nrmse_std": 0.0014642116430920494,
+      "test/teacher_forced/nrmse_ci": [
+        0.031362792144483655,
+        0.03368631104454047
+      ],
+      "test/params/total": 150018.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        150018.0,
+        150018.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "linae_linear_d3",
+      "n_seeds": 5,
+      "params": 16,
+      "test/recursive/nrmse@1": 0.04450915618679531,
+      "test/recursive/nrmse@1_std": 0.014382135037808632,
+      "test/recursive/nrmse@1_ci": [
+        0.03486151412845995,
+        0.056474014170126895
+      ],
+      "test/recursive/nrmse@10": 0.16050283306785046,
+      "test/recursive/nrmse@10_std": 0.004190618283924247,
+      "test/recursive/nrmse@10_ci": [
+        0.15766652760280944,
+        0.16398672018486987
+      ],
+      "test/recursive/nrmse@50": 0.3979417249151903,
+      "test/recursive/nrmse@50_std": 0.02664550187734147,
+      "test/recursive/nrmse@50_ci": [
+        0.37688263442105907,
+        0.4190008154093216
+      ],
+      "test/recursive/nrmse@100": 0.45263393097952276,
+      "test/recursive/nrmse@100_std": 0.04709900638265808,
+      "test/recursive/nrmse@100_ci": [
+        0.41620308283705726,
+        0.4881918924409939
+      ],
+      "test/recursive/nrmse@250": 0.6208404317881525,
+      "test/recursive/nrmse@250_std": 0.08803989523069783,
+      "test/recursive/nrmse@250_ci": [
+        0.5511852066053848,
+        0.6904956569709203
+      ],
+      "test/recursive/nrmse_mean": 0.6208404317881525,
+      "test/recursive/nrmse_mean_std": 0.08803989523069783,
+      "test/recursive/nrmse_mean_ci": [
+        0.5511852066053848,
+        0.6904956569709203
+      ],
+      "test/recursive/divergence_time": 222.8,
+      "test/recursive/divergence_time_std": 28.79583303188154,
+      "test/recursive/divergence_time_ci": [
+        201.0,
+        244.0
+      ],
+      "test/teacher_forced/nrmse": 0.03997039820660668,
+      "test/teacher_forced/nrmse_std": 0.008965170852198218,
+      "test/teacher_forced/nrmse_ci": [
+        0.03407457809899735,
+        0.047478514965445286
+      ],
+      "test/params/total": 16.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        16.0,
+        16.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "lstm_medium",
+      "n_seeds": 5,
+      "params": 199938,
+      "test/recursive/nrmse@1": 0.003129186543144362,
+      "test/recursive/nrmse@1_std": 0.0004908010701106868,
+      "test/recursive/nrmse@1_ci": [
+        0.002733155927534186,
+        0.003462070099565254
+      ],
+      "test/recursive/nrmse@10": 0.0018571362434099035,
+      "test/recursive/nrmse@10_std": 0.00025380362501775433,
+      "test/recursive/nrmse@10_ci": [
+        0.0016321511537605586,
+        0.0020203777959711144
+      ],
+      "test/recursive/nrmse@50": 0.002367898382254458,
+      "test/recursive/nrmse@50_std": 0.0005505318067131107,
+      "test/recursive/nrmse@50_ci": [
+        0.0019339715662427845,
+        0.0027902343599569114
+      ],
+      "test/recursive/nrmse@100": 0.002449064193811501,
+      "test/recursive/nrmse@100_std": 0.000844997865271373,
+      "test/recursive/nrmse@100_ci": [
+        0.0018642567660456604,
+        0.0031759052135256227
+      ],
+      "test/recursive/nrmse@250": 0.002721919726948079,
+      "test/recursive/nrmse@250_std": 0.0010391059983048316,
+      "test/recursive/nrmse@250_ci": [
+        0.001987581604247208,
+        0.003610314995083063
+      ],
+      "test/recursive/nrmse_mean": 0.002721919726948079,
+      "test/recursive/nrmse_mean_std": 0.0010391059983048316,
+      "test/recursive/nrmse_mean_ci": [
+        0.001987581604247208,
+        0.003610314995083063
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.04863362863700246,
+      "test/teacher_forced/nrmse_std": 0.001075044128499999,
+      "test/teacher_forced/nrmse_ci": [
+        0.047716336908101745,
+        0.04944998959751611
+      ],
+      "test/params/total": 199938.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        199938.0,
+        199938.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "mlpae_mlp_d3",
+      "n_seeds": 5,
+      "params": 13446,
+      "test/recursive/nrmse@1": 0.0013245908556913557,
+      "test/recursive/nrmse@1_std": 0.00042021049859418755,
+      "test/recursive/nrmse@1_ci": [
+        0.0010358566307947415,
+        0.0016582977311662632
+      ],
+      "test/recursive/nrmse@10": 0.002280067159077682,
+      "test/recursive/nrmse@10_std": 0.0004677117239698898,
+      "test/recursive/nrmse@10_ci": [
+        0.0019077651026528808,
+        0.0026331419262002284
+      ],
+      "test/recursive/nrmse@50": 0.00278607823453103,
+      "test/recursive/nrmse@50_std": 0.0007635932922061199,
+      "test/recursive/nrmse@50_ci": [
+        0.0022014235807241815,
+        0.0033707328883378776
+      ],
+      "test/recursive/nrmse@100": 0.00292762224977356,
+      "test/recursive/nrmse@100_std": 0.0008100615170645417,
+      "test/recursive/nrmse@100_ci": [
+        0.0022949233028742065,
+        0.0035564464114625992
+      ],
+      "test/recursive/nrmse@250": 0.0031818991089556338,
+      "test/recursive/nrmse@250_std": 0.0009864345804355174,
+      "test/recursive/nrmse@250_ci": [
+        0.002402575495361902,
+        0.003961222722549366
+      ],
+      "test/recursive/nrmse_mean": 0.0031818991089556338,
+      "test/recursive/nrmse_mean_std": 0.0009864345804355174,
+      "test/recursive/nrmse_mean_ci": [
+        0.002402575495361902,
+        0.003961222722549366
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.0013745569626643316,
+      "test/teacher_forced/nrmse_std": 0.00042708522979965376,
+      "test/teacher_forced/nrmse_ci": [
+        0.001084702966022365,
+        0.0017137915897445983
+      ],
+      "test/params/total": 13446.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        13446.0,
+        13446.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "mlpae_resmlp_d3",
+      "n_seeds": 5,
+      "params": 13446,
+      "test/recursive/nrmse@1": 0.0008087743142467616,
+      "test/recursive/nrmse@1_std": 0.00018298214932433262,
+      "test/recursive/nrmse@1_ci": [
+        0.000703002893442275,
+        0.0009699892272289403
+      ],
+      "test/recursive/nrmse@10": 0.0018929325296244367,
+      "test/recursive/nrmse@10_std": 0.0006919763907424044,
+      "test/recursive/nrmse@10_ci": [
+        0.0014869429589997032,
+        0.0025114083749848493
+      ],
+      "test/recursive/nrmse@50": 0.0025932469475878563,
+      "test/recursive/nrmse@50_std": 0.0008880822030914027,
+      "test/recursive/nrmse@50_ci": [
+        0.0021345886961700138,
+        0.003385585217920375
+      ],
+      "test/recursive/nrmse@100": 0.0026362484918780937,
+      "test/recursive/nrmse@100_std": 0.0008365544289346211,
+      "test/recursive/nrmse@100_ci": [
+        0.002204638413459096,
+        0.003389803349539792
+      ],
+      "test/recursive/nrmse@250": 0.0030018736285163336,
+      "test/recursive/nrmse@250_std": 0.0009514902117894997,
+      "test/recursive/nrmse@250_ci": [
+        0.002466726504739885,
+        0.0038507316787415257
+      ],
+      "test/recursive/nrmse_mean": 0.0030018736285163336,
+      "test/recursive/nrmse_mean_std": 0.0009514902117894997,
+      "test/recursive/nrmse_mean_ci": [
+        0.002466726504739885,
+        0.0038507316787415257
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.0008459757161178227,
+      "test/teacher_forced/nrmse_std": 0.00021168558190945533,
+      "test/teacher_forced/nrmse_ci": [
+        0.0007080158373250824,
+        0.0010265832890175308
+      ],
+      "test/params/total": 13446.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        13446.0,
+        13446.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "pca_linear_d3",
+      "n_seeds": 5,
+      "params": 4,
+      "test/recursive/nrmse@1": 0.026568797673723395,
+      "test/recursive/nrmse@1_std": 0.0002804607333633053,
+      "test/recursive/nrmse@1_ci": [
+        0.02635025909667486,
+        0.026787336250771933
+      ],
+      "test/recursive/nrmse@10": 0.1443878697455242,
+      "test/recursive/nrmse@10_std": 0.001357500669704492,
+      "test/recursive/nrmse@10_ci": [
+        0.14335261496114418,
+        0.14545333635794716
+      ],
+      "test/recursive/nrmse@50": 0.36282161975078797,
+      "test/recursive/nrmse@50_std": 0.002676009920422379,
+      "test/recursive/nrmse@50_ci": [
+        0.36096093443491606,
+        0.3649873936582041
+      ],
+      "test/recursive/nrmse@100": 0.36988712829724213,
+      "test/recursive/nrmse@100_std": 0.012092266486281929,
+      "test/recursive/nrmse@100_ci": [
+        0.3602731410087524,
+        0.37938094248072113
+      ],
+      "test/recursive/nrmse@250": 0.5178174512923601,
+      "test/recursive/nrmse@250_std": 0.04201236743946562,
+      "test/recursive/nrmse@250_ci": [
+        0.48428359507186636,
+        0.5507034044818087
+      ],
+      "test/recursive/nrmse_mean": 0.5178174512923601,
+      "test/recursive/nrmse_mean_std": 0.04201236743946562,
+      "test/recursive/nrmse_mean_ci": [
+        0.48428359507186636,
+        0.5507034044818087
+      ],
+      "test/recursive/divergence_time": 250.6,
+      "test/recursive/divergence_time_std": 0.8944271909999159,
+      "test/recursive/divergence_time_ci": [
+        249.8,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.025670971649936463,
+      "test/teacher_forced/nrmse_std": 0.0001019798088782776,
+      "test/teacher_forced/nrmse_ci": [
+        0.025600569659313493,
+        0.02575494452451031
+      ],
+      "test/params/total": 4.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        4.0,
+        4.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "persistence",
+      "n_seeds": 5,
+      "params": 0,
+      "test/recursive/nrmse@1": 0.05566574992318942,
+      "test/recursive/nrmse@1_std": 7.757919228897728e-18,
+      "test/recursive/nrmse@1_ci": [
+        0.05566574992318942,
+        0.05566574992318942
+      ],
+      "test/recursive/nrmse@10": 0.28434898217996596,
+      "test/recursive/nrmse@10_std": 0.0,
+      "test/recursive/nrmse@10_ci": [
+        0.28434898217996596,
+        0.28434898217996596
+      ],
+      "test/recursive/nrmse@50": 1.0771980394220273,
+      "test/recursive/nrmse@50_std": 0.0,
+      "test/recursive/nrmse@50_ci": [
+        1.0771980394220273,
+        1.0771980394220273
+      ],
+      "test/recursive/nrmse@100": 1.4373319653163938,
+      "test/recursive/nrmse@100_std": 0.0,
+      "test/recursive/nrmse@100_ci": [
+        1.4373319653163938,
+        1.4373319653163938
+      ],
+      "test/recursive/nrmse@250": 1.3350136251139957,
+      "test/recursive/nrmse@250_std": 0.0,
+      "test/recursive/nrmse@250_ci": [
+        1.3350136251139957,
+        1.3350136251139957
+      ],
+      "test/recursive/nrmse_mean": 1.3350136251139957,
+      "test/recursive/nrmse_mean_std": 0.0,
+      "test/recursive/nrmse_mean_ci": [
+        1.3350136251139957,
+        1.3350136251139957
+      ],
+      "test/recursive/divergence_time": 21.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        21.0,
+        21.0
+      ],
+      "test/teacher_forced/nrmse": 0.06030738924676825,
+      "test/teacher_forced/nrmse_std": 7.757919228897728e-18,
+      "test/teacher_forced/nrmse_ci": [
+        0.06030738924676825,
+        0.06030738924676825
+      ],
+      "test/params/total": 0.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "ssm_small",
+      "n_seeds": 5,
+      "params": 14626,
+      "test/recursive/nrmse@1": 0.00373161822000873,
+      "test/recursive/nrmse@1_std": 0.0006385617008134879,
+      "test/recursive/nrmse@1_ci": [
+        0.003161457612717772,
+        0.004188839098285511
+      ],
+      "test/recursive/nrmse@10": 0.011464782155151666,
+      "test/recursive/nrmse@10_std": 0.002395203930284454,
+      "test/recursive/nrmse@10_ci": [
+        0.009675792442324551,
+        0.01342965504835838
+      ],
+      "test/recursive/nrmse@50": 0.0244092155328789,
+      "test/recursive/nrmse@50_std": 0.006630910631438191,
+      "test/recursive/nrmse@50_ci": [
+        0.019282848979578274,
+        0.029523185699528005
+      ],
+      "test/recursive/nrmse@100": 0.1150604695983859,
+      "test/recursive/nrmse@100_std": 0.031969762108493296,
+      "test/recursive/nrmse@100_ci": [
+        0.09066277139594713,
+        0.1394581678008247
+      ],
+      "test/recursive/nrmse@250": 0.4820222894419156,
+      "test/recursive/nrmse@250_std": 0.14365315220419822,
+      "test/recursive/nrmse@250_ci": [
+        0.37125057201781847,
+        0.5927940068660127
+      ],
+      "test/recursive/nrmse_mean": 0.4820222894419156,
+      "test/recursive/nrmse_mean_std": 0.14365315220419822,
+      "test/recursive/nrmse_mean_ci": [
+        0.37125057201781847,
+        0.5927940068660127
+      ],
+      "test/recursive/divergence_time": 206.4,
+      "test/recursive/divergence_time_std": 47.705345612415385,
+      "test/recursive/divergence_time_ci": [
+        170.2,
+        241.6
+      ],
+      "test/teacher_forced/nrmse": 0.024032796437780037,
+      "test/teacher_forced/nrmse_std": 0.006351179233924098,
+      "test/teacher_forced/nrmse_ci": [
+        0.018995390128897532,
+        0.029070202746662537
+      ],
+      "test/params/total": 14626.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        14626.0,
+        14626.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "tcn_small",
+      "n_seeds": 5,
+      "params": 16802,
+      "test/recursive/nrmse@1": 0.0033018326486434005,
+      "test/recursive/nrmse@1_std": 0.0005893016557530256,
+      "test/recursive/nrmse@1_ci": [
+        0.002905720950851431,
+        0.0037983622673237183
+      ],
+      "test/recursive/nrmse@10": 0.003556776191006137,
+      "test/recursive/nrmse@10_std": 0.0005942872622878842,
+      "test/recursive/nrmse@10_ci": [
+        0.0031298437866725676,
+        0.003983708595339707
+      ],
+      "test/recursive/nrmse@50": 0.005725768201924007,
+      "test/recursive/nrmse@50_std": 0.00297174627171582,
+      "test/recursive/nrmse@50_ci": [
+        0.003643630697520644,
+        0.008091281372203881
+      ],
+      "test/recursive/nrmse@100": 0.006104335498859201,
+      "test/recursive/nrmse@100_std": 0.0032577915100835816,
+      "test/recursive/nrmse@100_ci": [
+        0.0037780662568313453,
+        0.008548511201308983
+      ],
+      "test/recursive/nrmse@250": 0.006560288627306929,
+      "test/recursive/nrmse@250_std": 0.003623460425340899,
+      "test/recursive/nrmse@250_ci": [
+        0.003823301596388505,
+        0.009297275658225352
+      ],
+      "test/recursive/nrmse_mean": 0.006560288627306929,
+      "test/recursive/nrmse_mean_std": 0.003623460425340899,
+      "test/recursive/nrmse_mean_ci": [
+        0.003823301596388505,
+        0.009297275658225352
+      ],
+      "test/recursive/divergence_time": 251.0,
+      "test/recursive/divergence_time_std": 0.0,
+      "test/recursive/divergence_time_ci": [
+        251.0,
+        251.0
+      ],
+      "test/teacher_forced/nrmse": 0.024399177033470536,
+      "test/teacher_forced/nrmse_std": 0.0014848217261114007,
+      "test/teacher_forced/nrmse_ci": [
+        0.023263040819863346,
+        0.025535313247077734
+      ],
+      "test/params/total": 16802.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        16802.0,
+        16802.0
+      ]
+    },
+    {
+      "dataset": "vanderpol",
+      "model": "transformer_small",
+      "n_seeds": 5,
+      "params": 42018,
+      "test/recursive/nrmse@1": 0.005441966505074991,
+      "test/recursive/nrmse@1_std": 0.000619600496078841,
+      "test/recursive/nrmse@1_ci": [
+        0.005016911570602016,
+        0.005967327344994601
+      ],
+      "test/recursive/nrmse@10": 0.011879458266972997,
+      "test/recursive/nrmse@10_std": 0.0033371351272960315,
+      "test/recursive/nrmse@10_ci": [
+        0.0098711801874278,
+        0.014840958492900281
+      ],
+      "test/recursive/nrmse@50": 0.14296258044474958,
+      "test/recursive/nrmse@50_std": 0.036594258828699384,
+      "test/recursive/nrmse@50_ci": [
+        0.11539095068535474,
+        0.17053421020414442
+      ],
+      "test/recursive/nrmse@100": 0.7248692792023534,
+      "test/recursive/nrmse@100_std": 0.0687487345135195,
+      "test/recursive/nrmse@100_ci": [
+        0.6710644414621986,
+        0.7786741169425082
+      ],
+      "test/recursive/nrmse@250": 1.18350673009504,
+      "test/recursive/nrmse@250_std": 0.092501276414441,
+      "test/recursive/nrmse@250_ci": [
+        1.1104554449453752,
+        1.2565580152447045
+      ],
+      "test/recursive/nrmse_mean": 1.18350673009504,
+      "test/recursive/nrmse_mean_std": 0.092501276414441,
+      "test/recursive/nrmse_mean_ci": [
+        1.1104554449453752,
+        1.2565580152447045
+      ],
+      "test/recursive/divergence_time": 50.2,
+      "test/recursive/divergence_time_std": 7.190271204899019,
+      "test/recursive/divergence_time_ci": [
+        45.4,
+        56.6
+      ],
+      "test/teacher_forced/nrmse": 0.49079966115017265,
+      "test/teacher_forced/nrmse_std": 0.038083218613705255,
+      "test/teacher_forced/nrmse_ci": [
+        0.4577709928132415,
+        0.5202660639116546
+      ],
+      "test/params/total": 42018.0,
+      "test/params/total_std": 0.0,
+      "test/params/total_ci": [
+        42018.0,
+        42018.0
+      ]
+    }
+  ],
+  "paired_tests": {
+    "lorenz63/gru_medium": {
+      "n": 5,
+      "mean_diff": -0.004929553739088597,
+      "t_p": 0.004952572018081441,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/linae_linear_d3": {
+      "n": 5,
+      "mean_diff": -20.469886096448956,
+      "t_p": 0.2158641344475299,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/lstm_medium": {
+      "n": 5,
+      "mean_diff": -0.0001359178411077376,
+      "t_p": 0.8464360731785163,
+      "wilcoxon_p": 0.8125
+    },
+    "lorenz63/mlpae_mlp_d3": {
+      "n": 5,
+      "mean_diff": -0.08835676943138517,
+      "t_p": 0.027160200543974406,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/pca_linear_d3": {
+      "n": 5,
+      "mean_diff": -1.001904619331677,
+      "t_p": 3.979822470385134e-09,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/persistence": {
+      "n": 5,
+      "mean_diff": -1.2874393239835409,
+      "t_p": 7.692963396779153e-14,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/ssm_small": {
+      "n": 5,
+      "mean_diff": -0.09014280096178377,
+      "t_p": 0.0074321103225002665,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/tcn_small": {
+      "n": 5,
+      "mean_diff": -0.01600737187692915,
+      "t_p": 0.003134099224092215,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63/transformer_small": {
+      "n": 5,
+      "mean_diff": -0.18236975483390272,
+      "t_p": 0.0007258312958386975,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63_highdim/gru_medium": {
+      "n": 5,
+      "mean_diff": 0.8220936710066751,
+      "t_p": 0.01177129972629903,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63_highdim/linae_linear_d3": {
+      "n": 5,
+      "mean_diff": -0.10546540927526431,
+      "t_p": 0.5974995556431317,
+      "wilcoxon_p": 0.625
+    },
+    "lorenz63_highdim/lstm_medium": {
+      "n": 5,
+      "mean_diff": 0.8239268320527998,
+      "t_p": 0.012031382440931113,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63_highdim/mlpae_mlp_d3": {
+      "n": 5,
+      "mean_diff": 0.09515238147609137,
+      "t_p": 0.6626933522479791,
+      "wilcoxon_p": 1.0
+    },
+    "lorenz63_highdim/pca_linear_d3": {
+      "n": 5,
+      "mean_diff": -0.17189192122865724,
+      "t_p": 0.4162392578645624,
+      "wilcoxon_p": 0.625
+    },
+    "lorenz63_highdim/persistence": {
+      "n": 5,
+      "mean_diff": -0.30111523296247855,
+      "t_p": 0.1853448817973991,
+      "wilcoxon_p": 0.1875
+    },
+    "lorenz63_highdim/ssm_small": {
+      "n": 5,
+      "mean_diff": 0.6451305603992836,
+      "t_p": 0.03035388153076722,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63_highdim/tcn_small": {
+      "n": 5,
+      "mean_diff": 0.7617962288994259,
+      "t_p": 0.015688911885012702,
+      "wilcoxon_p": 0.0625
+    },
+    "lorenz63_highdim/transformer_small": {
+      "n": 5,
+      "mean_diff": 0.6615809545979509,
+      "t_p": 0.027795252050589803,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/gru_medium": {
+      "n": 5,
+      "mean_diff": -0.013174108344968575,
+      "t_p": 0.1145208769614227,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/linae_linear_d3": {
+      "n": 5,
+      "mean_diff": -0.3953484779676025,
+      "t_p": 5.297969716609213e-06,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/lstm_medium": {
+      "n": 5,
+      "mean_diff": 0.00022534856533339845,
+      "t_p": 0.6236271379464087,
+      "wilcoxon_p": 0.625
+    },
+    "vanderpol/mlpae_mlp_d3": {
+      "n": 5,
+      "mean_diff": -0.00019283128694317338,
+      "t_p": 0.7257812655193825,
+      "wilcoxon_p": 1.0
+    },
+    "vanderpol/pca_linear_d3": {
+      "n": 5,
+      "mean_diff": -0.3602283728032001,
+      "t_p": 1.5393595925450583e-09,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/persistence": {
+      "n": 5,
+      "mean_diff": -1.0746047924744393,
+      "t_p": 1.1195111462927099e-13,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/ssm_small": {
+      "n": 5,
+      "mean_diff": -0.021815968585291046,
+      "t_p": 0.0014109117210249367,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/tcn_small": {
+      "n": 5,
+      "mean_diff": -0.003132521254336151,
+      "t_p": 0.07394090810085885,
+      "wilcoxon_p": 0.0625
+    },
+    "vanderpol/transformer_small": {
+      "n": 5,
+      "mean_diff": -0.1403693334971617,
+      "t_p": 0.0009635595993878458,
+      "wilcoxon_p": 0.0625
+    }
+  },
+  "metrics": [
+    "test/recursive/nrmse@1",
+    "test/recursive/nrmse@10",
+    "test/recursive/nrmse@50",
+    "test/recursive/nrmse@100",
+    "test/recursive/nrmse@250",
+    "test/recursive/nrmse_mean",
+    "test/recursive/divergence_time",
+    "test/teacher_forced/nrmse",
+    "test/params/total"
+  ]
+}
