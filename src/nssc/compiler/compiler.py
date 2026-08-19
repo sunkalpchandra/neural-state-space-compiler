@@ -128,7 +128,8 @@ class StateSpaceCompiler:
         # best seed run checkpoint for the winner (lowest val rollout among its seeds)
         runs = self.searcher.state.stage_results(final["stage"]).get(spec.id, [])
         rk = top["rollout_key"]
-        ok = [r for r in runs if r.get("status") == "completed" and r.get("checkpoint")]
+        ok = [r for r in runs if r.get("status") == "completed" and r.get("checkpoint")
+              and (Path(r["checkpoint"]) / "model.pt").exists()]
         best_run = min(ok, key=lambda r: r["summary"].get(rk, float("inf"))) if ok else None
         model = None
         if best_run:
