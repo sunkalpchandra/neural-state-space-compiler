@@ -33,6 +33,12 @@ class TrainerConfig:
     rollout_horizon: int = 10
     rollout_curriculum: bool = True  # linearly grow horizon from 1 → rollout_horizon
     curriculum_epochs: int | None = None  # default: half the epochs
+    val_fixed_horizon: bool = True
+    # Validation is ALWAYS evaluated at the full ``rollout_horizon`` (protocol v2). With the
+    # curriculum, the training objective changes meaning every epoch; monitoring it on validation
+    # made early stopping and best-checkpoint selection compare incomparable quantities and
+    # systematically restored an under-trained epoch (research/failures.md F-007). Set to False
+    # only to reproduce protocol-v1 runs.
     rollout_stride: int = 4
     loss: dict[str, Any] = field(default_factory=dict)  # LossWeights fields
     log_every: int = 10
@@ -137,7 +143,12 @@ class Trainer:
 
     @torch.no_grad()
     def evaluate(self, loader: DataLoader) -> dict[str, float]:
+        """Validation pass. The rollout horizon is pinned to ``cfg.rollout_horizon`` when
+        ``val_fixed_horizon`` so the monitored loss is stationary across epochs."""
         self.model.eval()
+        curriculum_h = self.loss_fn.rollout_horizon
+        if self.cfg.val_fixed_horizon:
+            self.loss_fn.rollout_horizon = self.cfg.rollout_horizon
         agg: dict[str, float] = {}
         n = 0
         with torch.enable_grad():  # stability penalty needs autograd even in eval
@@ -148,6 +159,7 @@ class Trainer:
                 for k, v in comps.items():
                     agg[k] = agg.get(k, 0.0) + v
                 n += 1
+        self.loss_fn.rollout_horizon = curriculum_h
         return {k: v / max(n, 1) for k, v in agg.items()}
 
     def fit(self, train_loader: DataLoader, val_loader: DataLoader | None = None,
