@@ -48,3 +48,19 @@ _No entries yet._
   hash of the resolved one (size preset expanded), so completed baseline runs were not found on
   resume and were repeated (duplicate persistence/GRU rows EXP-0245..0249 remain in the registry).
 - Fix: `baseline_config_hash` / `run_config_hash` helpers used by the runner; regression test.
+
+## F-005 — 2026-08-18 — Experiment-id collisions under concurrent runs
+- Two ids (EXP-0139, EXP-0245) were handed to more than one run because parallel compile/benchmark
+  processes read `next_id()` from the same ledger before either appended. 649 ids, 2 collided.
+- Fix: `ExperimentRegistry.register` now takes an exclusive `flock` on `results/registry.jsonl.lock`
+  around read-max-id + append (`tests/unit/test_utils_registry_experiments.py::test_concurrent_register_never_collides`).
+- The two collided ids are **left in the ledger** (integrity rule: nothing is deleted). Any analysis
+  that groups by `experiment_id` should therefore group by `(experiment_id, config_hash, seed)` for
+  rows written before this fix; `nssc.evaluation.aggregate` groups by tags + seed and is unaffected.
+
+## F-006 — 2026-08-18 — The device a run used was never recorded
+- `hardware_info()` recorded *capabilities* (cuda/mps available) but not the device actually used, so
+  a CPU run and an MPS run were indistinguishable in the ledger. Fixed: `register(..., device=...)`
+  stores `hardware['device']`; both `run_experiment` and `run_baseline_experiment` pass it.
+- Rows written before this fix have no `hardware['device']`; all of them were `--device cpu` runs
+  launched by `scripts/dev/detach.sh` / `pipeline_*.sh`, except the EEG smoke run noted in F-00x.
