@@ -193,7 +193,9 @@ def summarize(metrics: dict[str, Any]) -> dict[str, Any]:
         for k in SUMMARY_KEYS:
             if k in m:
                 out[f"{split}/{k}"] = m[k]
-    for k in ("train/best_val_loss", "train/epochs_run", "train/time_s"):
-        if k in metrics:
-            out[k] = metrics[k]
+    for k, v in metrics.items():
+        # top-level provenance keys (protocol version, training summary) belong in the ledger row so
+        # v1 and v2 runs can be told apart without opening metrics.json
+        if k.startswith(("config/protocol", "train/")) and not isinstance(v, dict):
+            out[k] = v
     return out
