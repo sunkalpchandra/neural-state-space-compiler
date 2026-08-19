@@ -1,3 +1,4 @@
+name: lorenz63_highdim
 # Lorenz-63 lifted through a fixed random MLP to D=64 with observation noise (H1/H2).
 _base_: lorenz63.yaml
 observation: {type: mlp, obs_dim: 64, hidden: 64, seed: 0}

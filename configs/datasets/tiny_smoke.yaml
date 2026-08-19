@@ -1,3 +1,4 @@
+name: tiny_smoke
 # Tiny harmonic-oscillator dataset for unit / integration tests.
 system: harmonic
 params: {omega: 1.0}
