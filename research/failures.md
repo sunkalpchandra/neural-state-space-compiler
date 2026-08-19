@@ -64,3 +64,22 @@ _No entries yet._
   stores `hardware['device']`; both `run_experiment` and `run_baseline_experiment` pass it.
 - Rows written before this fix have no `hardware['device']`; all of them were `--device cpu` runs
   launched by `scripts/dev/detach.sh` / `pipeline_*.sh`, except the EEG smoke run noted in F-00x.
+
+## F-007 — 2026-08-18 — Curriculum made the validation criterion non-stationary (protocol v1 bug)
+- `Trainer.evaluate` used the *current curriculum* rollout horizon, so the monitored validation loss
+  changed meaning every epoch while the horizon ramped 1 → `rollout_horizon`. Early stopping and
+  best-checkpoint restore therefore compared incomparable quantities.
+- Audit over all 639 latent runs with curriculum history: **289 restored a checkpoint from an epoch
+  whose horizon had not yet reached the maximum**. The pathology is worst where the model learns
+  slowly, e.g. every `lorenz63_highdim` latent run stopped after 19–21 of 40 epochs with a best
+  epoch at horizon 4–6 — i.e. the reported high-dimensional "failure" of the manual latent model is
+  at least partly an artifact of this bug, not a property of the method.
+  Runs that learn fast (Lorenz-63 identity obs) were unaffected: best epoch 37/40, all 40 epochs run.
+- Fix: `TrainerConfig.val_fixed_horizon=True` (default) pins validation to the full
+  `rollout_horizon`; `nssc.experiment.PROTOCOL_VERSION = 2` is folded into the run config hash so
+  v1 runs are **not** reused for v2 requests. v1 rows stay in the ledger (nothing is deleted) and are
+  identifiable by the absence of `metrics['config/protocol_version']`.
+- Baselines are unaffected: `BaselineTrainer.evaluate` always used the full horizon.
+- Consequence: every latent-model number in `results/tables/*` and the README predates the fix and is
+  a **lower bound** on the method. The affected suites are being re-run under v2; tables are labelled
+  with the protocol version.
