@@ -155,7 +155,11 @@ class BaselineTrainer:
 
     @torch.no_grad()
     def evaluate(self, loader: DataLoader) -> dict[str, float]:
-        """Validation loss at the *full* rollout horizon (no curriculum) for a stable criterion."""
+        """Validation loss at the *full* rollout horizon (no curriculum) for a stable criterion.
+
+        This trainer always did this, which is why baseline results are unaffected by the
+        protocol-v2 fix to :class:`nssc.training.trainer.Trainer` (research/failures.md F-007).
+        """
         self.model.eval()
         agg: dict[str, float] = {}
         n = 0
