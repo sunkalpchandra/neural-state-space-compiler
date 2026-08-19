@@ -104,6 +104,8 @@ def evaluate_model(model: LatentModel, x: Tensor, cfg: EvalConfig | None = None,
     counts = model.num_parameters()
     out.update({f"params/{k}": v for k, v in counts.items()})
     out["params/total"] = count_parameters(model)
+    out["params/total_stored"] = int(sum(p.numel() for p in model.parameters())
+                                     + sum(b.numel() for b in model.buffers()))
     out["latent_dim"] = model.latent_dim
     z0 = model.encode(x[:1, : cfg.context])[:, -1]
     out["flops/dynamics_step"] = estimate_flops_per_step(model.dynamics, z0)
