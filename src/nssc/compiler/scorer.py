@@ -81,8 +81,17 @@ def aggregate_seeds(runs: list[dict[str, Any]]) -> dict[str, Any]:
                            for k in keys}
     agg["n_seeds"] = len(completed)
     agg["n_failed"] = len(runs) - len(completed)
-    verdicts = [r.get("summary", {}).get("val/stability/verdict") for r in completed]
-    agg["val/stability/verdict"] = max(set(verdicts), key=verdicts.count) if verdicts else "failed"
+    # Stability across seeds is reported worst-case, not by majority: a single exploding seed is
+    # the scientifically relevant fact (review finding R-20 — a candidate whose 1/3 seeds blew up
+    # was labelled "stable"). ``n_unstable_seeds`` keeps the count visible in the report.
+    order = ["stable", "locally_expanding", "collapses", "explodes", "failed"]
+    verdicts = [r.get("summary", {}).get("val/stability/verdict", "failed") for r in completed]
+    agg["val/stability/verdict"] = (max(verdicts, key=lambda v: order.index(v) if v in order else len(order))
+                                    if verdicts else "failed")
+    agg["val/stability/verdict_by_seed"] = verdicts
+    agg["val/stability/n_unstable_seeds"] = sum(1 for v in verdicts if v != "stable")
+    blow = [float(r.get("summary", {}).get("val/stability/frac_blowup", 0.0) or 0.0) for r in completed]
+    agg["val/stability/frac_blowup_max"] = max(blow) if blow else float("nan")
     return agg
 
 
