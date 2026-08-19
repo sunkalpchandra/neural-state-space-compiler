@@ -123,3 +123,19 @@ def test_search_lookup_hash_equals_registered_hash(tmp_path):
 
     res = run_experiment(run_cfg, registry=reg, device=torch.device("cpu"), log=None)
     assert reg.get(res["experiment_id"])["config_hash"] == run_config_hash(run_cfg)
+
+
+@pytest.mark.slow
+def test_cached_run_without_weights_is_rerun(tmp_path):
+    """R-14: a fresh clone has the search state but not the (gitignored) checkpoints."""
+    reg = ExperimentRegistry(tmp_path / "reg.jsonl")
+    cfg = _cfg(tmp_path)
+    comp = StateSpaceCompiler(cfg, device=torch.device("cpu"), registry=reg, log=None)
+    cm = comp.run()
+    assert cm.model is not None
+    # simulate the clone: keep search_state.json, drop every weight file
+    for pt in Path(cm.output_dir).rglob("model.pt"):
+        pt.unlink()
+    comp2 = StateSpaceCompiler(cfg, device=torch.device("cpu"), registry=reg, log=None)
+    cm2 = comp2.run(resume=True)
+    assert cm2.model is not None and Path(cm2.checkpoint or "").exists()
