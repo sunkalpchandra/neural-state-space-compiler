@@ -59,17 +59,23 @@ class CompileReport:
         L += ["## Reason", ""] + [f"- {r}" for r in self.reasons] + [""]
         L += ["## Selection weights", "", "```", str(self.weights), "```", ""]
         L += ["## Final ranking", "",
-              "| rank | candidate | J | rollout | 1-step | recon | params | ρ_max | verdict |",
+              "All metrics below are **validation** (selection never sees the test split); they are means "
+              "over the final stage's seeds with the spread across seeds in parentheses.", "",
+              "| rank | candidate | J | val rollout (mean ± std) | val 1-step | val recon | params (stored) | ρ_max | verdict (worst seed) |",
               "|---|---|---|---|---|---|---|---|---|"]
         for r in self.ranking:
             a = r["agg"]
+            nun = int(a.get("val/stability/n_unstable_seeds", 0) or 0)
             L.append(f"| {r['rank']} | {r['name']} | {r['score']:.3f} | "
-                     f"{a.get(self.rollout_key, float('nan')):.4f} | "
+                     f"{a.get(self.rollout_key, float('nan')):.4f} ± "
+                     f"{a.get(self.rollout_key + '__std', 0.0):.4f} | "
                      f"{a.get('val/teacher_forced/nrmse', float('nan')):.4f} | "
                      f"{a.get('val/recon/nrmse', float('nan')):.4f} | "
-                     f"{int(a.get('val/params/total', 0))} | "
+                     f"{int(a.get('val/params/total', 0))} "
+                     f"({int(a.get('val/params/total_stored', a.get('val/params/total', 0)))}) | "
                      f"{a.get('val/stability/rho_max', float('nan')):.3f} | "
-                     f"{a.get('val/stability/verdict', '?')} |")
+                     f"{a.get('val/stability/verdict', '?')}"
+                     + (f" ({nun}/{int(a.get('n_seeds', 0))} unstable)" if nun else "") + " |")
         L.append("")
         for st in self.stage_summaries:
             L.append(f"- stage `{st['stage']}`: {st['n_candidates']} candidates → "
@@ -93,6 +99,7 @@ def build_reasons(rows: list[dict[str, Any]], selected: dict[str, Any], rollout_
     a = top["agg"]
     reasons: list[str] = []
     horizon = rollout_key.split("@")[-1] if "@" in rollout_key else "mean"
+    sd = rollout_key + "__std"
     r_top = a.get(rollout_key, float("nan"))
     # vs best linear candidate
     linear = [r for r in rows if r["name"].split("+")[1].split("@")[0] in ("linear", "affine")
@@ -113,8 +120,11 @@ def build_reasons(rows: list[dict[str, Any]], selected: dict[str, Any], rollout_
         p_top, p_ru = a.get("val/params/total", float("nan")), ru["agg"].get("val/params/total", float("nan"))
         if math.isfinite(v) and math.isfinite(r_top):
             rel = (r_top - v) / max(v, 1e-12) * 100
-            reasons.append(f"selected has {rel:+.1f}% rollout NRMSE vs runner-up {ru['name']} "
-                           f"({r_top:.4f} vs {v:.4f})")
+            n = int(a.get("n_seeds", 0))
+            reasons.append(f"selected has {rel:+.1f}% validation {horizon}-step rollout NRMSE vs "
+                           f"runner-up {ru['name']} ({r_top:.4f} ± {a.get(sd, 0.0):.4f} vs "
+                           f"{v:.4f} ± {ru['agg'].get(sd, 0.0):.4f}, n={n} seeds — "
+                           f"spreads overlap when the ± ranges do; no paired test is run here)")
         if math.isfinite(p_top) and math.isfinite(p_ru) and p_ru > 0:
             reasons.append(f"{(p_top / p_ru - 1) * 100:+.0f}% parameter count vs runner-up "
                            f"({int(p_top)} vs {int(p_ru)})")
@@ -137,7 +147,8 @@ def build_reasons(rows: list[dict[str, Any]], selected: dict[str, Any], rollout_
                    f"{nun}/{int(a.get('n_seeds', 0))} seeds not stable")
     # one-step / recon
     reasons.append(f"validation recon NRMSE {a.get('val/recon/nrmse', float('nan')):.4f}, "
-                   f"one-step NRMSE {a.get('val/teacher_forced/nrmse', float('nan')):.4f}")
+                   f"one-step NRMSE {a.get('val/teacher_forced/nrmse', float('nan')):.4f} "
+                   f"(position-matched {a.get('val/teacher_forced_ctx/nrmse', float('nan')):.4f})")
     if a.get("n_seeds", 1) > 1:
         reasons.append(f"aggregated over {a['n_seeds']} seeds")
     return reasons
