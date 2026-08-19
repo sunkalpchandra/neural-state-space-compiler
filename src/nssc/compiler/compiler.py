@@ -70,9 +70,15 @@ class StateSpaceCompiler:
 
             self.profile = load_json(ppath)
         else:
+            # Profile the TRAIN split only: the profile drives candidate latent dimensions, so
+            # computing it on all trajectories would leak held-out data into model selection
+            # (review finding R-51). Splitting is trajectory-level and identical to prepare_data.
             ds = build_dataset(dcfg)
-            prof = profile_dataset(ds)
+            train = ds.split()["train"]
+            prof = profile_dataset(train)
             self.profile = prof.to_dict()
+            self.profile["computed_on"] = {"split": "train", "n_traj": train.n_traj,
+                                           "of_total": ds.n_traj}
             save_json(self.profile, ppath)
         self.obs_dim = int(self.profile["obs_dim"])
         self.log(f"profile: D={self.obs_dim} suggested latent dims={self.profile.get('suggested_latent_dims')}"
