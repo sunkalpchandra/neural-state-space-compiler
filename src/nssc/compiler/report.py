@@ -44,11 +44,17 @@ class CompileReport:
     def to_markdown(self) -> str:
         s = self.selected
         m = self.selected_metrics
-        L = [f"# Compile report — {self.dataset.get('system', 'dataset')}", ""]
+        obs = (self.dataset.get("observation") or {}).get("type", "identity")
+        dsname = self.dataset.get("name") or (
+            f"{self.dataset.get('system', 'dataset')}"
+            + (f" [{obs} obs → D={self.dataset['observation'].get('obs_dim')}]" if obs != "identity" else ""))
+        L = [f"# Compile report — {dsname}", ""]
         L += [f"**Selected latent dimension:** {s['latent_dim']}",
               f"**Selected representation:** `{s['encoder']}` (decoder `{s['decoder']}`)",
               f"**Selected dynamics:** `{s['dynamics']}`",
-              f"**Parameters:** {int(m.get('val/params/total', float('nan')))}",
+              f"**Parameters:** {int(m.get('val/params/total', float('nan')))} trainable, "
+              f"{int(m.get('val/params/total_stored', m.get('val/params/total', float('nan'))))} stored "
+              f"(the complexity term uses *stored*: parameters + buffers)",
               f"**Runs:** {self.n_runs} ({self.n_failed} failed) in {self.wall_time_s / 60:.1f} min", ""]
         L += ["## Reason", ""] + [f"- {r}" for r in self.reasons] + [""]
         L += ["## Selection weights", "", "```", str(self.weights), "```", ""]
