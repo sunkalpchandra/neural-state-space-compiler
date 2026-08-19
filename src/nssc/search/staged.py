@@ -23,12 +23,11 @@ from typing import Any
 import torch
 
 from nssc.compiler.scorer import MultiObjectiveScorer, ScoreWeights
-from nssc.experiment import run_experiment
+from nssc.experiment import run_config_hash, run_experiment
 from nssc.search.space import CandidateSpec
 from nssc.search.state import SearchState
 from nssc.utils.config import deep_merge
 from nssc.utils.experiment_registry import ExperimentRegistry
-from nssc.utils.hashing import stable_hash
 
 
 class StagedSearch:
@@ -70,7 +69,7 @@ class StagedSearch:
         cfg = self.run_cfg_for(cand, stage, seed)
         res = None
         if self.reuse_registry:
-            h = stable_hash({k: v for k, v in cfg.items() if k not in ("output_dir", "tags")})
+            h = run_config_hash(cfg)  # must match exactly what run_experiment registers (F-004/F-008)
             prior = [r for r in self.registry.find_by_hash(h, seed=seed)
                      if r["status"] == "completed" and r.get("checkpoint")
                      and Path(r["checkpoint"]).exists()]
