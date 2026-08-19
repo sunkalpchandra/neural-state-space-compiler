@@ -46,6 +46,15 @@ class ScoreWeights:
         return cls(**known)
 
 
+def _params(m: dict[str, Any], prefix: str) -> float:
+    """Model size for the complexity term: stored (parameters + buffers) when available.
+
+    Falls back to trainable parameters for rows written before ``params/total_stored`` existed.
+    """
+    v = _get(m, f"{prefix}params/total_stored")
+    return v if math.isfinite(v) else _get(m, f"{prefix}params/total")
+
+
 def _get(m: dict[str, Any], key: str, default: float = float("nan")) -> float:
     v = m.get(key, default)
     try:
@@ -107,7 +116,7 @@ class MultiObjectiveScorer:
             "recon": min((_get(a, f"{p}recon/nrmse") for a in pool), default=float("nan")),
             "one_step": min((_get(a, f"{p}teacher_forced/nrmse") for a in pool), default=float("nan")),
             "rollout": min((_get(a, rollout_key) for a in pool), default=float("nan")),
-            "params": min((_get(a, f"{p}params/total") for a in pool), default=float("nan")),
+            "params": min((_params(a, p) for a in pool), default=float("nan")),
         }
 
         f = self.w.error_floor
@@ -121,7 +130,7 @@ class MultiObjectiveScorer:
             "recon": logratio(_get(agg, f"{p}recon/nrmse"), best["recon"]),
             "one_step": logratio(_get(agg, f"{p}teacher_forced/nrmse"), best["one_step"]),
             "rollout": logratio(_get(agg, rollout_key), best["rollout"]),
-            "complexity": logratio(_get(agg, f"{p}params/total"), best["params"], floor=1.0) / math.log(10),
+            "complexity": logratio(_params(agg, p), best["params"], floor=1.0) / math.log(10),
             "instability": _get(agg, f"{p}stability/instability_score", 0.0),
             "blowup": _get(agg, f"{p}stability/frac_blowup", 0.0),
         }
