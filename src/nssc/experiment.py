@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import time
 import traceback
-from dataclasses import fields
+from dataclasses import asdict, fields
 from pathlib import Path
 from typing import Any
 
@@ -35,10 +35,25 @@ from nssc.utils.hashing import stable_hash
 from nssc.utils.io import save_json
 from nssc.utils.seeding import seed_everything
 
+PROTOCOL_VERSION = 2
+"""Semantics of a latent-model run (training + evaluation), folded into the config hash.
 
-def _dc(cls, d: dict[str, Any]):
+v1 → v2 (2026-08-18): validation is evaluated at the full ``rollout_horizon`` instead of the
+current curriculum horizon, so early stopping and best-checkpoint selection compare comparable
+quantities (research/failures.md F-007). Bumping this version deliberately prevents v1 runs from
+being reused for v2 requests — old rows stay in the ledger and remain analysable.
+"""
+
+
+def _dc(cls, d: dict[str, Any]) -> tuple[Any, list[str]]:
+    """Build ``cls`` from ``d``, returning it with the list of keys that were ignored.
+
+    Config blocks are shared between latent runs and baseline runs (a suite's ``training``
+    block feeds both), so unknown keys are dropped rather than rejected — but they are
+    reported so a typo cannot silently vanish (review finding R-28).
+    """
     names = {f.name for f in fields(cls)}
-    return cls(**{k: v for k, v in d.items() if k in names})
+    return cls(**{k: v for k, v in d.items() if k in names}), sorted(set(d) - names)
 
 
 def resolve_dataset_cfg(dcfg: dict[str, Any]) -> dict[str, Any]:
@@ -67,7 +82,9 @@ def run_config_hash(cfg: dict[str, Any]) -> str:
     """Hash exactly as ``run_experiment`` registers it (dataset resolved, output_dir/tags excluded)."""
     c = Config(dict(cfg))
     c["dataset"] = resolve_dataset_cfg(dict(c["dataset"]))
-    return stable_hash({k: v for k, v in c.to_dict().items() if k not in ("output_dir", "tags")})
+    payload = {k: v for k, v in c.to_dict().items() if k not in ("output_dir", "tags")}
+    payload["_protocol"] = PROTOCOL_VERSION
+    return stable_hash(payload)
 
 
 def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | None = None,
@@ -81,7 +98,7 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
                         else default_device())
     dcfg = resolve_dataset_cfg(dict(cfg["dataset"]))
     cfg["dataset"] = dcfg
-    chash = stable_hash({k: v for k, v in cfg.to_dict().items() if k not in ("output_dir", "tags")})
+    chash = run_config_hash(cfg.to_dict())
     registry = registry or ExperimentRegistry()
     mname = model_name(cfg["model"])
     rec = registry.register(config=cfg.to_dict(), config_hash=chash,
@@ -98,13 +115,13 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
         loaders = make_loaders(splits, context=int(w.get("context", 20)), horizon=int(w.get("horizon", 30)),
                                batch_size=int(w.get("batch_size", 64)), stride=int(w.get("stride", 5)))
         model = build_latent_model(dict(cfg["model"]), obs_dim=raw.obs_dim)
-        tcfg = _dc(TrainerConfig, dict(cfg.get("training", {})))
+        tcfg, ignored_train = _dc(TrainerConfig, dict(cfg.get("training", {})))
         trainer = Trainer(model, tcfg, device=device)
         fit = trainer.fit(loaders["train"], loaders.get("val"),
                           log=(lambda r: log(f"[{rec.experiment_id}] ep{r['epoch']} "
                                              f"train={r['train/total']:.4g} val={r.get('val/total', float('nan')):.4g}"))
                           if log else None)
-        ecfg = _dc(EvalConfig, dict(cfg.get("eval", {})))
+        ecfg, ignored_eval = _dc(EvalConfig, dict(cfg.get("eval", {})))
         sigma = np.ones(raw.obs_dim)  # data are normalised → σ = 1 per dim (train stats)
         metrics: dict[str, Any] = {}
         for split_name in ("val", "test"):
@@ -122,6 +139,9 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
             metrics["test"]["uncertainty"] = unc
             for k in ("nll", "coverage95", "ece", "sharpness", "std_error_corr"):
                 metrics["test"][f"uncertainty/{k}"] = unc[k]
+        metrics["config/protocol_version"] = PROTOCOL_VERSION
+        metrics["config/ignored_keys"] = {"training": ignored_train, "eval": ignored_eval}
+        metrics["config/resolved_training"] = asdict(tcfg)
         metrics["train/best_val_loss"] = fit["best_val"]
         metrics["train/epochs_run"] = fit["epochs_run"]
         metrics["train/time_s"] = fit["train_time_s"]
