@@ -39,6 +39,7 @@ class EvalConfig:
     stability: bool = True
     stability_horizon: int = 200
     latency: bool = True
+    latency_horizon: int = 50  # steps in the comparable end-to-end forecast latency measurement
     divergence_threshold: float = 1.0
     extra: dict[str, Any] = field(default_factory=dict)
 
@@ -107,6 +108,15 @@ def evaluate_model(model: LatentModel, x: Tensor, cfg: EvalConfig | None = None,
         xc = x[:1, : cfg.context]
         out.update({f"latency/encode_{k}": v for k, v in
                     measure_inference_latency(lambda: model.encode(xc), n_iters=10, device=device).items()})
+        # Protocol-comparable cost: one full forecast of ``cfg.latency_horizon`` observation-space
+        # steps from the same context, measured identically for latent models and baselines
+        # (review finding R-49: dynamics-step latency alone is not comparable — a latent step is a
+        # 3-dim MLP, a baseline step re-runs the whole backbone and also decodes).
+        lh = min(cfg.latency_horizon, H)
+        out["latency/horizon"] = lh
+        out.update({f"latency/forecast{lh}_{k}": v for k, v in
+                    measure_inference_latency(lambda: model.rollout(xc, lh), n_iters=10,
+                                              device=device).items()})
 
     # -------------------------------------------------------------- stability
     if cfg.stability:
