@@ -133,8 +133,9 @@ class StateSpaceCompiler:
         model = None
         if best_run:
             model, _ = load_checkpoint(best_run["checkpoint"])
-        n_runs = len(self.searcher.state.data["runs"])
-        n_failed = sum(1 for r in self.searcher.state.data["runs"].values() if r.get("status") == "failed")
+        runs_ns = self.searcher.state.namespaced_runs()
+        n_runs = len(runs_ns)
+        n_failed = sum(1 for r in runs_ns.values() if r.get("status") == "failed")
         report = CompileReport(
             selected=spec.to_dict(), selected_metrics=top["agg"], ranking=rows,
             stage_summaries=[{"stage": h["stage"], "n_candidates": len(h["rows"]),

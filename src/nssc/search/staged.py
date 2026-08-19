@@ -132,8 +132,8 @@ class StagedSearch:
         return [CandidateSpec.from_dict(self._cand_dict(r["candidate_id"])) for r in kept]
 
     def _cand_dict(self, cid: str) -> dict[str, Any]:
-        for k, v in self.state.data["runs"].items():
-            if k.split("|")[1] == cid and "candidate" in v:
+        for k, v in self.state.namespaced_runs().items():
+            if k.split("|")[2] == cid and "candidate" in v:
                 return v["candidate"]
         raise KeyError(cid)
 
