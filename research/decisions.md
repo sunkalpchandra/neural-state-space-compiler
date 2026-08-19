@@ -104,3 +104,25 @@ rollout loss because it is part of the method under test. Consequence: the compa
 favours the baselines at one-step and is neutral-to-unfavourable for them at long
 horizons; a `gru_rollout` control variant is included in the ablation suite to quantify
 the effect. TCN/Transformer/SSM use the `small` presets, GRU/LSTM `medium`.
+
+## D-009 — Protocol v2 (2026-08-18)
+Runs are stamped with `nssc.experiment.PROTOCOL_VERSION`, which is part of the config hash, so a
+change in run *semantics* can never be satisfied by reusing an older run. v2 changes, all triggered
+by the internal review (`research/review_2026-08-18.md`) and the F-007 audit:
+
+1. Validation is evaluated at the full `rollout_horizon`, not the current curriculum horizon
+   (`TrainerConfig.val_fixed_horizon=True`). Baselines already did this.
+2. The dataset profile that drives candidate latent dimensions is computed on the **train split**
+   only (it previously saw all trajectories).
+3. Stability across seeds is aggregated worst-case, with `n_unstable_seeds` reported.
+4. The dataloader shuffling generator is seeded from the run seed; the trajectory split stays fixed
+   across seeds by design (a seed sweep measures initialisation/order variance, not partition
+   variance) — stated explicitly rather than left implicit.
+5. Two additional, always-reported metrics: `teacher_forced_ctx/nrmse` (one-step error restricted to
+   positions a context-window model was trained on) and `latency/forecast<H>_*` (end-to-end forecast
+   latency measured identically for latent models and baselines).
+6. The registry row records the actual torch device and the resolved `TrainerConfig`, and lists any
+   config keys that were dropped when building the dataclasses.
+
+v1 rows stay in the ledger and remain analysable; `results/archive/protocol_v1/` keeps the tables and
+the Lorenz-63 compile report produced under v1.
