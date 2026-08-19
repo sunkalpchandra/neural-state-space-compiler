@@ -163,7 +163,7 @@ class StateSpaceCompiler:
         from nssc.experiment import _dc, prepare_data
 
         splits, _, raw = prepare_data(dict(self.cfg["dataset"]))
-        ecfg = _dc(EvalConfig, dict(self.cfg.get("eval", {})))
+        ecfg, _ignored = _dc(EvalConfig, dict(self.cfg.get("eval", {})))
         assert compiled.model is not None
         return evaluate_model(compiled.model, torch.from_numpy(splits[split].x), ecfg,
                               sigma=np.ones(raw.obs_dim), device=self.device)

@@ -44,7 +44,7 @@ from nssc.utils.seeding import seed_everything
 PRESET_DIR = Path(__file__).resolve().parents[3] / "configs" / "models" / "baselines"
 
 
-def _dc(cls, d: dict[str, Any]):
+def _dc(cls, d: dict[str, Any]):  # local variant: returns only the dataclass (see nssc.experiment._dc)
     names = {f.name for f in fields(cls)}
     return cls(**{k: v for k, v in d.items() if k in names})
 
