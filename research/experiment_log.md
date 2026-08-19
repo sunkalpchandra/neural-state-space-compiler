@@ -69,7 +69,8 @@ get a `Superseded by:` line.
   50–250 steps. The residual parameterisation matters (non-residual MLP dynamics is 12× worse
   at @50 and unstable across seeds). Linear latent dynamics diverge (chaos is not linear).
   Caveat: baselines are teacher-forced only (D-008); the rollout-loss control suite is queued.
-- Hypothesis status: H1 — *supported on Lorenz-63 (identity obs)*; pending vanderpol, high-dim.
+- Hypothesis status: H1 — *mixed*; see the status note in hypotheses.md. On this system d = D = 3, so
+  this entry says nothing about compression, only about the state-space re-parameterisation.
 - Figures: results/figures/suites/synthetic_core/horizon_curve_lorenz63.png, pareto_lorenz63.png.
 
 ### 2026-08-18 — Lorenz-63 compiler run: screen + fine stages (interim, final stage running)
@@ -91,7 +92,8 @@ get a `Superseded by:` line.
 - Van der Pol (D=2, limit cycle) test recursive NRMSE@250: mlpae_resmlp_d2 0.0030 ± 0.0010 (13.4k params),
   mlpae_mlp_d2 0.0032, lstm_medium 0.0027 ± 0.0010 (200k), tcn_small 0.0066, gru_medium 0.080 ± 0.067,
   ssm_small 0.48, transformer_small 1.18, pca/linear ≈ 0.5–0.6, persistence 1.34.
-  → latent models tie the best baseline at 15× fewer parameters (H1 supported).
+  → latent models tie the best baseline at 15× fewer parameters. Note d = D = 2 here (no compression),
+  and baselines are teacher-forced only (D-008), so this supports H1 only in the re-parameterisation sense.
 - **Lorenz-63 high-dim (D=64 random-MLP observation, σ_noise=0.05)** test NRMSE@50 / @250:
   lstm_medium 0.130 / 0.293, gru_medium 0.132 / 0.395, tcn_small 0.192 / 0.729, ssm_small 0.309 / 0.933,
   transformer 0.293 / 1.08, **mlpae_resmlp_d3 0.954 ± 0.42 / diverged**, mlpae_mlp_d3 0.859 / 1.40,
@@ -123,7 +125,10 @@ get a `Superseded by:` line.
 - Interpretation: the validation-based selection transfers to test — the compiled model is the best
   latent candidate and matches the best sequence model at 14.5× fewer parameters; the cheaper Koopman
   runner-up trades 2.6× rollout error at 250 steps for 2.7× fewer parameters (a Pareto-front point,
-  not the selected optimum under λ_complexity = 0.1). H1: supported on Lorenz-63; H5 (Pareto): consistent.
+  not the selected optimum under λ_complexity = 0.1). No paired test was run for compiled-vs-runner-up
+  (the runner-up's @250 spread is dominated by one seed), so "selection transfers to test" is a
+  description of the point estimates, not a tested claim. H1: mixed (d = D here); H5: preliminary.
+  Baselines were teacher-forced only (D-008).
 
 ### 2026-08-18 — Uncertainty: Gaussian transition dynamics on Lorenz-63 (5 seeds)
 - Table: results/tables/uncertainty_lorenz63.md. Envelope is informative (corr(std, RMSE) = 0.96 ± 0.02
