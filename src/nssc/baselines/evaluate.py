@@ -108,6 +108,8 @@ def evaluate_forecaster(model: SequenceForecaster, x: Tensor, context: int = 20,
         out["curves"]["direct_nrmse"] = horizon_curve(dp[:, :hd], dt_, sigma).tolist()
 
     out["params/total"] = int(model.num_parameters())
+    out["params/total_stored"] = int(sum(p.numel() for p in model.parameters())
+                                     + sum(b.numel() for b in model.buffers()))
     out["latent_dim"] = getattr(model, "latent_dim", None)
     out["mode"] = model.mode
     if latency:
