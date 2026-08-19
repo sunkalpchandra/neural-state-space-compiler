@@ -136,7 +136,9 @@ EVAL_KEYS = ["teacher_forced/mse", "teacher_forced/nrmse", "recursive/horizon", 
              "recursive/nrmse_step@5", "recursive/nrmse@10", "recursive/nrmse_step@10",
              "recursive/nrmse_mean", "recursive/divergence_time", "curves", "params/total",
              "latent_dim", "mode", "latency/step_latency_ms_mean", "latency/step_latency_ms_std",
-             "latency/step_latency_ms_min"]
+             "latency/step_latency_ms_min", "latency/horizon",
+             "latency/forecast20_latency_ms_mean", "latency/forecast20_latency_ms_std",
+             "latency/forecast20_latency_ms_min"]
 
 
 def test_evaluate_forecaster_keys():
