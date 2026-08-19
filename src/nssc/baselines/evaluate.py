@@ -83,6 +83,11 @@ def evaluate_forecaster(model: SequenceForecaster, x: Tensor, context: int = 20,
     out: dict[str, Any] = {
         "teacher_forced/mse": mse(tf_pred, tf_tgt),
         "teacher_forced/nrmse": nrmse(tf_pred, tf_tgt, sigma),
+        # Position-matched twin of the metric above: these models are only trained on positions
+        # t >= context-1, so averaging one-step error from t=0 penalises them for history they
+        # never had (review finding R-05). Both are reported; the latent evaluator reports both too.
+        "teacher_forced_ctx/nrmse": nrmse(tf_pred[:, max(context - 1, 0):],
+                                          tf_tgt[:, max(context - 1, 0):], sigma),
         "recursive/horizon": H,
         "recursive/context": context,
     }
