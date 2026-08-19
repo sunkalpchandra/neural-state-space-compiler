@@ -56,3 +56,19 @@ def test_stability_verdict_is_worst_case_over_seeds():
     assert agg["val/stability/n_unstable_seeds"] == 1
     assert agg["val/stability/frac_blowup_max"] == 1.0
     assert agg["val/stability/verdict_by_seed"].count("stable") == 2
+
+
+def test_complexity_uses_stored_size_when_present():
+    from nssc.compiler.scorer import MultiObjectiveScorer, ScoreWeights
+
+    def run(params, stored, roll):
+        return {"status": "completed", "summary": {"val/recon/nrmse": 0.01, "val/teacher_forced/nrmse": 0.01,
+                                                   "val/recursive/nrmse@50": roll, "val/params/total": params,
+                                                   "val/params/total_stored": stored,
+                                                   "val/stability/instability_score": 0.0,
+                                                   "val/stability/frac_blowup": 0.0,
+                                                   "val/stability/verdict": "stable"}}
+
+    rows = MultiObjectiveScorer(ScoreWeights(complexity=5.0)).rank(
+        {"pca_like": [run(256, 40_000, 0.10)], "mlp_like": [run(1_000, 1_000, 0.10)]})
+    assert rows[0]["candidate_id"] == "mlp_like"  # 40k stored values are not free

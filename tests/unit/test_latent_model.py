@@ -26,3 +26,22 @@ def test_builder_pairs_pca_decoder_and_ties():
     m.encoder.fit(x)
     m.decoder.tie(m.encoder)
     assert torch.allclose(m.decoder.components, m.encoder.components)
+
+
+def test_stored_size_counts_buffers_so_pca_is_not_free():
+    """The compiler's complexity term must see PCA's component matrix (review finding)."""
+    import torch
+
+    from nssc.models.builder import build_latent_model
+
+    m = build_latent_model({"latent_dim": 4, "encoder": "pca", "decoder": "pca",
+                            "dynamics": "linear"}, obs_dim=32)
+    m.encoder.fit(torch.randn(2, 40, 32))
+    m.decoder.tie(m.encoder)
+    c = m.num_parameters()
+    assert c["encoder"] == 0 and c["encoder_stored"] > 32 * 4
+    assert c["total_stored"] > c["total"]
+    mlp = build_latent_model({"latent_dim": 4, "encoder": {"name": "mlp", "kwargs": {"hidden_dims": [8]}},
+                              "decoder": {"name": "mlp", "kwargs": {"hidden_dims": [8]}},
+                              "dynamics": "linear"}, obs_dim=32)
+    assert mlp.num_parameters()["total_stored"] == mlp.num_parameters()["total"]
