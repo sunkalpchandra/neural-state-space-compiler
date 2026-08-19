@@ -123,6 +123,9 @@ by the internal review (`research/review_2026-08-18.md`) and the F-007 audit:
    latency measured identically for latent models and baselines).
 6. The registry row records the actual torch device and the resolved `TrainerConfig`, and lists any
    config keys that were dropped when building the dataclasses.
+7. Model size is reported twice: `params/total` (trainable, the usual meaning) and
+   `params/total_stored` (parameters + buffers). The compiler's complexity term uses *stored* size
+   so a PCA encoder is not free (F-009).
 
 v1 rows stay in the ledger and remain analysable; `results/archive/protocol_v1/` keeps the tables and
 the Lorenz-63 compile report produced under v1.
