@@ -65,14 +65,19 @@ class StagedSearch:
         st = stage["name"]
         cached = self.state.get(st, cand.id, seed)
         if cached and cached.get("status") in ("completed", "failed"):
-            return cached
+            ckpt = cached.get("checkpoint")
+            # A cached *completed* run whose weights are gone (fresh clone: *.pt is gitignored)
+            # cannot be compiled from, so re-run it instead of failing later (review R-14).
+            if cached["status"] == "failed" or not ckpt or (Path(ckpt) / "model.pt").exists():
+                return cached
+            self.log(f"[{st}] {cand.name} seed={seed}: cached run has no weights on disk → re-running")
         cfg = self.run_cfg_for(cand, stage, seed)
         res = None
         if self.reuse_registry:
             h = run_config_hash(cfg)  # must match exactly what run_experiment registers (F-004/F-008)
             prior = [r for r in self.registry.find_by_hash(h, seed=seed)
                      if r["status"] == "completed" and r.get("checkpoint")
-                     and Path(r["checkpoint"]).exists()]
+                     and (Path(r["checkpoint"]) / "model.pt").exists()]
             if prior:
                 r0 = prior[-1]
                 res = {"experiment_id": r0["experiment_id"], "config_hash": h, "model": r0["model"],
