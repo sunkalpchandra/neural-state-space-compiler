@@ -134,7 +134,7 @@ def run_baseline_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRe
     registry = registry or ExperimentRegistry()
     mname = baseline_model_name(mcfg)
     rec = registry.register(config=cfg.to_dict(), config_hash=chash, dataset=dcfg.get("system", "?"),
-                            model=mname, seed=seed, tags=list(cfg.get("tags", [])))
+                            model=mname, seed=seed, tags=list(cfg.get("tags", [])), device=str(device))
     out_dir = Path(cfg.get("output_dir", f"results/raw/{rec.experiment_id}"))
     out_dir.mkdir(parents=True, exist_ok=True)
     result: dict[str, Any] = {"experiment_id": rec.experiment_id, "config_hash": chash,
