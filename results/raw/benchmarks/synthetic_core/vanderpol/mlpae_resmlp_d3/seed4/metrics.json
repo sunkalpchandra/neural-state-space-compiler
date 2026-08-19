@@ -282,12 +282,12 @@
     "params/total": 13446,
     "latent_dim": 2,
     "flops/dynamics_step": 8704,
-    "latency/step_latency_ms_mean": 0.07216660678386688,
-    "latency/step_latency_ms_std": 0.03427140414714813,
-    "latency/step_latency_ms_min": 0.0502920001745224,
-    "latency/encode_latency_ms_mean": 0.09417929500341415,
-    "latency/encode_latency_ms_std": 0.029287509620189667,
-    "latency/encode_latency_ms_min": 0.07291699945926666,
+    "latency/step_latency_ms_mean": 0.030439648777246475,
+    "latency/step_latency_ms_std": 0.000852502416819334,
+    "latency/step_latency_ms_min": 0.0295419879257679,
+    "latency/encode_latency_ms_mean": 0.04487920179963112,
+    "latency/encode_latency_ms_std": 0.00036487390752881765,
+    "latency/encode_latency_ms_min": 0.04437500238418579,
     "stability": {
       "spectral": {
         "rho_mean": 1.011823058128357,
@@ -604,12 +604,12 @@
     "params/total": 13446,
     "latent_dim": 2,
     "flops/dynamics_step": 8704,
-    "latency/step_latency_ms_mean": 0.05318755656480789,
-    "latency/step_latency_ms_std": 0.0031837744172662497,
-    "latency/step_latency_ms_min": 0.04979199916124344,
-    "latency/encode_latency_ms_mean": 0.08480401337146759,
-    "latency/encode_latency_ms_std": 0.020440397784113884,
-    "latency/encode_latency_ms_min": 0.07054101675748825,
+    "latency/step_latency_ms_mean": 0.030139699578285217,
+    "latency/step_latency_ms_std": 0.0004922900698147714,
+    "latency/step_latency_ms_min": 0.029374990612268448,
+    "latency/encode_latency_ms_mean": 0.04499590024352074,
+    "latency/encode_latency_ms_std": 0.00025514044682495296,
+    "latency/encode_latency_ms_min": 0.0445839986205101,
     "stability": {
       "spectral": {
         "rho_mean": 1.0172600746154785,
@@ -643,9 +643,37 @@
     "stability/frac_blowup": 0.0,
     "stability/verdict": "stable"
   },
+  "config/protocol_version": 2,
+  "config/ignored_keys": {
+    "training": [
+      "context",
+      "rollout_weight"
+    ],
+    "eval": []
+  },
+  "config/resolved_training": {
+    "epochs": 40,
+    "lr": 0.002,
+    "weight_decay": 1e-05,
+    "grad_clip": 1.0,
+    "scheduler": "cosine",
+    "warmup_epochs": 0,
+    "early_stopping_patience": 15,
+    "rollout_horizon": 20,
+    "rollout_curriculum": true,
+    "curriculum_epochs": null,
+    "val_fixed_horizon": true,
+    "rollout_stride": 4,
+    "loss": {},
+    "log_every": 100,
+    "max_batches_per_epoch": 60,
+    "device": null,
+    "amp": false,
+    "compile": false
+  },
   "train/best_val_loss": 6.136501007050457e-06,
   "train/epochs_run": 40,
-  "train/time_s": 283.4525301250105,
+  "train/time_s": 132.2400962919928,
   "train/final": {
     "epoch": 39,
     "lr": 3.082666266872036e-06,
@@ -662,6 +690,6 @@
     "val/rollout": 4.209664722212539e-06,
     "val/stability": 0.0,
     "val/total": 6.130261994662255e-06,
-    "time_s": 283.4486395420099
+    "time_s": 132.2390513749997
   }
 }
