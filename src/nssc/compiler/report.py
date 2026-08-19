@@ -124,8 +124,11 @@ def build_reasons(rows: list[dict[str, Any]], selected: dict[str, Any], rollout_
     rho = a.get("val/stability/rho_max", float("nan"))
     verdict = a.get("val/stability/verdict", "?")
     lam = a.get("val/stability/lyapunov_max", float("nan"))
-    reasons.append(f"stability: verdict={verdict}, max local spectral radius {rho:.3f}, "
-                   f"λ_max≈{lam:.3f}/step, blow-up fraction {a.get('val/stability/frac_blowup', float('nan')):.2f}")
+    nun = int(a.get("val/stability/n_unstable_seeds", 0) or 0)
+    reasons.append(f"stability (worst seed): verdict={verdict}, max local spectral radius {rho:.3f}, "
+                   f"λ_max≈{lam:.3f}/step, blow-up fraction {a.get('val/stability/frac_blowup', float('nan')):.2f} "
+                   f"(max over seeds {a.get('val/stability/frac_blowup_max', float('nan')):.2f}); "
+                   f"{nun}/{int(a.get('n_seeds', 0))} seeds not stable")
     # one-step / recon
     reasons.append(f"validation recon NRMSE {a.get('val/recon/nrmse', float('nan')):.4f}, "
                    f"one-step NRMSE {a.get('val/teacher_forced/nrmse', float('nan')):.4f}")
