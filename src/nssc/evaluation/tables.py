@@ -20,13 +20,22 @@ LABELS = {"test/recursive/nrmse@1": "NRMSE@1", "test/recursive/nrmse@10": "NRMSE
 
 def suite_tables(suite: str, registry_path: str = "results/registry.jsonl",
                  out_dir: str | Path = "results/tables", metrics: list[str] | None = None,
-                 reference_model: str | None = None) -> dict[str, Any]:
+                 reference_model: str | None = None, protocol: int | None = None) -> dict[str, Any]:
+    """Render a suite's tables. ``protocol`` (D-009) restricts rows to one run protocol; the
+    protocol mix that went into the table is printed in the header either way."""
     metrics = metrics or DEFAULT_METRICS
-    groups = load_groups(registry_path, suite=suite)
+    groups = load_groups(registry_path, suite=suite, protocol=protocol)
     rows = summary_table(groups, metrics)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    from collections import Counter
+
+    from nssc.evaluation.aggregate import protocol_of
+
+    mix = Counter(protocol_of(r) for recs in groups.values() for r in recs)
     md = [f"# Suite `{suite}` — mean ± std over seeds (test split)", "",
+          "Run protocol (D-009): " + ", ".join(f"v{k}: {v} runs" for k, v in sorted(mix.items()))
+          + ("  ⚠️ **mixed protocols in one table**" if len(mix) > 1 and protocol is None else ""), "",
           format_markdown(rows, metrics, LABELS), ""]
     tests: dict[str, Any] = {}
     if reference_model:
