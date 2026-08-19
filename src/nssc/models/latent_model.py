@@ -69,11 +69,22 @@ class LatentModel(nn.Module):
         return self.decode(z_roll), z_roll
 
     def num_parameters(self) -> dict[str, int]:
+        """Trainable counts per component, plus ``total_stored`` = parameters + buffers.
+
+        ``total`` is what a "parameter count" usually means (trainable); ``total_stored`` is the
+        honest size of the compiled artefact and is what the compiler's complexity term uses, so a
+        PCA encoder is not treated as free (review finding: its components live in buffers).
+        """
         return {
             "encoder": self.encoder.num_parameters(),
             "dynamics": self.dynamics.num_parameters(),
             "decoder": self.decoder.num_parameters(),
             "total": sum(p.numel() for p in self.parameters() if p.requires_grad),
+            "encoder_stored": self.encoder.num_stored(),
+            "dynamics_stored": self.dynamics.num_stored(),
+            "decoder_stored": self.decoder.num_stored(),
+            "total_stored": (sum(p.numel() for p in self.parameters())
+                             + sum(b.numel() for b in self.buffers())),
         }
 
     @torch.no_grad()
