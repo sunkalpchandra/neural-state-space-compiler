@@ -30,3 +30,19 @@ def test_auto_dims_from_profile_and_roundtrip():
     spec = CandidateSpec(3, "mlp", "koopman", "mlp", {"hidden_dims": [8]}, {}, {"residual": True})
     assert CandidateSpec.from_dict(spec.to_dict()) == spec
     assert spec.model_config()["dynamics"]["kwargs"] == {"residual": True}
+
+
+def test_search_state_is_namespaced_by_protocol(tmp_path):
+    """F-010: a search resumed after a protocol bump must not reuse the old runs."""
+    from nssc.search.state import SearchState
+
+    a = SearchState(tmp_path / "s.json", namespace="p1")
+    a.put("screen", "cand", 0, {"status": "completed", "candidate": {}})
+    a.set_stage("screen", {"n_candidates": 1, "survivors": ["cand"]})
+    b = SearchState(tmp_path / "s.json", namespace="p2")
+    assert a.has("screen", "cand", 0) and not b.has("screen", "cand", 0)
+    assert b.get_stage("screen") is None and a.get_stage("screen") is not None
+    assert a.n_completed == 1 and b.n_completed == 0
+    b.put("screen", "cand", 0, {"status": "completed", "candidate": {}})
+    assert len(b.data["runs"]) == 2  # both kept in the file
+    assert set(b.stage_results("screen")) == {"cand"} and len(b.stage_results("screen")["cand"]) == 1

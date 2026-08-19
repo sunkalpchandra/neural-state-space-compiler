@@ -68,7 +68,7 @@ def test_compile_resume_skips_completed_runs(tmp_path):
     comp2 = StateSpaceCompiler(cfg, device=torch.device("cpu"), registry=reg, log=None)
     cm = comp2.run(resume=True)
     n_reg_after = len(reg.records())
-    n_final_runs = len([k for k in comp2.searcher.state.data["runs"] if k.startswith("final|")])
+    n_final_runs = len([k for k in comp2.searcher.state.namespaced_runs() if "|final|" in k])
     assert n_reg_after - n_reg_before == n_final_runs
     assert cm.report.n_runs == n_before + n_final_runs
 
@@ -85,10 +85,10 @@ def test_second_compile_with_different_objective_reuses_runs(tmp_path):
     cfg2["objective"] = {"criterion": "val_mse"}
     comp2 = StateSpaceCompiler(cfg2, device=torch.device("cpu"), registry=reg, log=None)
     cm2 = comp2.run()
-    reused = sum(1 for r in comp2.searcher.state.data["runs"].values() if r.get("reused"))
+    reused = sum(1 for r in comp2.searcher.state.namespaced_runs().values() if r.get("reused"))
     assert reused > 0
     # only newly-needed runs (candidates pruned differently) were added
-    assert len(reg.records()) - n1 == len(comp2.searcher.state.data["runs"]) - reused
+    assert len(reg.records()) - n1 == len(comp2.searcher.state.namespaced_runs()) - reused
     assert cm2.report.weights["criterion"] == "val_mse"
 
 
