@@ -104,3 +104,22 @@ def test_profile_is_computed_on_the_train_split_only(tmp_path):
     assert prof["computed_on"] == {"split": "train", "n_traj": ds.split()["train"].n_traj,
                                    "of_total": ds.n_traj}
     assert prof["n_traj"] < ds.n_traj
+
+
+def test_search_lookup_hash_equals_registered_hash(tmp_path):
+    """F-008 regression: StagedSearch must look up runs with the hash run_experiment registers."""
+    from nssc.experiment import run_config_hash
+    from nssc.search.staged import StagedSearch
+
+    cfg = _cfg(tmp_path)
+    comp = StateSpaceCompiler(cfg, device=torch.device("cpu"), log=None)
+    comp.fit()
+    cands = comp.propose()
+    s = StagedSearch(comp.base_run_cfg(), comp.cfg["stages"], comp.weights, tmp_path / "s",
+                     device=torch.device("cpu"), log=None)
+    run_cfg = s.run_cfg_for(cands[0], comp.cfg["stages"][0], 0)
+    reg = ExperimentRegistry(tmp_path / "r.jsonl")
+    from nssc.experiment import run_experiment
+
+    res = run_experiment(run_cfg, registry=reg, device=torch.device("cpu"), log=None)
+    assert reg.get(res["experiment_id"])["config_hash"] == run_config_hash(run_cfg)
