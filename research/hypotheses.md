@@ -10,11 +10,11 @@ only via an entry in `experiment_log.md` citing EXP ids with seeds 0–4.
 
 | id | status | matrix cells |
 |----|--------|--------------|
-| H1 | partially supported (Lorenz-63 identity obs, hand-picked latent model vs 6 baselines, n=5; see experiment_log 2026-08-17) — compiler-selected model pending | B, C, D, J |
+| H1 | **mixed** (protocol v1): on Lorenz-63 and Van der Pol with identity observations (d = D, i.e. no compression) the latent model ties the best baseline at 14.5× fewer parameters and ~30× lower forecast latency; on the only compressing system (lorenz63_highdim, D=64→d=3) it is clearly worse than LSTM/GRU. Pre-registered @100/@250 bootstrap CIs and validation-size-selected baselines not yet run. Re-running under protocol v2 (F-007). | B, C, D, J |
 | H2 | untested | E |
 | H3 | untested | F |
 | H4 | untested | G |
-| H5 | untested | H, L |
+| H5 | preliminary (protocol v1): in Experiment L the compiler's pick and its cheaper Koopman runner-up are both on the (stored size, rollout) Pareto front on Lorenz-63; the pre-registered λ4 sweep and per-seed Pareto frequency have not been run. | H, L |
 | H6 | untested | I |
 | H7 | untested | K |
 
@@ -90,3 +90,11 @@ model beats persistence at H = 10 (dataset uninformative → report, do not clai
 Non-hypotheses (things this repo does *not* claim): that latent coordinates correspond
 to physical/biological variables; that any result holds beyond the systems and horizons
 listed; that the compiler is faster than hand-tuning.
+
+
+## Status-vocabulary note (2026-08-19)
+
+`untested | preliminary | supported | not supported | mixed` are the only permitted values. A
+per-system split verdict is `mixed`, reported per system, per H1's own rule. Statuses here are
+updated only from `research/experiment_log.md` entries that cite registered runs; the protocol-v1
+results (all current entries) will be revisited after the v2 re-runs finish (D-009, F-007).
