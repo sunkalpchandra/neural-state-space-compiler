@@ -41,3 +41,18 @@ def test_seed_aggregation_and_failed_candidates():
 def test_pick_rollout_key_common_longest_horizon():
     ms = [{"val/recursive/nrmse@10": 1, "val/recursive/nrmse@50": 1}, {"val/recursive/nrmse@10": 1}]
     assert pick_rollout_key(ms) == "val/recursive/nrmse@10"
+
+
+def test_stability_verdict_is_worst_case_over_seeds():
+    """R-20: one exploding seed must not be outvoted by two stable ones."""
+    from nssc.compiler.scorer import aggregate_seeds
+
+    def run(verdict, blow):
+        return {"status": "completed", "summary": {"val/stability/verdict": verdict,
+                                                   "val/stability/frac_blowup": blow}}
+
+    agg = aggregate_seeds([run("stable", 0.0), run("stable", 0.0), run("explodes", 1.0)])
+    assert agg["val/stability/verdict"] == "explodes"
+    assert agg["val/stability/n_unstable_seeds"] == 1
+    assert agg["val/stability/frac_blowup_max"] == 1.0
+    assert agg["val/stability/verdict_by_seed"].count("stable") == 2
