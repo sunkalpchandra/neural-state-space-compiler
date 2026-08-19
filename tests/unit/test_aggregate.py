@@ -33,3 +33,16 @@ def test_stats_helpers():
     p = paired_test([1, 2, 3, 4, 5], [2, 3, 4, 5, 6])
     assert p["n"] == 5 and p["mean_diff"] == -1.0 and p["t_p"] < 0.01
     assert pareto_front([(1, 5), (2, 2), (5, 1), (3, 3), (6, 6)]) == [True, True, True, False, False]
+
+
+def test_protocol_filter_keeps_tables_from_mixing_run_semantics():
+    """D-009: v1 and v2 rows must not be averaged into one column by accident."""
+    from nssc.evaluation.aggregate import group_runs, protocol_of
+
+    v1 = _rec("a", "x", 0, 1.0)
+    v2 = _rec("a", "x", 1, 2.0)
+    v2["metrics"]["config/protocol_version"] = 2
+    assert protocol_of(v1) == 1 and protocol_of(v2) == 2
+    assert len(group_runs([v1, v2], suite="s")[("a", "x")]) == 2
+    assert len(group_runs([v1, v2], suite="s", protocol=2)[("a", "x")]) == 1
+    assert ("a", "x") in group_runs([v1, v2], suite="s", protocol=1)
