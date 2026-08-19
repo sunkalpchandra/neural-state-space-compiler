@@ -1,5 +1,5 @@
 {
-  "experiment_id": "EXP-0024",
+  "experiment_id": "EXP-0666",
   "seed": 1,
   "norm_stats": {
     "mean": [
@@ -63,7 +63,7 @@
     "val/recursive/divergence_time": 147.0,
     "val/params/total": 13833,
     "val/latent_dim": 3,
-    "val/latency/step_latency_ms_mean": 0.059293799102306366,
+    "val/latency/step_latency_ms_mean": 0.033591706305742264,
     "val/flops/dynamics_step": 8960,
     "val/stability/instability_score": 0.09082773258561481,
     "val/stability/rho_max": 1.115166187286377,
@@ -82,15 +82,15 @@
     "test/recursive/divergence_time": 98.0,
     "test/params/total": 13833,
     "test/latent_dim": 3,
-    "test/latency/step_latency_ms_mean": 0.04105844721198082,
+    "test/latency/step_latency_ms_mean": 0.032362449914216995,
     "test/flops/dynamics_step": 8960,
     "test/stability/instability_score": 0.04769331216812134,
     "test/stability/rho_max": 1.0953866243362427,
     "test/stability/lyapunov_max": 0.4067438840866089,
     "test/stability/frac_blowup": 0.0,
     "test/stability/verdict": "stable",
-    "train/best_val_loss": 0.001270630521633263,
+    "train/best_val_loss": 0.0024094333140445606,
     "train/epochs_run": 24,
-    "train/time_s": 105.50239899998996
+    "train/time_s": 88.83665716700489
   }
 }
