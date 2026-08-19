@@ -101,3 +101,9 @@ _No entries yet._
   scorer's complexity term now uses stored size (falling back to trainable for older rows).
 - Affects the v1 compile reports in `results/archive/protocol_v1/` and
   `results/compile/lorenz63_highdim/` (v1); the v2 re-runs use the corrected accounting.
+
+## F-010 — 2026-08-18 — Search state would have resumed v1 runs into a v2 search
+- `SearchState` keyed runs by `(stage, candidate, seed)` only. After the protocol bump the v2
+  compiles would have found those keys present and skipped re-running — silently mixing protocols
+  inside one compile report. Caught before any v2 compile started.
+- Fix: keys are namespaced `p<PROTOCOL_VERSION>|stage|candidate|seed`; old entries stay in the file.
