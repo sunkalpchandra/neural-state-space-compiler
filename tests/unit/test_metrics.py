@@ -52,3 +52,25 @@ def test_calibration_perfect_gaussian():
     ece = expected_calibration_error_regression(m, s, t)
     assert ece["ece"] < 0.05
     assert np.isfinite(gaussian_nll(m, s**2, t))
+
+
+def test_forecast_latency_is_measured_the_same_way_for_both_harnesses():
+    """R-49: the comparable cost metric must exist with the same key shape on both paths."""
+    import torch
+
+    from nssc.baselines import build_baseline
+    from nssc.baselines.evaluate import evaluate_forecaster
+    from nssc.evaluation import EvalConfig, evaluate_model
+    from nssc.models.builder import build_latent_model
+
+    x = torch.randn(4, 40, 3)
+    lm = build_latent_model({"latent_dim": 2, "encoder": {"name": "mlp", "kwargs": {"hidden_dims": [8]}},
+                             "decoder": {"name": "mlp", "kwargs": {"hidden_dims": [8]}},
+                             "dynamics": {"name": "linear"}}, 3)
+    a = evaluate_model(lm, x, EvalConfig(context=10, horizons=(1, 5, 10), latency=True,
+                                         latency_horizon=10, stability=False))
+    b = evaluate_forecaster(build_baseline("gru", 3, hidden=8), x, context=10, horizons=(1, 5, 10),
+                            device=torch.device("cpu"), latency=True, latency_horizon=10)
+    assert a["latency/horizon"] == b["latency/horizon"] == 10
+    for k in ("latency/forecast10_latency_ms_mean",):
+        assert k in a and k in b and a[k] > 0 and b[k] > 0
