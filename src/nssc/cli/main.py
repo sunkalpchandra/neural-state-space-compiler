@@ -190,6 +190,19 @@ def tables(suite: str = typer.Option(..., "--suite"),
 
 
 @app.command()
+def reevaluate(suite: str | None = typer.Option(None, "--suite"), tag: str | None = typer.Option(None, "--tag"),
+               device: str | None = typer.Option(None, "--device"), limit: int | None = typer.Option(None)):
+    """Recompute metrics for finished runs from their checkpoints with the current metric code."""
+    import torch
+
+    from nssc.evaluation.reevaluate import reevaluate_suite
+
+    counts = reevaluate_suite(suite=suite, tag=tag, device=torch.device(device) if device else None,
+                              limit=limit, log=lambda s: console.print(s))
+    console.print(counts)
+
+
+@app.command()
 def pareto(suite: str = typer.Option(..., "--suite"), metric: str = typer.Option("test/recursive/nrmse@50"),
            output: str = typer.Option("results/tables", "--output", "-o")):
     """Accuracy vs parameter-count Pareto front per dataset for a suite."""
