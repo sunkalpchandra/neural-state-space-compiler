@@ -83,3 +83,10 @@ _No entries yet._
 - Consequence: every latent-model number in `results/tables/*` and the README predates the fix and is
   a **lower bound** on the method. The affected suites are being re-run under v2; tables are labelled
   with the protocol version.
+
+## F-008 — 2026-08-18 — Staged search stopped reusing registry runs after the protocol bump
+- `StagedSearch._run_one` hashed the run config itself instead of calling `run_config_hash`, so when
+  `PROTOCOL_VERSION` joined the hash the lookup no longer matched what `run_experiment` registers —
+  silently retraining every candidate instead of reusing it (the same class of bug as F-004).
+- Fix: both the staged search and the suite runner now call the canonical hash helpers; regression
+  tests assert lookup-hash == registered-hash for latent runs and baselines.
