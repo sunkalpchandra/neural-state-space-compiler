@@ -12,9 +12,14 @@ complexity and stability, and emits a compiled model
 
 together with a report explaining *why* that model was selected.
 
-> **Status:** research code under active development. Every number in this README, in
-> `results/`, and in the figures is produced by scripts from registered experiment runs
-> (`results/registry.jsonl`, 700+ runs). Experiments still running are marked as such.
+> **Status:** research code under active development. Every number in this README, in `results/`
+> and in the figures is produced by scripts from registered experiment runs (669 registered
+> experiments in `results/registry.jsonl` as of 2026-08-19). An internal adversarial review
+> ([research/review_2026-08-18.md](research/review_2026-08-18.md)) found a bug in the training
+> protocol (validation was monitored at the ramping curriculum horizon, F-007), so **the results
+> below were produced under protocol v1 and are being re-run under v2**; v1 numbers are a lower
+> bound for the latent models and are archived in
+> [results/archive/protocol_v1/](results/archive/protocol_v1/). Baselines are unaffected.
 
 ## Research question
 
@@ -84,9 +89,11 @@ x_hat, z_hat = compiled.rollout(x_context, horizon=250)
 
 ## Compiler output
 
-Real run: `nssc compile --config configs/compiler/lorenz63.yaml` (84 candidates = d∈{2,3,4,8} ×
-{PCA, linear, MLP, TCN, GRU} encoders × {linear, residual MLP, Koopman, neural ODE, SSM} dynamics;
-screen 12 ep → fine 50 ep → final 120 ep × 3 seeds; 127 registered runs). Full report:
+Real run (protocol v1): `nssc compile --config configs/compiler/lorenz63.yaml` — 84 candidates:
+d ∈ {2,3,4,8} × {PCA, linear, MLP, TCN, GRU} encoders × {linear, residual MLP, Koopman, neural ODE,
+SSM} dynamics = 100 combinations, minus the 16 in which the frozen PCA encoder is paired with
+trainable non-linear dynamics (excluded by `candidates.pca_only_linear`); screen 12 ep → fine 50 ep
+→ final 120 ep × 3 seeds; 127 registered runs. Full report:
 [results/compile/lorenz63/compile_report.md](results/compile/lorenz63/compile_report.md).
 
 ```
@@ -124,25 +131,38 @@ Test recursive NRMSE (mean ± std over seeds 0–4):
 
 | model | params (Lorenz) | Lorenz-63 @50 | Lorenz-63 @250 | Van der Pol @250 | Lorenz-63 high-dim (D=64) @50 |
 |---|---|---|---|---|---|
-| **latent: MLP AE + residual MLP, d=3** | 13.8k | **0.0076 ± 0.0010** | 0.075 ± 0.036 | 0.0030 ± 0.0010 | 0.95 ± 0.42 (diverges) |
-| latent: MLP AE + MLP, d=3 | 13.8k | 0.096 ± 0.058 | 0.66 ± 0.26 | 0.0032 ± 0.0010 | 0.86 ± 0.07 |
-| latent: PCA + linear, d=3 | 9 | 1.010 ± 0.012 | 1.13 | 0.52 | 1.13 |
-| latent: linear AE + linear, d=3 | 33 | diverged | diverged | 0.62 | 1.06 |
+| **latent: MLP AE + residual MLP** | 13.8k | **0.0076 ± 0.0010** | 0.075 ± 0.036 | 0.0030 ± 0.0010 | 0.95 ± 0.42 (diverges) |
+| latent: MLP AE + MLP | 13.8k | 0.096 ± 0.058 | 0.66 ± 0.26 | 0.0032 ± 0.0010 | 0.86 ± 0.07 |
+| latent: PCA + linear | 9 | 1.010 ± 0.012 | 1.13 ± 0.04 | 0.52 ± 0.04 | 1.13 ± 0.01 |
+| latent: linear AE + linear | 33 | diverged | diverged | 0.62 ± 0.09 | 1.06 ± 0.01 |
 | LSTM (medium) | 200k | **0.0077 ± 0.0013** | **0.065 ± 0.013** | **0.0027 ± 0.0010** | **0.130 ± 0.001** |
 | GRU (medium) | 150k | 0.0125 ± 0.0017 | 0.137 ± 0.029 | 0.080 ± 0.067 | 0.132 ± 0.005 |
-| TCN (small) | 16.9k | 0.0236 ± 0.0056 | 0.221 ± 0.077 | 0.0066 ± 0.0036 | 0.192 ± 0.013 |
-| Transformer (small) | 42k | 0.190 ± 0.044 | 1.25 | 1.18 | 0.293 ± 0.020 |
-| SSM (small) | 14.7k | 0.098 ± 0.040 | 0.90 | 0.48 | 0.309 ± 0.048 |
+| TCN (small) | 16.9k | 0.0236 ± 0.0056 | 0.220 ± 0.077 | 0.0066 ± 0.0036 | 0.192 ± 0.013 |
+| Transformer (small) | 42k | 0.190 ± 0.044 | 1.25 ± 0.06 | 1.18 ± 0.09 | 0.293 ± 0.020 |
+| SSM (small) | 14.7k | 0.098 ± 0.040 | 0.90 ± 0.13 | 0.48 ± 0.14 | 0.309 ± 0.048 |
 | persistence | 0 | 1.295 | 1.53 | 1.34 | 1.26 |
+
+Latent dimension per system: **d = 3** on Lorenz-63 (D = 3) and the high-dimensional variant
+(D = 64), **d = 2** on Van der Pol (D = 2) — i.e. on the two identity-observation systems the latent
+model does *not* compress (d = D); it is a state-space **re-parameterisation**, and only the
+high-dimensional variant tests compression. Parameter counts are trainable weights on Lorenz-63;
+the compiler's complexity term uses stored size (weights + buffers), which is why PCA is not free
+there.
 
 What the numbers say so far (neutral reading):
 
 * On Lorenz-63 and Van der Pol with identity observations, a ~14k-parameter latent state-space model
-  matches the best sequence baseline (LSTM, 200k) at 50–250 steps and beats GRU/TCN/Transformer/SSM;
-  paired t-tests vs GRU/TCN/Transformer p < 0.01 (n=5; Wilcoxon floor 0.0625).
-* The residual parameterisation of the latent dynamics matters (12× at 50 steps on Lorenz-63); linear
-  latent dynamics diverge on chaotic data even though their one-step error is small — the reason
-  selection is multi-objective rather than one-step MSE.
+  is statistically indistinguishable from the best sequence baseline (LSTM, 200k — paired diff CI
+  contains 0) at 50–250 steps while using 14.5× fewer parameters. Against the other baselines the
+  paired-by-seed difference at 50 steps is significant on Lorenz-63 (GRU p=0.005, TCN p=0.003,
+  Transformer p=0.001, SSM p=0.007, paired t, n=5) but **not** on Van der Pol (GRU p=0.115,
+  TCN p=0.074). With n=5 the two-sided Wilcoxon floor is 0.0625, so it can never reach 0.05.
+* The residual parameterisation of the latent dynamics matters (12× at 50 steps on Lorenz-63).
+  Linear latent dynamics diverge on chaotic data: the linear AE + linear model reaches NRMSE 20 at
+  50 steps and ~1e17 at 250 while its *one-step* error (0.13) still looks unremarkable — a model
+  chosen on one-step MSE would have been picked. That asymmetry is why selection is
+  multi-objective. (Its one-step error is not better than persistence, so this is a statement about
+  rollout blow-up, not about one-step accuracy being deceptively good.)
 * On the **high-dimensional, noisy observation** variant the *hand-picked* d=3 latent model fails while
   LSTM/GRU do not. This is precisely the regime the compiler is for; the compiler run on that dataset is
   in progress and its result — positive or negative — will be reported here.
