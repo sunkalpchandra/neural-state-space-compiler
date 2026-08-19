@@ -18,14 +18,30 @@ def _tag(rec: dict[str, Any], prefix: str) -> str | None:
     return None
 
 
-def group_runs(records: list[dict[str, Any]], suite: str | None = None
-               ) -> dict[tuple[str, str], list[dict[str, Any]]]:
-    """(dataset, model_name) → list of completed records (one per seed; latest per seed wins)."""
+def protocol_of(rec: dict[str, Any]) -> int:
+    """Run protocol of a ledger row; rows written before D-009 carry no stamp and are v1."""
+    m = rec.get("metrics") or {}
+    try:
+        return int(m.get("config/protocol_version", 1))
+    except (TypeError, ValueError):
+        return 1
+
+
+def group_runs(records: list[dict[str, Any]], suite: str | None = None,
+               protocol: int | None = None) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """(dataset, model_name) → completed records, one per seed (latest wins).
+
+    ``protocol`` filters by run protocol (D-009). ``None`` keeps every row, which is only
+    appropriate when the metric being compared is protocol-invariant — mixing v1 and v2 latent
+    runs in one column would silently average two different training protocols.
+    """
     groups: dict[tuple[str, str], dict[int, dict[str, Any]]] = defaultdict(dict)
     for r in records:
         if r.get("status") != "completed":
             continue
         if suite and _tag(r, "suite:") != suite:
+            continue
+        if protocol is not None and protocol_of(r) != protocol:
             continue
         ds, m = _tag(r, "ds:"), _tag(r, "m:")
         if ds is None or m is None:
@@ -119,5 +135,6 @@ def format_markdown(rows: list[dict[str, Any]], metrics: list[str], labels: dict
     return "\n".join(L)
 
 
-def load_groups(registry_path: str = "results/registry.jsonl", suite: str | None = None):
-    return group_runs(ExperimentRegistry(registry_path).records(), suite=suite)
+def load_groups(registry_path: str = "results/registry.jsonl", suite: str | None = None,
+                protocol: int | None = None):
+    return group_runs(ExperimentRegistry(registry_path).records(), suite=suite, protocol=protocol)
