@@ -33,7 +33,17 @@ class Encoder(nn.Module):
         return None
 
     def num_parameters(self) -> int:
+        """Trainable parameters."""
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
+
+    def num_stored(self) -> int:
+        """Everything the checkpoint must store: trainable parameters + buffers.
+
+        A PCA encoder has zero trainable parameters but a ``D×d`` component matrix in a buffer;
+        counting only ``num_parameters`` made it look free to the compiler's complexity term.
+        """
+        return (sum(p.numel() for p in self.parameters())
+                + sum(b.numel() for b in self.buffers()))
 
 
 class Decoder(nn.Module):
@@ -49,4 +59,14 @@ class Decoder(nn.Module):
         return self.forward(z)
 
     def num_parameters(self) -> int:
+        """Trainable parameters."""
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
+
+    def num_stored(self) -> int:
+        """Everything the checkpoint must store: trainable parameters + buffers.
+
+        A PCA encoder has zero trainable parameters but a ``D×d`` component matrix in a buffer;
+        counting only ``num_parameters`` made it look free to the compiler's complexity term.
+        """
+        return (sum(p.numel() for p in self.parameters())
+                + sum(b.numel() for b in self.buffers()))
