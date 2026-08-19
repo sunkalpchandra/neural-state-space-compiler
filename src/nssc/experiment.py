@@ -66,7 +66,12 @@ def resolve_dataset_cfg(dcfg: dict[str, Any]) -> dict[str, Any]:
 
 def prepare_data(dcfg: dict[str, Any], seed: int | None = None
                  ) -> tuple[dict[str, TrajectoryDataset], dict[str, np.ndarray], TrajectoryDataset]:
-    """Build → trajectory-level split → normalise with *train* statistics."""
+    """Build → trajectory-level split → normalise with *train* statistics.
+
+    ``seed=None`` (the caller default everywhere in this repo) uses the split seed from the dataset
+    config, so **the partition is identical across run seeds** and a seed sweep measures
+    initialisation/batch-order variance only. Pass a seed explicitly to resample the partition.
+    """
     dcfg = resolve_dataset_cfg(dcfg)
     ds = build_dataset(dcfg)
     splits = ds.split(seed=seed)
@@ -113,7 +118,8 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
         splits, stats, raw = prepare_data(dcfg, seed=None)
         w = dict(cfg.get("windows", {}))
         loaders = make_loaders(splits, context=int(w.get("context", 20)), horizon=int(w.get("horizon", 30)),
-                               batch_size=int(w.get("batch_size", 64)), stride=int(w.get("stride", 5)))
+                               batch_size=int(w.get("batch_size", 64)), stride=int(w.get("stride", 5)),
+                               seed=seed)
         model = build_latent_model(dict(cfg["model"]), obs_dim=raw.obs_dim)
         tcfg, ignored_train = _dc(TrainerConfig, dict(cfg.get("training", {})))
         trainer = Trainer(model, tcfg, device=device)

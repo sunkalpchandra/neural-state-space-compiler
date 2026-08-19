@@ -146,7 +146,8 @@ def run_baseline_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRe
         splits, stats, raw = prepare_data(dcfg, seed=None)
         context, horizon = int(w.get("context", 20)), int(w.get("horizon", 30))
         loaders = make_loaders(splits, context=context, horizon=horizon,
-                               batch_size=int(w.get("batch_size", 64)), stride=int(w.get("stride", 5)))
+                               batch_size=int(w.get("batch_size", 64)), stride=int(w.get("stride", 5)),
+                               seed=seed)
         model = build_baseline(mcfg["baseline"], obs_dim=raw.obs_dim, mode=mcfg["mode"],
                                direct_horizon=mcfg.get("direct_horizon"), **mcfg["kwargs"])
         tdict = {"context": context, **dict(cfg.get("training", {}))}
