@@ -131,7 +131,7 @@ def test_trainer_direct_mode():
     assert "train/direct" in fit["history"][-1] and "train/rollout" not in fit["history"][-1]
 
 
-EVAL_KEYS = ["teacher_forced/mse", "teacher_forced/nrmse", "recursive/horizon", "recursive/context",
+EVAL_KEYS = ["teacher_forced/mse", "teacher_forced/nrmse", "teacher_forced_ctx/nrmse", "recursive/horizon", "recursive/context",
              "recursive/nrmse@1", "recursive/nrmse_step@1", "recursive/nrmse@5",
              "recursive/nrmse_step@5", "recursive/nrmse@10", "recursive/nrmse_step@10",
              "recursive/nrmse_mean", "recursive/divergence_time", "curves", "params/total",
