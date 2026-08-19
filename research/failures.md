@@ -90,3 +90,14 @@ _No entries yet._
   silently retraining every candidate instead of reusing it (the same class of bug as F-004).
 - Fix: both the staged search and the suite runner now call the canonical hash helpers; regression
   tests assert lookup-hash == registered-hash for latent runs and baselines.
+
+## F-009 — 2026-08-18 — The complexity term treated PCA as nearly free
+- `num_parameters()` counts only trainable tensors, but a PCA encoder/decoder keeps its `D×d`
+  components in **buffers**. On the high-dimensional Lorenz compile (`D=64`), `pca+linear@d16` was
+  scored as 256 parameters when the artefact actually stores 2,449 values — a full order of
+  magnitude of the complexity term, in favour of exactly the family the compiler is supposed to
+  compare fairly against neural encoders.
+- Fix: `num_stored()` on every component, `params/total_stored` reported by both evaluators, and the
+  scorer's complexity term now uses stored size (falling back to trainable for older rows).
+- Affects the v1 compile reports in `results/archive/protocol_v1/` and
+  `results/compile/lorenz63_highdim/` (v1); the v2 re-runs use the corrected accounting.
