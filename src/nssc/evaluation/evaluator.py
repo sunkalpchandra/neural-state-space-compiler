@@ -80,11 +80,16 @@ def evaluate_model(model: LatentModel, x: Tensor, cfg: EvalConfig | None = None,
     roll_pred, roll_tgt = torch.cat(roll_pred), torch.cat(roll_tgt)
     roll_pred = torch.nan_to_num(roll_pred, nan=1e6, posinf=1e6, neginf=-1e6)
 
+    c = max(cfg.context - 1, 0)  # first position a context-window model has full history for
     out: dict[str, Any] = {
         "recon/mse": mse(recon, x),
         "recon/nrmse": nrmse(recon, x, sigma),
         "teacher_forced/mse": mse(tf_pred, tf_tgt),
         "teacher_forced/nrmse": nrmse(tf_pred, tf_tgt, sigma),
+        # Baselines are only *trained* on positions t >= context-1, but the metric above averages
+        # from t=0. This second, position-matched metric makes the one-step comparison fair in both
+        # directions (review finding R-05); both are reported, neither replaces the other.
+        "teacher_forced_ctx/nrmse": nrmse(tf_pred[:, c:], tf_tgt[:, c:], sigma),
         "recursive/horizon": H,
         "recursive/context": cfg.context,
     }
