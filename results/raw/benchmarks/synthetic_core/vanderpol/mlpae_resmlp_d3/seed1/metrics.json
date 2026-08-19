@@ -282,12 +282,12 @@
     "params/total": 13446,
     "latent_dim": 2,
     "flops/dynamics_step": 8704,
-    "latency/step_latency_ms_mean": 0.04520014673471451,
-    "latency/step_latency_ms_std": 0.0030119698494672775,
-    "latency/step_latency_ms_min": 0.041499994695186615,
-    "latency/encode_latency_ms_mean": 0.05667920038104057,
-    "latency/encode_latency_ms_std": 0.00169484899379313,
-    "latency/encode_latency_ms_min": 0.05395800620317459,
+    "latency/step_latency_ms_mean": 0.03172704949975014,
+    "latency/step_latency_ms_std": 0.0031696977093815804,
+    "latency/step_latency_ms_min": 0.02991699054837227,
+    "latency/encode_latency_ms_mean": 0.045158300548791885,
+    "latency/encode_latency_ms_std": 0.0005297390162013471,
+    "latency/encode_latency_ms_min": 0.04450000450015068,
     "stability": {
       "spectral": {
         "rho_mean": 1.0153324604034424,
@@ -604,12 +604,12 @@
     "params/total": 13446,
     "latent_dim": 2,
     "flops/dynamics_step": 8704,
-    "latency/step_latency_ms_mean": 0.05093125253915787,
-    "latency/step_latency_ms_std": 0.0009134861174970865,
-    "latency/step_latency_ms_min": 0.04924999549984932,
-    "latency/encode_latency_ms_mean": 0.07025420665740967,
-    "latency/encode_latency_ms_std": 0.0007769704679958522,
-    "latency/encode_latency_ms_min": 0.06937500089406967,
+    "latency/step_latency_ms_mean": 0.13392505049705505,
+    "latency/step_latency_ms_std": 0.1399124711751938,
+    "latency/step_latency_ms_min": 0.050415996462106705,
+    "latency/encode_latency_ms_mean": 0.15869569778442383,
+    "latency/encode_latency_ms_std": 0.1495552361011505,
+    "latency/encode_latency_ms_min": 0.05525000020861626,
     "stability": {
       "spectral": {
         "rho_mean": 1.017410397529602,
@@ -643,9 +643,37 @@
     "stability/frac_blowup": 0.0,
     "stability/verdict": "stable"
   },
+  "config/protocol_version": 2,
+  "config/ignored_keys": {
+    "training": [
+      "context",
+      "rollout_weight"
+    ],
+    "eval": []
+  },
+  "config/resolved_training": {
+    "epochs": 40,
+    "lr": 0.002,
+    "weight_decay": 1e-05,
+    "grad_clip": 1.0,
+    "scheduler": "cosine",
+    "warmup_epochs": 0,
+    "early_stopping_patience": 15,
+    "rollout_horizon": 20,
+    "rollout_curriculum": true,
+    "curriculum_epochs": null,
+    "val_fixed_horizon": true,
+    "rollout_stride": 4,
+    "loss": {},
+    "log_every": 100,
+    "max_batches_per_epoch": 60,
+    "device": null,
+    "amp": false,
+    "compile": false
+  },
   "train/best_val_loss": 6.7643791731421115e-06,
   "train/epochs_run": 40,
-  "train/time_s": 384.0553424170066,
+  "train/time_s": 110.64090774999931,
   "train/final": {
     "epoch": 39,
     "lr": 3.082666266872036e-06,
@@ -662,6 +690,6 @@
     "val/rollout": 5.063612499927533e-06,
     "val/stability": 0.0,
     "val/total": 6.758123456367887e-06,
-    "time_s": 384.0508767499996
+    "time_s": 110.64051833399571
   }
 }
