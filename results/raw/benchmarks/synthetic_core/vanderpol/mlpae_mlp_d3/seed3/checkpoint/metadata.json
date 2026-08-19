@@ -1,5 +1,5 @@
 {
-  "experiment_id": "EXP-0224",
+  "experiment_id": "EXP-0690",
   "seed": 3,
   "norm_stats": {
     "mean": [
@@ -59,7 +59,7 @@
     "val/recursive/divergence_time": 251.0,
     "val/params/total": 13446,
     "val/latent_dim": 2,
-    "val/latency/step_latency_ms_mean": 0.04643759876489639,
+    "val/latency/step_latency_ms_mean": 0.024129051715135574,
     "val/flops/dynamics_step": 8704,
     "val/stability/instability_score": 0.03279489278793335,
     "val/stability/rho_max": 1.0655897855758667,
@@ -78,7 +78,7 @@
     "test/recursive/divergence_time": 251.0,
     "test/params/total": 13446,
     "test/latent_dim": 2,
-    "test/latency/step_latency_ms_mean": 0.04143965244293213,
+    "test/latency/step_latency_ms_mean": 0.025699948891997337,
     "test/flops/dynamics_step": 8704,
     "test/stability/instability_score": 0.049038238202692465,
     "test/stability/rho_max": 1.0658129453659058,
@@ -87,6 +87,6 @@
     "test/stability/verdict": "stable",
     "train/best_val_loss": 1.7893781963114936e-05,
     "train/epochs_run": 40,
-    "train/time_s": 245.4935393749911
+    "train/time_s": 196.73651895900548
   }
 }
