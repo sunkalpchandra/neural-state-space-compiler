@@ -176,7 +176,7 @@ def run_experiment(cfg: dict[str, Any] | Config, registry: ExperimentRegistry | 
     return result
 
 
-SUMMARY_KEYS = ("recon/nrmse", "teacher_forced/nrmse", "recursive/nrmse@1", "recursive/nrmse@10",
+SUMMARY_KEYS = ("recon/nrmse", "teacher_forced/nrmse", "teacher_forced_ctx/nrmse", "recursive/nrmse@1", "recursive/nrmse@10",
                 "recursive/nrmse@25", "recursive/nrmse@50", "recursive/nrmse@100", "recursive/nrmse@250",
                 "recursive/nrmse@500", "recursive/nrmse_mean", "recursive/divergence_time",
                 "params/total", "latent_dim", "latency/step_latency_ms_mean", "flops/dynamics_step",
