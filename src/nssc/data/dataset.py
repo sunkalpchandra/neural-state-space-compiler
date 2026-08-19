@@ -197,12 +197,22 @@ class WindowDataset(Dataset):
 
 def make_loaders(ds_splits: dict[str, TrajectoryDataset], context: int, horizon: int,
                  batch_size: int = 64, stride: int = 1, num_workers: int = 0,
-                 shuffle_train: bool = True) -> dict[str, DataLoader]:
-    """Build a ``DataLoader`` per split; only ``train`` is shuffled."""
+                 shuffle_train: bool = True, seed: int | None = None) -> dict[str, DataLoader]:
+    """Build a ``DataLoader`` per split; only ``train`` is shuffled.
+
+    ``seed`` seeds the shuffling generator so batch order is reproducible independently of global
+    RNG consumption elsewhere in the process (review finding R-04). Note that the *trajectory
+    split itself* is deliberately fixed across run seeds (it comes from the dataset config), so a
+    seed sweep varies initialisation and batch order, not the data partition.
+    """
     loaders = {}
     for name, ds in ds_splits.items():
         wds = WindowDataset(ds, context, horizon, stride)
+        gen = None
+        if seed is not None and name == "train" and shuffle_train:
+            gen = torch.Generator()
+            gen.manual_seed(int(seed))
         loaders[name] = DataLoader(wds, batch_size=batch_size,
                                    shuffle=(name == "train" and shuffle_train),
-                                   num_workers=num_workers, drop_last=False)
+                                   num_workers=num_workers, drop_last=False, generator=gen)
     return loaders
