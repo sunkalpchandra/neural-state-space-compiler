@@ -58,7 +58,7 @@ def evaluate_forecaster(model: SequenceForecaster, x: Tensor, context: int = 20,
                         horizons: Sequence[int] = DEFAULT_HORIZONS, sigma: np.ndarray | None = None,
                         device: torch.device | None = None, max_horizon: int | None = None,
                         batch_size: int = 64, divergence_threshold: float = 1.0,
-                        latency: bool = True) -> dict[str, Any]:
+                        latency: bool = True, latency_horizon: int = 50) -> dict[str, Any]:
     """``x``: (N,T,D) held-out trajectories normalised like the training data."""
     device = device or next(iter(model.parameters()), torch.zeros(1)).device
     model.eval().to(device)
@@ -109,4 +109,11 @@ def evaluate_forecaster(model: SequenceForecaster, x: Tensor, context: int = 20,
         xc = x[:1, :context]
         out.update({f"latency/step_{k}": v for k, v in
                     measure_inference_latency(lambda: model.predict_next(xc), device=device).items()})
+        # Protocol-comparable cost, identical to nssc.evaluation.evaluator: one full forecast of
+        # ``latency_horizon`` observation-space steps from the same context (review finding R-49).
+        lh = min(latency_horizon, H)
+        out["latency/horizon"] = lh
+        out.update({f"latency/forecast{lh}_{k}": v for k, v in
+                    measure_inference_latency(lambda: model.forecast(xc, lh), n_iters=10,
+                                              device=device).items()})
     return out
