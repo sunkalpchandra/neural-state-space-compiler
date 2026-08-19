@@ -90,3 +90,17 @@ def test_second_compile_with_different_objective_reuses_runs(tmp_path):
     # only newly-needed runs (candidates pruned differently) were added
     assert len(reg.records()) - n1 == len(comp2.searcher.state.data["runs"]) - reused
     assert cm2.report.weights["criterion"] == "val_mse"
+
+
+@pytest.mark.slow
+def test_profile_is_computed_on_the_train_split_only(tmp_path):
+    """R-51: the dataset profile feeds candidate selection, so it must not see held-out data."""
+    from nssc.data.builder import build_dataset
+
+    cfg = _cfg(tmp_path)
+    comp = StateSpaceCompiler(cfg, device=torch.device("cpu"), log=None)
+    prof = comp.fit()
+    ds = build_dataset(dict(cfg["dataset"]))
+    assert prof["computed_on"] == {"split": "train", "n_traj": ds.split()["train"].n_traj,
+                                   "of_total": ds.n_traj}
+    assert prof["n_traj"] < ds.n_traj
