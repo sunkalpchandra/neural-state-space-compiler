@@ -21,6 +21,7 @@ Two selection criteria are supported to enable the H2 ablation:
 from __future__ import annotations
 
 import math
+import statistics
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -68,7 +69,8 @@ def pick_rollout_key(metrics_list: list[dict[str, Any]], prefix: str = "val/") -
     """Longest horizon available in *all* candidates' metrics (fallback nrmse_mean)."""
     horizons = None
     for m in metrics_list:
-        hs = {int(k.split("@")[1]) for k in m if k.startswith(f"{prefix}recursive/nrmse@")}
+        hs = {int(k.split("@")[1]) for k in m
+              if k.startswith(f"{prefix}recursive/nrmse@") and k.split("@")[1].isdigit()}
         horizons = hs if horizons is None else horizons & hs
     if horizons:
         return f"{prefix}recursive/nrmse@{max(horizons)}"
@@ -86,8 +88,15 @@ def aggregate_seeds(runs: list[dict[str, Any]]) -> dict[str, Any]:
     completed = [r for r in runs if r.get("status") == "completed"]
     for r in completed:
         keys |= {k for k, v in r.get("summary", {}).items() if isinstance(v, (int, float))}
-    agg: dict[str, Any] = {k: _stat([float(r["summary"][k]) for r in completed if k in r["summary"]])
-                           for k in keys}
+    agg: dict[str, Any] = {}
+    for k in keys:
+        vals = [float(r["summary"][k]) for r in completed if k in r["summary"]]
+        agg[k] = _stat(vals)
+        finite = [v for v in vals if math.isfinite(v)]
+        # spread across seeds, so a headline margin can never be quoted without it (review R-46)
+        agg[f"{k}__std"] = (statistics.stdev(finite) if len(finite) > 1 else 0.0)
+        agg[f"{k}__min"] = min(finite) if finite else float("nan")
+        agg[f"{k}__max"] = max(finite) if finite else float("nan")
     agg["n_seeds"] = len(completed)
     agg["n_failed"] = len(runs) - len(completed)
     # Stability across seeds is reported worst-case, not by majority: a single exploding seed is
