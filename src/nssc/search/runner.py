@@ -28,12 +28,15 @@ import torch
 from nssc.experiment import resolve_dataset_cfg, run_experiment
 from nssc.utils.config import deep_merge, load_config
 from nssc.utils.experiment_registry import ExperimentRegistry
-from nssc.utils.hashing import stable_hash
 from nssc.utils.io import save_json
 
 
 def _hash_for(cfg: dict[str, Any]) -> str:
-    return stable_hash({k: v for k, v in cfg.items() if k not in ("output_dir", "tags")})
+    """Deprecated: use ``run_config_hash`` / ``baseline_config_hash`` so the lookup hash always
+    equals the hash the runner registers (F-004, F-008)."""
+    from nssc.experiment import run_config_hash
+
+    return run_config_hash(cfg)
 
 
 def expand_suite(suite: dict[str, Any]) -> list[dict[str, Any]]:
