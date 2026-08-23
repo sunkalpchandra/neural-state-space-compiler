@@ -1,0 +1,28 @@
+{
+  "baseline": "tcn",
+  "kwargs": {
+    "channels": 32,
+    "kernel_size": 3,
+    "n_layers": 4,
+    "dropout": 0.0
+  },
+  "mode": "recursive",
+  "direct_horizon": null,
+  "obs_dim": 64,
+  "resolved": {
+    "obs_dim": 64,
+    "mode": "recursive",
+    "direct_horizon": null,
+    "channels": 32,
+    "kernel_size": 3,
+    "n_layers": 4,
+    "dilations": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "activation": "gelu",
+    "dropout": 0.0
+  }
+}
