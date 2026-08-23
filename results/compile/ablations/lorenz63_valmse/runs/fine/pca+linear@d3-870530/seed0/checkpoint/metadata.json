@@ -1,0 +1,101 @@
+{
+  "experiment_id": "EXP-1139",
+  "seed": 0,
+  "norm_stats": {
+    "mean": [
+      0.14303810894489288,
+      0.15000727772712708,
+      23.381959915161133
+    ],
+    "std": [
+      7.94410514831543,
+      9.113070487976074,
+      8.710152626037598
+    ]
+  },
+  "dataset": {
+    "system": "lorenz63",
+    "params": {
+      "sigma": 10.0,
+      "rho": 28.0,
+      "beta": 2.6666666666666665
+    },
+    "n_traj": 100,
+    "n_steps": 500,
+    "dt": 0.01,
+    "transient": 1000,
+    "seed": 0,
+    "observation": {
+      "type": "identity"
+    },
+    "noise_std": 0.0,
+    "missing_rate": 0.0,
+    "split": {
+      "fractions": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "seed": 0
+    },
+    "ood": {
+      "param": "rho",
+      "train_range": [
+        24.0,
+        32.0
+      ],
+      "test_values": [
+        20.0,
+        35.0
+      ]
+    }
+  },
+  "metrics_summary": {
+    "val/recon/nrmse": 8.402502607759289e-08,
+    "val/teacher_forced/nrmse": 0.05749438254436252,
+    "val/teacher_forced_ctx/nrmse": 0.05798972595611488,
+    "val/recursive/nrmse@1": 0.04773714570955423,
+    "val/recursive/nrmse@10": 0.2652725317382521,
+    "val/recursive/nrmse@25": 0.6465838457784691,
+    "val/recursive/nrmse@50": 0.8806658271223821,
+    "val/recursive/nrmse@100": 0.8923834570008968,
+    "val/recursive/nrmse@250": 0.9351454955507988,
+    "val/recursive/nrmse_mean": 0.9591332840468848,
+    "val/recursive/divergence_time": 20.0,
+    "val/params/total": 9,
+    "val/params/total_stored": 37,
+    "val/latent_dim": 3,
+    "val/latency/step_latency_ms_mean": 0.00817710068076849,
+    "val/flops/dynamics_step": 18,
+    "val/stability/instability_score": 1.0,
+    "val/stability/rho_max": 0.9639439582824707,
+    "val/stability/lyapunov_max": -3.6169357299804688,
+    "val/stability/frac_blowup": 0.0,
+    "val/stability/verdict": "collapses",
+    "test/recon/nrmse": 8.449918093806887e-08,
+    "test/teacher_forced/nrmse": 0.05844723821724237,
+    "test/teacher_forced_ctx/nrmse": 0.05840826537933341,
+    "test/recursive/nrmse@1": 0.08329239234093953,
+    "test/recursive/nrmse@10": 0.4156116495336373,
+    "test/recursive/nrmse@25": 0.7485272271024851,
+    "test/recursive/nrmse@50": 0.856718150042672,
+    "test/recursive/nrmse@100": 0.911657149854774,
+    "test/recursive/nrmse@250": 0.9489104970904295,
+    "test/recursive/nrmse_mean": 0.9674768842415558,
+    "test/recursive/divergence_time": 19.0,
+    "test/params/total": 9,
+    "test/params/total_stored": 37,
+    "test/latent_dim": 3,
+    "test/latency/step_latency_ms_mean": 0.007985351607203484,
+    "test/flops/dynamics_step": 18,
+    "test/stability/instability_score": 1.0,
+    "test/stability/rho_max": 0.9639439582824707,
+    "test/stability/lyapunov_max": -3.6169357299804688,
+    "test/stability/frac_blowup": 0.0,
+    "test/stability/verdict": "collapses",
+    "config/protocol_version": 2,
+    "train/best_val_loss": 0.3788022022871744,
+    "train/epochs_run": 50,
+    "train/time_s": 17.22710704198107
+  }
+}
