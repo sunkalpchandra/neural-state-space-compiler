@@ -1,0 +1,14 @@
+latent_dim: 4
+encoder:
+  name: tcn
+  kwargs: {}
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 128
+    - 128
+dynamics:
+  name: ssm
+  kwargs: {}
+obs_dim: 64
