@@ -1,0 +1,14 @@
+latent_dim: 4
+encoder:
+  name: linear
+  kwargs: {}
+decoder:
+  name: linear
+  kwargs: {}
+dynamics:
+  name: residual_mlp
+  kwargs:
+    hidden_dims:
+    - 128
+    - 128
+obs_dim: 64
