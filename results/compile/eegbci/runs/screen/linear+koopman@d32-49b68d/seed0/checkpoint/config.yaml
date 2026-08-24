@@ -1,0 +1,14 @@
+latent_dim: 32
+encoder:
+  name: linear
+  kwargs: {}
+decoder:
+  name: linear
+  kwargs: {}
+dynamics:
+  name: koopman
+  kwargs:
+    hidden_dims:
+    - 128
+    - 128
+obs_dim: 64
