@@ -1,0 +1,20 @@
+latent_dim: 4
+encoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 128
+    - 128
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 128
+    - 128
+dynamics:
+  name: residual_mlp
+  kwargs:
+    hidden_dims:
+    - 128
+    - 128
+obs_dim: 64
