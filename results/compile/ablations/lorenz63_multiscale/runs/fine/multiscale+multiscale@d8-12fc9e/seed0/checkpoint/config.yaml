@@ -1,0 +1,25 @@
+latent_dim: 8
+encoder:
+  name: multiscale
+  kwargs:
+    slow_dim: 2
+    base: tcn
+    slow_window: 8
+    hidden_dims:
+    - 64
+    - 64
+decoder:
+  name: mlp
+  kwargs:
+    hidden_dims:
+    - 64
+    - 64
+dynamics:
+  name: multiscale
+  kwargs:
+    slow_dim: 2
+    slow_rate: 0.1
+    hidden_dims:
+    - 64
+    - 64
+obs_dim: 64
